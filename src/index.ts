@@ -10,3 +10,4 @@ export type {
   PluginPrompt,
 } from "./plugin-engine/index.js";
 export { discoverPlugins } from "./plugin-engine/index.js";
+export { generateFromGitHub } from "./generator.js";

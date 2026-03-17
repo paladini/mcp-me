@@ -76,3 +76,4 @@ The built-in plugins use `import(`../plugins/${name}/index.js`)` which tsup stri
 - **Loop 2:** Fixed plugin bundling — replaced dynamic `import()` with explicit registry. Build no longer shows `empty-glob` warning.
 - **Loop 3:** Wrote 34 plugin tests (12 GitHub, 10 Spotify, 12 LinkedIn). Fixed mock fetch pattern matching (longest-match-first). Fixed unused imports. All 80 tests pass.
 - **Loop 4:** Full pipeline verified (lint ✅ typecheck ✅ 80 tests ✅ build ✅). CHANGELOG updated. Ready to commit.
+- **Loop 5:** Implemented `mcp-me generate --github <username>` command. Created `src/generator.ts` with GitHub API integration (profile, repos with pagination, languages, topics). Auto-generates 9 YAML files. 13 new tests. Tested with real GitHub data (@paladini: 101 repos). Updated README and CHANGELOG. Total: 93 tests passing.

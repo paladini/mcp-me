@@ -8,24 +8,29 @@ Built with a **plugin ecosystem** so the community can add integrations with Git
 
 ## Features
 
+- ⚡ **Auto-generate from GitHub** — One command creates your entire AI identity
 - 📝 **YAML-based profiles** — Human-friendly, version-controllable personal data
 - 🔌 **Plugin ecosystem** — Community-built integrations for any platform
 - 🤖 **MCP native** — Works with any MCP-compatible AI assistant
 - 🛡️ **Schema validation** — Zod-powered validation with helpful error messages
-- 🚀 **Zero config** — `npx mcp-me init` gets you started in seconds
 
 ## Quick Start
 
 ```bash
-# Initialize a new profile
+# Auto-generate your profile from GitHub (recommended)
+npx mcp-me generate ~/my-profile --github your-username
+
+# Or initialize with blank templates
 npx mcp-me init ~/my-profile
 
-# Edit your YAML files
+# Review and edit the generated YAML files
 code ~/my-profile
 
 # Start the MCP server
 npx mcp-me serve ~/my-profile
 ```
+
+The `generate` command fetches your GitHub profile, repositories, languages, and topics to auto-populate `identity.yaml`, `skills.yaml`, `projects.yaml`, `career.yaml`, and `plugins.yaml` — saving you from writing everything by hand.
 
 ## Configure Your AI Assistant
 
@@ -170,14 +175,17 @@ Want to build your own integration? See the [Plugin Creation Guide](docs/creatin
 ## CLI Reference
 
 ```bash
-# Initialize a new profile with YAML templates
-mcp-me init <directory>
+# Auto-generate profile from GitHub data
+mcp-me generate <directory> --github <username>
 
-# Start the MCP server
-mcp-me serve <directory>
+# Initialize a new profile with blank YAML templates
+mcp-me init <directory>
 
 # Validate profile YAML files against schemas
 mcp-me validate <directory>
+
+# Start the MCP server
+mcp-me serve <directory>
 ```
 
 ## Development

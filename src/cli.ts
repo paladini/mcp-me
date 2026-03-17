@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createMcpMeServer } from "./server.js";
 import { loadProfile } from "./loader.js";
+import { generateFromGitHub } from "./generator.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -129,6 +130,50 @@ program
       process.exit(1);
     } else {
       console.log("All profile files are valid!");
+    }
+  });
+
+program
+  .command("generate")
+  .description("Auto-generate a profile from your online presence (GitHub, etc.)")
+  .argument("<directory>", "Directory to create the profile in")
+  .option("--github <username>", "GitHub username to pull data from")
+  .option("-f, --force", "Overwrite existing files", false)
+  .action(async (directory: string, options: { github?: string; force: boolean }) => {
+    const targetDir = resolve(directory);
+
+    if (!options.github) {
+      console.error("At least one data source is required. Use --github <username>");
+      process.exit(1);
+    }
+
+    try {
+      console.log("🚀 mcp-me generate — building your AI identity\n");
+
+      const result = await generateFromGitHub({
+        github: options.github,
+        directory: targetDir,
+        force: options.force,
+      });
+
+      if (result.warnings.length > 0) {
+        console.log();
+        result.warnings.forEach((w) => console.log(`  ⚠ ${w}`));
+      }
+
+      console.log();
+      console.log(`  ✨ Profile generated for ${result.profile.name} (@${result.profile.username})`);
+      console.log(`     ${result.profile.repos} repositories analyzed`);
+      console.log(`     Top languages: ${result.profile.languages?.join(", ")}`);
+      console.log(`     ${result.filesCreated.length} files created in ${targetDir}`);
+      console.log();
+      console.log("  Next steps:");
+      console.log(`    1. Review and edit the YAML files in ${targetDir}`);
+      console.log(`    2. Run: mcp-me validate ${directory}`);
+      console.log(`    3. Run: mcp-me serve ${directory}`);
+    } catch (error) {
+      console.error(`\n  ✗ Failed to generate profile: ${(error as Error).message}`);
+      process.exit(1);
     }
   });
 
