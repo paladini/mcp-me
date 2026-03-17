@@ -1,0 +1,16 @@
+# Your projects — personal, open-source, and professional
+projects:
+  - name: "My Awesome Project"
+    description: "A brief description of what this project does."
+    # url: "https://myproject.com"
+    # repo_url: "https://github.com/username/project"
+    status: "active"
+    technologies:
+      - "TypeScript"
+      - "Node.js"
+    # role: "Creator & Maintainer"
+    # highlights:
+    #   - "Featured on Hacker News"
+    #   - "500+ GitHub stars"
+    # start_date: "2024-01"
+    # category: "open-source"

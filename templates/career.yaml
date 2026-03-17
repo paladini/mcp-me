@@ -1,0 +1,27 @@
+# Your career history — experience, education, and certifications
+experience:
+  - title: "Software Engineer"
+    company: "Example Corp"
+    # location: "Remote"
+    start_date: "2022-01"
+    # end_date: "2024-06"
+    current: true
+    description: "Brief description of your role and responsibilities."
+    highlights:
+      - "Key achievement or responsibility"
+    technologies:
+      - "TypeScript"
+      - "Node.js"
+
+education:
+  - institution: "University of Example"
+    degree: "Bachelor of Science"
+    field: "Computer Science"
+    start_date: "2018"
+    end_date: "2022"
+
+# certifications:
+#   - name: "AWS Solutions Architect"
+#     issuer: "Amazon Web Services"
+#     date: "2023-06"
+#     url: "https://verify.example.com/cert123"

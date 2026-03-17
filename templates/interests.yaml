@@ -1,0 +1,52 @@
+# Your interests — hobbies, music, books, movies, food, sports, travel
+hobbies:
+  - "Reading"
+  - "Hiking"
+  - "Photography"
+
+music:
+  genres:
+    - "Indie Rock"
+    - "Electronic"
+  # artists:
+  #   - name: "Radiohead"
+  #     favorite: true
+  # albums:
+  #   - name: "OK Computer"
+  #     note: "My all-time favorite album"
+
+books:
+  genres:
+    - "Science Fiction"
+    - "Non-fiction"
+  # favorites:
+  #   - name: "Dune"
+  #     note: "Read it three times"
+  # currently_reading:
+  #   - name: "Project Hail Mary"
+
+# movies_and_tv:
+#   genres:
+#     - "Sci-Fi"
+#     - "Documentary"
+#   favorites:
+#     - name: "Interstellar"
+
+# food:
+#   cuisines:
+#     - "Japanese"
+#     - "Italian"
+#   dietary: "No restrictions"
+
+# sports:
+#   practice:
+#     - "Running"
+#   follow:
+#     - "Football"
+
+# travel:
+#   visited:
+#     - "Japan"
+#     - "Portugal"
+#   wishlist:
+#     - "New Zealand"

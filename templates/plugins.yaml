@@ -1,0 +1,20 @@
+# Plugin configuration — enable integrations to enrich your profile
+# See docs/creating-plugins.md for how to build your own plugin.
+plugins:
+  # GitHub — your repositories, contributions, and activity
+  # github:
+  #   enabled: true
+  #   username: "your-github-username"
+  #   token_env: "GITHUB_TOKEN"
+
+  # Spotify — your music taste, top artists, recently played
+  # spotify:
+  #   enabled: true
+  #   client_id_env: "SPOTIFY_CLIENT_ID"
+  #   client_secret_env: "SPOTIFY_CLIENT_SECRET"
+  #   refresh_token_env: "SPOTIFY_REFRESH_TOKEN"
+
+  # LinkedIn — professional history from exported data
+  # linkedin:
+  #   enabled: true
+  #   data_path: "./linkedin-export.json"

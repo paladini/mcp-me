@@ -1,0 +1,30 @@
+# Your personal identity — who you are
+name: "Your Name"
+# nickname: ""
+# pronouns: "he/him"
+bio: "A short biography about yourself (1-3 sentences)."
+# bio_extended: "A longer biography for detailed introductions."
+# photo_url: "https://example.com/photo.jpg"
+
+location:
+  # city: "San Francisco"
+  # state: "California"
+  country: "United States"
+  # timezone: "America/Los_Angeles"
+
+languages:
+  - language: "English"
+    proficiency: "native"
+
+contact:
+  # email: "you@example.com"
+  # website: "https://yoursite.com"
+  social:
+    - platform: "github"
+      url: "https://github.com/your-username"
+      username: "your-username"
+    # - platform: "twitter"
+    #   url: "https://twitter.com/your-handle"
+    #   username: "your-handle"
+    # - platform: "linkedin"
+    #   url: "https://linkedin.com/in/your-profile"

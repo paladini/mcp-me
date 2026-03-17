@@ -1,0 +1,29 @@
+# Your skills — technical, soft, tools, and programming languages
+technical:
+  - name: "Web Development"
+    category: "engineering"
+    proficiency: "advanced"
+    years: 5
+  # - name: "Cloud Architecture"
+  #   category: "devops"
+  #   proficiency: "intermediate"
+
+soft:
+  - name: "Communication"
+    proficiency: "advanced"
+  - name: "Problem Solving"
+    proficiency: "expert"
+
+tools:
+  - name: "VS Code"
+    proficiency: "expert"
+  - name: "Git"
+    proficiency: "advanced"
+
+languages:
+  - name: "TypeScript"
+    proficiency: "advanced"
+    years: 4
+  - name: "Python"
+    proficiency: "intermediate"
+    years: 3

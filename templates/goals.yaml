@@ -1,0 +1,23 @@
+# Your goals — short-term, medium-term, long-term, and life goals
+short_term:
+  - title: "Learn a new framework"
+    description: "Explore and build something with a framework I haven't used before."
+    status: "in_progress"
+    # target_date: "2025-06"
+    category: "career"
+
+medium_term:
+  - title: "Launch a side project"
+    description: "Build and ship a complete product."
+    status: "not_started"
+    category: "career"
+
+# long_term:
+#   - title: "Become a tech lead"
+#     description: "Grow into a leadership role."
+#     status: "not_started"
+#     category: "career"
+
+# life_goals:
+#   - title: "Write a book"
+#     category: "personal"

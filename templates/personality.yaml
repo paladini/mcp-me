@@ -1,0 +1,33 @@
+# Your personality — traits, values, work style, and fun facts
+traits:
+  - "Curious"
+  - "Analytical"
+  - "Creative"
+
+values:
+  - "Honesty"
+  - "Continuous learning"
+  - "Open source"
+
+# mbti: "INTJ"
+# enneagram: "5w4"
+
+strengths:
+  - "Problem solving"
+  - "Attention to detail"
+
+weaknesses:
+  - "Perfectionism"
+
+work_style:
+  preference: "remote"
+  # schedule: "Early bird, most productive in the morning"
+  # collaboration: "Async-first, with occasional sync meetings"
+  # communication: "Written over verbal, concise and direct"
+
+# motivations:
+#   - "Building tools that help others"
+#   - "Learning new technologies"
+
+# fun_facts:
+#   - "Can solve a Rubik's cube in under 2 minutes"

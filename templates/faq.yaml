@@ -1,0 +1,21 @@
+# Frequently asked questions about you
+items:
+  - question: "What do you do?"
+    answer: "I'm a software engineer who loves building tools and open-source projects."
+    category: "general"
+    tags:
+      - "work"
+      - "intro"
+
+  - question: "Are you available for hire?"
+    answer: "I'm currently employed but open to interesting freelance opportunities."
+    category: "work"
+    tags:
+      - "hiring"
+      - "freelance"
+
+  # - question: "What's your favorite programming language?"
+  #   answer: "TypeScript — I love the type safety with JavaScript flexibility."
+  #   category: "tech"
+  #   tags:
+  #     - "programming"
