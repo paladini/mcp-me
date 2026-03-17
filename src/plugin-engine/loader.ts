@@ -1,5 +1,4 @@
-import { readdir } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { resolve } from "node:path";
 import type { McpMePlugin, McpMePluginFactory } from "./types.js";
 
 /** Built-in plugin names that ship with mcp-me */

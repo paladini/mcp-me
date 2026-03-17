@@ -1,5 +1,5 @@
-import { readFile, readdir } from "node:fs/promises";
-import { join, basename } from "node:path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { parse as parseYaml } from "yaml";
 import { ZodError, type ZodType } from "zod";
 import { PROFILE_CATEGORIES, profileSchemaMap, type ProfileCategory } from "./schema/index.js";

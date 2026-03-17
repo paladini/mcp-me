@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { z } from "zod";
-import type { McpMePlugin, PluginResource, PluginTool } from "../src/plugin-engine/types.js";
+import type { McpMePlugin } from "../src/plugin-engine/types.js";
 import { discoverPlugins } from "../src/plugin-engine/loader.js";
 
 function createMockPlugin(name: string): McpMePlugin {

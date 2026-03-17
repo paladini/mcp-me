@@ -3,7 +3,6 @@ import type {
   McpMePlugin,
   PluginResource,
   PluginTool,
-  PluginPrompt,
 } from "../../plugin-engine/types.js";
 import { githubConfigSchema, type GitHubConfig } from "./schema.js";
 

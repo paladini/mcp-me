@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createMcpMeServer } from "./server.js";
 import { loadProfile } from "./loader.js";
-import { PROFILE_CATEGORIES, profileSchemaMap } from "./schema/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
