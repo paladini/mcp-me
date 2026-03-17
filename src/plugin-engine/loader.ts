@@ -1,20 +1,24 @@
 import { resolve } from "node:path";
 import type { McpMePlugin, McpMePluginFactory } from "./types.js";
+import createGitHubPlugin from "../plugins/github/index.js";
+import createSpotifyPlugin from "../plugins/spotify/index.js";
+import createLinkedInPlugin from "../plugins/linkedin/index.js";
 
-/** Built-in plugin names that ship with mcp-me */
-const BUILTIN_PLUGINS = ["github", "spotify", "linkedin"] as const;
+/** Registry of built-in plugins with explicit imports (avoids dynamic import bundling issues). */
+const BUILTIN_REGISTRY: Record<string, McpMePluginFactory> = {
+  github: createGitHubPlugin,
+  spotify: createSpotifyPlugin,
+  linkedin: createLinkedInPlugin,
+};
 
 /**
  * Load a built-in plugin by name.
  */
-async function loadBuiltinPlugin(name: string): Promise<McpMePlugin | null> {
+function loadBuiltinPlugin(name: string): McpMePlugin | null {
+  const factory = BUILTIN_REGISTRY[name];
+  if (!factory) return null;
+
   try {
-    const mod = await import(`../plugins/${name}/index.js`);
-    const factory: McpMePluginFactory = mod.default ?? mod.createPlugin;
-    if (typeof factory !== "function") {
-      console.error(`Built-in plugin "${name}" does not export a factory function.`);
-      return null;
-    }
     return factory();
   } catch (error) {
     console.error(`Failed to load built-in plugin "${name}":`, (error as Error).message);
@@ -80,8 +84,8 @@ export async function discoverPlugins(
     let plugin: McpMePlugin | null = null;
 
     // 1. Try built-in
-    if ((BUILTIN_PLUGINS as readonly string[]).includes(name)) {
-      plugin = await loadBuiltinPlugin(name);
+    if (name in BUILTIN_REGISTRY) {
+      plugin = loadBuiltinPlugin(name);
     }
 
     // 2. Try npm package

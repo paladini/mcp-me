@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Comprehensive tests for GitHub plugin (12 tests: resources, tools, fork filtering)
+- Comprehensive tests for Spotify plugin (10 tests: resources, tools, token refresh, now playing fallback)
+- Comprehensive tests for LinkedIn plugin (12 tests: resources, tools, partial data, missing file)
+
+### Fixed
+
+- Built-in plugins now use explicit imports instead of dynamic `import()` globs, fixing tsup bundling
+- Removed unused imports flagged by ESLint
+
+### Previously Added
+
 - Initial project scaffolding with TypeScript, tsup, Vitest
 - Zod schemas for 8 YAML profile categories (identity, career, skills, interests, personality, goals, projects, faq)
 - YAML profile loader with validation and helpful error messages
