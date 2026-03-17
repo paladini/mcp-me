@@ -60,6 +60,12 @@ export interface GenerateOptions {
   devto?: string;
   npm?: string;
   pypi?: string;
+  medium?: string;
+  wakatime?: string;
+  mastodon?: string;
+  letterboxd?: string;
+  hackernews?: string;
+  gitlab?: string;
   force?: boolean;
 }
 

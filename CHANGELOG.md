@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Multi-source `mcp-me generate` command** — Auto-generate profile from multiple platforms at once
-  - `--github <username>` — Profile, repos, languages, topics, projects
-  - `--stackoverflow <user-id>` — Tags, reputation, badges, technical skills
-  - `--devto <username>` — Published articles, writing topics, interests
-  - `--npm <username>` — Published packages, keywords, project data
-  - `--pypi <pkg1,pkg2>` — PyPI packages metadata
+- **Multi-source `mcp-me generate` with 11 data sources** — Auto-generate profile from your entire online presence
+  - **Code:** `--github`, `--gitlab`
+  - **Writing:** `--devto`, `--medium` (RSS)
+  - **Community:** `--stackoverflow`, `--hackernews`, `--mastodon`
+  - **Packages:** `--npm`, `--pypi`
+  - **Activity:** `--wakatime`, `--letterboxd`
   - All sources can be combined in a single command; data is merged intelligently
   - Graceful error handling: if one source fails, others still succeed
   - Lazy task execution to prevent unhandled promise rejections

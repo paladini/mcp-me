@@ -138,20 +138,32 @@ program
   .description("Auto-generate a profile from your online presence")
   .argument("<directory>", "Directory to create the profile in")
   .option("--github <username>", "GitHub username")
+  .option("--gitlab <username>", "GitLab username")
   .option("--stackoverflow <user-id>", "Stack Overflow numeric user ID")
   .option("--devto <username>", "DEV.to username")
+  .option("--medium <username>", "Medium username")
+  .option("--hackernews <username>", "Hacker News username")
   .option("--npm <username>", "npm username")
   .option("--pypi <packages>", "PyPI package names (comma-separated)")
+  .option("--wakatime <username>", "WakaTime username (public profile required)")
+  .option("--mastodon <user@instance>", "Mastodon handle (e.g. user@mastodon.social)")
+  .option("--letterboxd <username>", "Letterboxd username")
   .option("-f, --force", "Overwrite existing files", false)
   .action(
     async (
       directory: string,
       options: {
         github?: string;
+        gitlab?: string;
         stackoverflow?: string;
         devto?: string;
+        medium?: string;
+        hackernews?: string;
         npm?: string;
         pypi?: string;
+        wakatime?: string;
+        mastodon?: string;
+        letterboxd?: string;
         force: boolean;
       },
     ) => {
@@ -160,14 +172,14 @@ program
       const hasSources = Object.values(sources).some(Boolean);
 
       if (!hasSources) {
-        console.error("At least one data source is required.");
-        console.error("  --github <username>          GitHub profile and repos");
-        console.error("  --stackoverflow <user-id>    Stack Overflow tags and reputation");
-        console.error("  --devto <username>           DEV.to articles and tags");
-        console.error("  --npm <username>             npm published packages");
-        console.error("  --pypi <pkg1,pkg2>           PyPI packages (comma-separated)");
+        console.error("At least one data source is required.\n");
+        console.error("  Code:         --github, --gitlab");
+        console.error("  Writing:      --devto, --medium");
+        console.error("  Community:    --stackoverflow, --hackernews, --mastodon");
+        console.error("  Packages:     --npm, --pypi");
+        console.error("  Activity:     --wakatime, --letterboxd");
         console.error("\nExample:");
-        console.error("  mcp-me generate ./my-profile --github octocat --stackoverflow 12345 --devto myuser");
+        console.error("  mcp-me generate ./my-profile --github octocat --devto myuser --hackernews myuser");
         process.exit(1);
       }
 
