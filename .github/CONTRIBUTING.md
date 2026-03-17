@@ -4,21 +4,46 @@ Thank you for your interest in contributing to mcp-me! Whether it's a new plugin
 
 ## Ways to Contribute
 
+mcp-me has **two extension systems** — pick the one that fits your idea:
+
+### ⚡ Build a Generator
+
+Generators auto-populate profile YAML from public APIs during `mcp-me generate`. They're the **easiest way to contribute** — just one file, no auth needed.
+
+See the [Generator Creation Guide](../docs/creating-generators.md) for a step-by-step walkthrough.
+
+**Generator ideas we'd love to see:**
+- Hashnode (tech blog articles via GraphQL)
+- Goodreads (reading list via RSS)
+- Last.fm (music history — needs API key)
+- Chess.com / Lichess (player rating and stats)
+- Dribbble (design portfolio)
+- ORCID (academic publications)
+- Crates.io (Rust packages)
+- Docker Hub (published images)
+- Kaggle (data science competitions)
+
 ### 🔌 Build a Plugin
 
-The #1 way to contribute is by building a new plugin. See the [Plugin Creation Guide](../docs/creating-plugins.md) for a step-by-step walkthrough.
+Plugins provide **live, real-time data** to AI assistants during `mcp-me serve`. They're more complex but more powerful.
+
+See the [Plugin Creation Guide](../docs/creating-plugins.md) for a step-by-step walkthrough.
 
 **Plugin ideas we'd love to see:**
-- Goodreads / Open Library (reading lists)
-- Twitter/X (social activity)
-- Stack Overflow (developer Q&A)
-- YouTube (channels, playlists)
-- Google Calendar (availability)
-- Strava / Fitness (activity data)
-- Notion / Obsidian (knowledge base)
-- Blog / RSS (published articles)
-- Google Drive (documents)
-- Reddit (community activity)
+- Google Calendar (live availability)
+- Notion / Obsidian (knowledge base queries)
+- Strava / Fitness (live activity data)
+- YouTube (channel stats, recent videos)
+- Twitter/X (recent posts)
+
+### Generators vs Plugins — Which should I build?
+
+| Build a **Generator** if... | Build a **Plugin** if... |
+|---|---|
+| Data is mostly static (profile, repos, articles) | Data changes frequently (now playing, availability) |
+| Public API exists, no auth needed | OAuth or API key required |
+| User only needs a snapshot | AI needs real-time access |
+| You want to contribute quickly (1 file) | You want to build something richer (tools, prompts) |
 
 ### 🐛 Report Bugs
 

@@ -66,6 +66,9 @@ export interface GenerateOptions {
   letterboxd?: string;
   hackernews?: string;
   gitlab?: string;
+  gravatar?: string;
+  reddit?: string;
+  keybase?: string;
   force?: boolean;
 }
 

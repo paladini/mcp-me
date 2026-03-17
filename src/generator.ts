@@ -12,6 +12,9 @@ import { mastodonGenerator } from "./generators/mastodon.js";
 import { letterboxdGenerator } from "./generators/letterboxd.js";
 import { hackernewsGenerator } from "./generators/hackernews.js";
 import { gitlabGenerator } from "./generators/gitlab.js";
+import { gravatarGenerator } from "./generators/gravatar.js";
+import { redditGenerator } from "./generators/reddit.js";
+import { keybaseGenerator } from "./generators/keybase.js";
 import { mergeProfiles } from "./generators/merger.js";
 
 export type { GenerateOptions, GenerateResult };
@@ -81,6 +84,7 @@ export async function generateProfile(options: GenerateOptions): Promise<Generat
   const sourceKeys: (keyof GenerateOptions)[] = [
     "github", "gitlab", "stackoverflow", "devto", "medium",
     "hackernews", "npm", "pypi", "wakatime", "mastodon", "letterboxd",
+    "gravatar", "reddit", "keybase",
   ];
   if (!sourceKeys.some((k) => options[k])) {
     throw new Error("At least one data source is required. Use --help to see available sources.");
@@ -125,6 +129,15 @@ export async function generateProfile(options: GenerateOptions): Promise<Generat
   }
   if (options.gitlab) {
     tasks.push({ name: "gitlab", run: () => gitlabGenerator.generate({ username: options.gitlab! }) });
+  }
+  if (options.gravatar) {
+    tasks.push({ name: "gravatar", run: () => gravatarGenerator.generate({ email: options.gravatar! }) });
+  }
+  if (options.reddit) {
+    tasks.push({ name: "reddit", run: () => redditGenerator.generate({ username: options.reddit! }) });
+  }
+  if (options.keybase) {
+    tasks.push({ name: "keybase", run: () => keybaseGenerator.generate({ username: options.keybase! }) });
   }
   sources.push(...tasks.map((t) => t.name));
 

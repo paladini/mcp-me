@@ -148,6 +148,9 @@ program
   .option("--wakatime <username>", "WakaTime username (public profile required)")
   .option("--mastodon <user@instance>", "Mastodon handle (e.g. user@mastodon.social)")
   .option("--letterboxd <username>", "Letterboxd username")
+  .option("--gravatar <email>", "Gravatar email (profile, bio, linked accounts)")
+  .option("--reddit <username>", "Reddit username")
+  .option("--keybase <username>", "Keybase username (verified identity proofs)")
   .option("-f, --force", "Overwrite existing files", false)
   .action(
     async (
@@ -164,6 +167,9 @@ program
         wakatime?: string;
         mastodon?: string;
         letterboxd?: string;
+        gravatar?: string;
+        reddit?: string;
+        keybase?: string;
         force: boolean;
       },
     ) => {
@@ -175,11 +181,12 @@ program
         console.error("At least one data source is required.\n");
         console.error("  Code:         --github, --gitlab");
         console.error("  Writing:      --devto, --medium");
-        console.error("  Community:    --stackoverflow, --hackernews, --mastodon");
+        console.error("  Community:    --stackoverflow, --hackernews, --mastodon, --reddit");
         console.error("  Packages:     --npm, --pypi");
         console.error("  Activity:     --wakatime, --letterboxd");
+        console.error("  Identity:     --gravatar, --keybase");
         console.error("\nExample:");
-        console.error("  mcp-me generate ./my-profile --github octocat --devto myuser --hackernews myuser");
+        console.error("  mcp-me generate ./my-profile --github octocat --devto myuser --gravatar me@email.com");
         process.exit(1);
       }
 

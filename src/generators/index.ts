@@ -15,4 +15,7 @@ export { mastodonGenerator } from "./mastodon.js";
 export { letterboxdGenerator } from "./letterboxd.js";
 export { hackernewsGenerator } from "./hackernews.js";
 export { gitlabGenerator } from "./gitlab.js";
+export { gravatarGenerator } from "./gravatar.js";
+export { redditGenerator } from "./reddit.js";
+export { keybaseGenerator } from "./keybase.js";
 export { mergeProfiles } from "./merger.js";

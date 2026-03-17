@@ -4,21 +4,24 @@
 
 **mcp-me** makes it easy for AI assistants (Claude, Copilot, Cursor, Windsurf, etc.) to know about *you* — your bio, career, skills, interests, projects, and more — by serving structured personal data through a standardized MCP server.
 
-Built with a **plugin ecosystem** so the community can add integrations with GitHub, Spotify, LinkedIn, Google Drive, and any other platform.
+Built with two extension systems for the community: **generators** (auto-populate from 14 data sources) and **plugins** (live data for AI at runtime).
 
 ## Features
 
-- ⚡ **Auto-generate from GitHub** — One command creates your entire AI identity
+- ⚡ **Auto-generate from 14 sources** — GitHub, GitLab, Stack Overflow, DEV.to, Medium, npm, and more
 - 📝 **YAML-based profiles** — Human-friendly, version-controllable personal data
-- 🔌 **Plugin ecosystem** — Community-built integrations for any platform
+- 🔌 **Plugin ecosystem** — Community-built live integrations (Spotify, LinkedIn, etc.)
 - 🤖 **MCP native** — Works with any MCP-compatible AI assistant
 - 🛡️ **Schema validation** — Zod-powered validation with helpful error messages
 
 ## Quick Start
 
 ```bash
-# Auto-generate your profile from GitHub (recommended)
-npx mcp-me generate ~/my-profile --github your-username
+# Auto-generate your profile from multiple sources at once
+npx mcp-me generate ~/my-profile \
+  --github your-username \
+  --stackoverflow 12345 \
+  --devto your-username
 
 # Or initialize with blank templates
 npx mcp-me init ~/my-profile
@@ -30,7 +33,7 @@ code ~/my-profile
 npx mcp-me serve ~/my-profile
 ```
 
-The `generate` command fetches your GitHub profile, repositories, languages, and topics to auto-populate `identity.yaml`, `skills.yaml`, `projects.yaml`, `career.yaml`, and `plugins.yaml` — saving you from writing everything by hand.
+The `generate` command pulls your data from public APIs and auto-populates profile YAML files — no API keys needed for most sources.
 
 ## Configure Your AI Assistant
 
@@ -123,65 +126,75 @@ Static profile data exposed as MCP resources:
 - **`technical_profile`** — Describe technical skills and stack
 - **`collaboration_fit`** — Evaluate fit for a project
 
-## Plugins
+## Generators (14 data sources)
 
-Plugins extend mcp-me with dynamic data from external services.
+Generators run during `mcp-me generate` to auto-populate your profile from public APIs. **No API keys needed** for most sources.
 
-### Built-in Plugins
+| Category | Flag | Source | Data |
+|---|---|---|---|
+| **Code** | `--github <user>` | GitHub API | Repos, languages, stars, profile |
+| **Code** | `--gitlab <user>` | GitLab API | Projects, topics, profile |
+| **Writing** | `--devto <user>` | DEV.to API | Articles, tags, reactions |
+| **Writing** | `--medium <user>` | Medium RSS | Articles, categories |
+| **Community** | `--stackoverflow <id>` | Stack Exchange API | Top tags, reputation, badges |
+| **Community** | `--hackernews <user>` | HN Firebase API | Karma, submissions |
+| **Community** | `--mastodon <user@host>` | Mastodon API | Posts, hashtags, bio |
+| **Community** | `--reddit <user>` | Reddit JSON API | Karma, bio |
+| **Packages** | `--npm <user>` | npm Registry | Published packages |
+| **Packages** | `--pypi <pkgs>` | PyPI JSON API | Package metadata |
+| **Activity** | `--wakatime <user>` | WakaTime API | Coding time, languages, editors |
+| **Activity** | `--letterboxd <user>` | Letterboxd RSS | Films watched, ratings |
+| **Identity** | `--gravatar <email>` | Gravatar API | Bio, linked accounts, photo |
+| **Identity** | `--keybase <user>` | Keybase API | Verified identity proofs |
 
-| Plugin | Description |
-|--------|-------------|
-| **GitHub** | Repositories, contributions, languages, activity |
-| **Spotify** | Top artists, recently played, playlists |
-| **LinkedIn** | Professional history from exported data |
+Want to add a new data source? See the [Generator Creation Guide](docs/creating-generators.md).
 
-### Using Plugins
+## Plugins (live data at runtime)
 
-Enable plugins in your `plugins.yaml`:
+Plugins run during `mcp-me serve` and provide **real-time data** to AI assistants on every query.
+
+| Plugin | Description | Auth |
+|---|---|---|
+| **GitHub** | Live repos, activity, languages | Optional token |
+| **Spotify** | Now playing, top artists, playlists | OAuth required |
+| **LinkedIn** | Professional history from export | Local JSON file |
+
+Enable plugins in `plugins.yaml`:
 
 ```yaml
 plugins:
   github:
     enabled: true
     username: "your-username"
-    token_env: "GITHUB_TOKEN"
   spotify:
     enabled: true
     client_id_env: "SPOTIFY_CLIENT_ID"
     client_secret_env: "SPOTIFY_CLIENT_SECRET"
+    refresh_token_env: "SPOTIFY_REFRESH_TOKEN"
 ```
 
-### Community Plugins
+Community plugins are installed from npm (`mcp-me-plugin-*`) and auto-discovered. See the [Plugin Creation Guide](docs/creating-plugins.md).
 
-Install community plugins from npm:
+## Generators vs Plugins
 
-```bash
-npm install mcp-me-plugin-goodreads
-```
-
-Then enable in `plugins.yaml`:
-
-```yaml
-plugins:
-  goodreads:
-    enabled: true
-    user_id: "12345"
-```
-
-### Creating Plugins
-
-Want to build your own integration? See the [Plugin Creation Guide](docs/creating-plugins.md).
+| | Generators | Plugins |
+|---|---|---|
+| **Run when** | `mcp-me generate` (once) | `mcp-me serve` (continuously) |
+| **Output** | Static YAML files | Live MCP resources/tools |
+| **Auth** | Almost never needed | Sometimes (OAuth) |
+| **Example** | "Repos I had in March" | "Repos I have right now" |
+| **Extend** | Add `src/generators/*.ts` | Add `src/plugins/*/` |
 
 ## CLI Reference
 
 ```bash
-# Auto-generate profile from GitHub data
-mcp-me generate <directory> --github <username>
+# Auto-generate profile from multiple data sources
+mcp-me generate <dir> --github <user> [--devto <user>] [--stackoverflow <id>] ...
 
-# Initialize a new profile with blank YAML templates
+# Initialize with blank YAML templates
 mcp-me init <directory>
 
-# Validate profile YAML files against schemas
+# Validate profile YAML files
 mcp-me validate <directory>
 
 # Start the MCP server
