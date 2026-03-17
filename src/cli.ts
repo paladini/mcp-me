@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createMcpMeServer } from "./server.js";
 import { loadProfile } from "./loader.js";
-import { generateFromGitHub } from "./generator.js";
+import { generateProfile } from "./generator.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -135,46 +135,72 @@ program
 
 program
   .command("generate")
-  .description("Auto-generate a profile from your online presence (GitHub, etc.)")
+  .description("Auto-generate a profile from your online presence")
   .argument("<directory>", "Directory to create the profile in")
-  .option("--github <username>", "GitHub username to pull data from")
+  .option("--github <username>", "GitHub username")
+  .option("--stackoverflow <user-id>", "Stack Overflow numeric user ID")
+  .option("--devto <username>", "DEV.to username")
+  .option("--npm <username>", "npm username")
+  .option("--pypi <packages>", "PyPI package names (comma-separated)")
   .option("-f, --force", "Overwrite existing files", false)
-  .action(async (directory: string, options: { github?: string; force: boolean }) => {
-    const targetDir = resolve(directory);
+  .action(
+    async (
+      directory: string,
+      options: {
+        github?: string;
+        stackoverflow?: string;
+        devto?: string;
+        npm?: string;
+        pypi?: string;
+        force: boolean;
+      },
+    ) => {
+      const targetDir = resolve(directory);
+      const { force, ...sources } = options;
+      const hasSources = Object.values(sources).some(Boolean);
 
-    if (!options.github) {
-      console.error("At least one data source is required. Use --github <username>");
-      process.exit(1);
-    }
-
-    try {
-      console.log("🚀 mcp-me generate — building your AI identity\n");
-
-      const result = await generateFromGitHub({
-        github: options.github,
-        directory: targetDir,
-        force: options.force,
-      });
-
-      if (result.warnings.length > 0) {
-        console.log();
-        result.warnings.forEach((w) => console.log(`  ⚠ ${w}`));
+      if (!hasSources) {
+        console.error("At least one data source is required.");
+        console.error("  --github <username>          GitHub profile and repos");
+        console.error("  --stackoverflow <user-id>    Stack Overflow tags and reputation");
+        console.error("  --devto <username>           DEV.to articles and tags");
+        console.error("  --npm <username>             npm published packages");
+        console.error("  --pypi <pkg1,pkg2>           PyPI packages (comma-separated)");
+        console.error("\nExample:");
+        console.error("  mcp-me generate ./my-profile --github octocat --stackoverflow 12345 --devto myuser");
+        process.exit(1);
       }
 
-      console.log();
-      console.log(`  ✨ Profile generated for ${result.profile.name} (@${result.profile.username})`);
-      console.log(`     ${result.profile.repos} repositories analyzed`);
-      console.log(`     Top languages: ${result.profile.languages?.join(", ")}`);
-      console.log(`     ${result.filesCreated.length} files created in ${targetDir}`);
-      console.log();
-      console.log("  Next steps:");
-      console.log(`    1. Review and edit the YAML files in ${targetDir}`);
-      console.log(`    2. Run: mcp-me validate ${directory}`);
-      console.log(`    3. Run: mcp-me serve ${directory}`);
-    } catch (error) {
-      console.error(`\n  ✗ Failed to generate profile: ${(error as Error).message}`);
-      process.exit(1);
-    }
-  });
+      try {
+        console.log("🚀 mcp-me generate — building your AI identity\n");
+
+        const result = await generateProfile({
+          directory: targetDir,
+          ...sources,
+          force,
+        });
+
+        if (result.warnings.length > 0) {
+          console.log();
+          result.warnings.forEach((w) => console.log(`  ⚠ ${w}`));
+        }
+
+        console.log();
+        console.log(`  ✨ Profile generated${result.summary.name ? ` for ${result.summary.name}` : ""}`);
+        console.log(`     Sources: ${result.sources.join(", ")}`);
+        if (result.summary.skills) console.log(`     Skills discovered: ${result.summary.skills}`);
+        if (result.summary.projects) console.log(`     Projects found: ${result.summary.projects}`);
+        console.log(`     ${result.filesCreated.length} files created in ${targetDir}`);
+        console.log();
+        console.log("  Next steps:");
+        console.log(`    1. Review and edit the YAML files in ${targetDir}`);
+        console.log(`    2. Run: mcp-me validate ${directory}`);
+        console.log(`    3. Run: mcp-me serve ${directory}`);
+      } catch (error) {
+        console.error(`\n  ✗ Failed to generate profile: ${(error as Error).message}`);
+        process.exit(1);
+      }
+    },
+  );
 
 program.parse();

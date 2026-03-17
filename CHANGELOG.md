@@ -9,12 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **`mcp-me generate` command** — Auto-generate a complete profile from GitHub data in one command
-  - Fetches profile, repos (with pagination), languages, topics
-  - Generates `identity.yaml`, `skills.yaml`, `projects.yaml`, `career.yaml`, `plugins.yaml`
-  - Creates template files for `interests.yaml`, `personality.yaml`, `goals.yaml`, `faq.yaml`
-  - Supports `GITHUB_TOKEN` env var for higher rate limits
-  - 13 tests covering all generated files, error handling, and edge cases
+- **Multi-source `mcp-me generate` command** — Auto-generate profile from multiple platforms at once
+  - `--github <username>` — Profile, repos, languages, topics, projects
+  - `--stackoverflow <user-id>` — Tags, reputation, badges, technical skills
+  - `--devto <username>` — Published articles, writing topics, interests
+  - `--npm <username>` — Published packages, keywords, project data
+  - `--pypi <pkg1,pkg2>` — PyPI packages metadata
+  - All sources can be combined in a single command; data is merged intelligently
+  - Graceful error handling: if one source fails, others still succeed
+  - Lazy task execution to prevent unhandled promise rejections
 - Comprehensive tests for GitHub plugin (12 tests: resources, tools, fork filtering)
 - Comprehensive tests for Spotify plugin (10 tests: resources, tools, token refresh, now playing fallback)
 - Comprehensive tests for LinkedIn plugin (12 tests: resources, tools, partial data, missing file)

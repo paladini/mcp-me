@@ -10,4 +10,7 @@ export type {
   PluginPrompt,
 } from "./plugin-engine/index.js";
 export { discoverPlugins } from "./plugin-engine/index.js";
-export { generateFromGitHub } from "./generator.js";
+export { generateProfile, generateFromGitHub } from "./generator.js";
+export type { GenerateOptions, GenerateResult } from "./generator.js";
+export type { PartialProfile, GeneratorSource } from "./generators/types.js";
+export { mergeProfiles } from "./generators/merger.js";

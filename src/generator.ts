@@ -1,269 +1,46 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify as toYaml } from "yaml";
+import type { GenerateOptions, GenerateResult, PartialProfile } from "./generators/types.js";
+import { githubGenerator } from "./generators/github.js";
+import { stackoverflowGenerator } from "./generators/stackoverflow.js";
+import { devtoGenerator } from "./generators/devto.js";
+import { npmGenerator, pypiGenerator } from "./generators/npm.js";
+import { mergeProfiles } from "./generators/merger.js";
 
-interface GitHubUser {
-  login: string;
-  name: string | null;
-  bio: string | null;
-  blog: string | null;
-  location: string | null;
-  company: string | null;
-  email: string | null;
-  twitter_username: string | null;
-  public_repos: number;
-  followers: number;
-  following: number;
-  html_url: string;
-  created_at: string;
-}
+export type { GenerateOptions, GenerateResult };
 
-interface GitHubRepo {
-  name: string;
-  full_name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  language: string | null;
-  stargazers_count: number;
-  forks_count: number;
-  fork: boolean;
-  archived: boolean;
-  topics: string[];
-  created_at: string;
-  updated_at: string;
-  pushed_at: string;
-}
-
-interface GenerateOptions {
-  github?: string;
-  directory: string;
-  force?: boolean;
-}
-
-interface GenerateResult {
-  filesCreated: string[];
-  warnings: string[];
-  profile: {
-    name?: string;
-    username?: string;
-    repos?: number;
-    languages?: string[];
-  };
-}
-
-async function fetchGitHub<T>(path: string, token?: string): Promise<T> {
-  const headers: Record<string, string> = {
-    Accept: "application/vnd.github.v3+json",
-    "User-Agent": "mcp-me-generator",
-  };
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
-  }
-
-  const response = await fetch(`https://api.github.com${path}`, { headers });
-  if (!response.ok) {
-    if (response.status === 403) {
-      throw new Error("GitHub API rate limit exceeded. Set GITHUB_TOKEN to increase limits.");
-    }
-    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-  }
-  return response.json() as Promise<T>;
-}
-
-async function fetchAllRepos(username: string, token?: string): Promise<GitHubRepo[]> {
-  const allRepos: GitHubRepo[] = [];
-  let page = 1;
-  const perPage = 100;
-
-  while (true) {
-    const repos = await fetchGitHub<GitHubRepo[]>(
-      `/users/${username}/repos?sort=updated&per_page=${perPage}&page=${page}`,
-      token,
-    );
-    allRepos.push(...repos);
-    if (repos.length < perPage) break;
-    page++;
-  }
-
-  return allRepos.filter((r) => !r.fork);
-}
-
-function buildIdentityYaml(user: GitHubUser): Record<string, unknown> {
-  const identity: Record<string, unknown> = {
-    name: user.name ?? user.login,
-    bio: user.bio ?? `GitHub user @${user.login}`,
-  };
-
-  if (user.location) {
-    identity.location = { city: user.location, country: "" };
-  }
-
-  const social: Record<string, unknown>[] = [
-    { platform: "github", url: user.html_url, username: user.login },
-  ];
-  if (user.twitter_username) {
-    social.push({
-      platform: "twitter",
-      url: `https://twitter.com/${user.twitter_username}`,
-      username: user.twitter_username,
-    });
-  }
-
-  const contact: Record<string, unknown> = { social };
-  if (user.email) contact.email = user.email;
-  if (user.blog) contact.website = user.blog.startsWith("http") ? user.blog : `https://${user.blog}`;
-
-  identity.contact = contact;
-
-  return identity;
-}
-
-function buildSkillsYaml(repos: GitHubRepo[]): Record<string, unknown> {
-  const langCounts: Record<string, { count: number; stars: number }> = {};
-  const topicCounts: Record<string, number> = {};
-
-  for (const repo of repos) {
-    if (repo.language) {
-      const existing = langCounts[repo.language] ?? { count: 0, stars: 0 };
-      existing.count++;
-      existing.stars += repo.stargazers_count;
-      langCounts[repo.language] = existing;
-    }
-    for (const topic of repo.topics) {
-      topicCounts[topic] = (topicCounts[topic] ?? 0) + 1;
-    }
-  }
-
-  const languages = Object.entries(langCounts)
-    .sort(([, a], [, b]) => b.stars * 10 + b.count - (a.stars * 10 + a.count))
-    .map(([lang, stats]) => ({
-      name: lang,
-      category: "programming",
-      proficiency: stats.count >= 10 ? "expert" : stats.count >= 5 ? "advanced" : stats.count >= 2 ? "intermediate" : "beginner",
-      description: `Used in ${stats.count} repo(s), ${stats.stars} total stars`,
-    }));
-
-  const tools = Object.entries(topicCounts)
-    .filter(([, count]) => count >= 2)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 15)
-    .map(([topic]) => ({
-      name: topic,
-      category: "technology",
-    }));
-
-  return {
-    languages,
-    ...(tools.length > 0 ? { tools } : {}),
-  };
-}
-
-function buildProjectsYaml(repos: GitHubRepo[]): Record<string, unknown> {
-  const notable = repos
-    .filter((r) => !r.archived)
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 20);
-
-  const projects = notable.map((r) => {
-    const project: Record<string, unknown> = {
-      name: r.name,
-      description: r.description ?? "No description",
-      repo_url: r.html_url,
-      status: r.archived ? "archived" : "active",
-      technologies: [r.language, ...r.topics].filter(Boolean),
-      start_date: r.created_at.slice(0, 10),
-      category: "open-source",
-    };
-    if (r.homepage) project.url = r.homepage;
-    if (r.stargazers_count > 0) project.stars = r.stargazers_count;
-    return project;
-  });
-
-  return { projects };
-}
-
-function buildCareerYaml(user: GitHubUser): Record<string, unknown> {
-  const career: Record<string, unknown> = {};
-
-  if (user.company) {
-    career.experience = [
-      {
-        title: "Software Engineer",
-        company: user.company.replace(/^@/, ""),
-        current: true,
-        start_date: "YYYY-MM",
-        description: "TODO: Add your role description",
-      },
-    ];
-  }
-
-  return career;
-}
-
-function buildPluginsYaml(username: string): Record<string, unknown> {
-  return {
-    plugins: {
-      github: {
-        enabled: true,
-        username,
-      },
-    },
-  };
-}
+const OPTIONAL_FILE_HEADERS: Record<string, string> = {
+  "interests.yaml": "# Your interests — hobbies, music, books, movies, food\n# Edit this file to add your personal interests.\n",
+  "personality.yaml": "# Your personality — traits, values, work style\n# Edit this file to describe yourself.\n",
+  "goals.yaml": "# Your goals — short-term, medium-term, long-term\n# Edit this file to add your goals.\n",
+};
 
 /**
- * Generate a complete mcp-me profile from GitHub data.
+ * Convert a merged PartialProfile into YAML files on disk.
  */
-export async function generateFromGitHub(options: GenerateOptions): Promise<GenerateResult> {
-  const { github: username, directory } = options;
-  if (!username) throw new Error("GitHub username is required");
-
-  const token = process.env.GITHUB_TOKEN;
-  const warnings: string[] = [];
-
-  if (!token) {
-    warnings.push("No GITHUB_TOKEN set. Using unauthenticated API (60 requests/hour limit).");
-  }
-
-  console.log(`\n  Fetching GitHub profile for @${username}...`);
-  const user = await fetchGitHub<GitHubUser>(`/users/${username}`, token);
-
-  console.log(`  Fetching repositories...`);
-  const repos = await fetchAllRepos(username, token);
-  console.log(`  Found ${repos.length} non-fork repositories.`);
-
-  const languageNames = Object.entries(
-    repos.reduce(
-      (acc, r) => {
-        if (r.language) acc[r.language] = (acc[r.language] ?? 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>,
-    ),
-  )
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 5)
-    .map(([lang]) => lang);
-
-  // Build YAML data
-  const identityData = buildIdentityYaml(user);
-  const skillsData = buildSkillsYaml(repos);
-  const projectsData = buildProjectsYaml(repos);
-  const careerData = buildCareerYaml(user);
-  const pluginsData = buildPluginsYaml(username);
-
-  // Write files
+async function writeProfile(
+  directory: string,
+  profile: PartialProfile,
+  filesCreated: string[],
+): Promise<void> {
   await mkdir(directory, { recursive: true });
-  const filesCreated: string[] = [];
 
-  const filesToWrite: [string, unknown][] = [
-    ["identity.yaml", identityData],
-    ["skills.yaml", skillsData],
-    ["projects.yaml", projectsData],
-    ["career.yaml", careerData],
-    ["plugins.yaml", pluginsData],
-  ];
+  const filesToWrite: [string, unknown][] = [];
+
+  if (profile.identity) filesToWrite.push(["identity.yaml", profile.identity]);
+  if (profile.skills) filesToWrite.push(["skills.yaml", profile.skills]);
+  if (profile.projects?.length) filesToWrite.push(["projects.yaml", { projects: profile.projects }]);
+  if (profile.career?.experience?.length) filesToWrite.push(["career.yaml", profile.career]);
+  if (profile.plugins && Object.keys(profile.plugins).length > 0) {
+    filesToWrite.push(["plugins.yaml", { plugins: profile.plugins }]);
+  }
+  if (profile.faq?.length) {
+    filesToWrite.push(["faq.yaml", { items: profile.faq }]);
+  }
+  if (profile.interests?.topics?.length || profile.interests?.hobbies?.length) {
+    filesToWrite.push(["interests.yaml", profile.interests]);
+  }
 
   for (const [filename, data] of filesToWrite) {
     const filePath = join(directory, filename);
@@ -273,31 +50,103 @@ export async function generateFromGitHub(options: GenerateOptions): Promise<Gene
     console.log(`  ✔ Generated ${filename}`);
   }
 
-  // Also create empty optional files so validate doesn't complain
-  const optionalFiles = ["interests.yaml", "personality.yaml", "goals.yaml", "faq.yaml"];
-  for (const filename of optionalFiles) {
-    const filePath = join(directory, filename);
-    const comment =
-      filename === "interests.yaml"
-        ? "# Your interests — hobbies, music, books, movies, food\n# Edit this file to add your personal interests.\n"
-        : filename === "personality.yaml"
-          ? "# Your personality — traits, values, work style\n# Edit this file to describe yourself.\n"
-          : filename === "goals.yaml"
-            ? "# Your goals — short-term, medium-term, long-term\n# Edit this file to add your goals.\n"
-            : "# FAQ — frequently asked questions about you\n# items:\n#   - question: \"What do you do?\"\n#     answer: \"...\"\n";
-    await writeFile(filePath, comment, "utf-8");
-    filesCreated.push(filename);
-    console.log(`  ✔ Created ${filename} (template)`);
+  // Create template files for any missing optional categories
+  const createdSet = new Set(filesCreated);
+  for (const [filename, header] of Object.entries(OPTIONAL_FILE_HEADERS)) {
+    if (!createdSet.has(filename)) {
+      await writeFile(join(directory, filename), header, "utf-8");
+      filesCreated.push(filename);
+      console.log(`  ✔ Created ${filename} (template)`);
+    }
   }
+}
+
+/**
+ * Generate a profile from multiple data sources.
+ * Sources run in parallel when possible. Results are merged into unified YAML files.
+ *
+ * Usage:
+ *   generateProfile({ directory: "./profile", github: "user", stackoverflow: "123", devto: "user" })
+ */
+export async function generateProfile(options: GenerateOptions): Promise<GenerateResult> {
+  const warnings: string[] = [];
+  const sources: string[] = [];
+
+  if (!options.github && !options.stackoverflow && !options.devto && !options.npm && !options.pypi) {
+    throw new Error("At least one data source is required (--github, --stackoverflow, --devto, --npm, --pypi).");
+  }
+
+  if (options.github && !process.env.GITHUB_TOKEN) {
+    warnings.push("No GITHUB_TOKEN set. Using unauthenticated GitHub API (60 requests/hour limit).");
+  }
+
+  // Build list of generators to run (lazy — functions, not promises)
+  const tasks: { name: string; run: () => Promise<PartialProfile> }[] = [];
+
+  if (options.github) {
+    tasks.push({ name: "github", run: () => githubGenerator.generate({ username: options.github! }) });
+  }
+  if (options.stackoverflow) {
+    tasks.push({ name: "stackoverflow", run: () => stackoverflowGenerator.generate({ userId: options.stackoverflow! }) });
+  }
+  if (options.devto) {
+    tasks.push({ name: "devto", run: () => devtoGenerator.generate({ username: options.devto! }) });
+  }
+  if (options.npm) {
+    tasks.push({ name: "npm", run: () => npmGenerator.generate({ username: options.npm! }) });
+  }
+  if (options.pypi) {
+    tasks.push({ name: "pypi", run: () => pypiGenerator.generate({ packages: options.pypi!.split(",") }) });
+  }
+  sources.push(...tasks.map((t) => t.name));
+
+  // Run generators sequentially (avoids rate limits, keeps logs readable, graceful error handling)
+  const partials: PartialProfile[] = [];
+  for (const task of tasks) {
+    try {
+      partials.push(await task.run());
+    } catch (error) {
+      warnings.push(`[${task.name}] Failed: ${(error as Error).message}`);
+    }
+  }
+
+  if (partials.length === 0) {
+    throw new Error("All data sources failed. Check the warnings above.");
+  }
+
+  // Merge all partial profiles
+  console.log(`\n  Merging data from ${partials.length} source(s)...`);
+  const merged = mergeProfiles(partials);
+
+  // Write to disk
+  const filesCreated: string[] = [];
+  await writeProfile(options.directory, merged, filesCreated);
 
   return {
     filesCreated,
     warnings,
-    profile: {
-      name: user.name ?? user.login,
-      username: user.login,
-      repos: repos.length,
-      languages: languageNames,
+    sources,
+    summary: {
+      name: merged.identity?.name,
+      skills: (merged.skills?.languages?.length ?? 0) + (merged.skills?.technical?.length ?? 0),
+      projects: merged.projects?.length ?? 0,
+      sources,
     },
   };
+}
+
+/**
+ * Legacy wrapper for backward compatibility.
+ * @deprecated Use `generateProfile` instead.
+ */
+export async function generateFromGitHub(options: {
+  github?: string;
+  directory: string;
+  force?: boolean;
+}): Promise<GenerateResult> {
+  return generateProfile({
+    directory: options.directory,
+    github: options.github,
+    force: options.force,
+  });
 }
