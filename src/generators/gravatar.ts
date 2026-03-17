@@ -24,6 +24,10 @@ function emailToHash(email: string): string {
 
 export const gravatarGenerator: GeneratorSource = {
   name: "gravatar",
+  flag: "gravatar",
+  flagArg: "<email>",
+  description: "Gravatar profile, bio, linked accounts",
+  category: "identity",
 
   async generate(config): Promise<PartialProfile> {
     const email = config.email as string;

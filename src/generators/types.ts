@@ -47,29 +47,24 @@ export interface PartialProfile {
 }
 
 export interface GeneratorSource {
-  /** Source name, e.g. "github", "stackoverflow" */
+  /** Unique identifier, e.g. "github", "stackoverflow" */
   name: string;
+  /** CLI flag name, e.g. "github" becomes --github */
+  flag: string;
+  /** CLI flag argument label, e.g. "<username>" or "<email>" */
+  flagArg: string;
+  /** Short description for CLI help */
+  description: string;
+  /** Category for grouping in help output */
+  category: "code" | "writing" | "community" | "packages" | "activity" | "identity";
   /** Fetch data and return partial profile */
   generate(config: Record<string, unknown>): Promise<PartialProfile>;
 }
 
 export interface GenerateOptions {
   directory: string;
-  github?: string;
-  stackoverflow?: string;
-  devto?: string;
-  npm?: string;
-  pypi?: string;
-  medium?: string;
-  wakatime?: string;
-  mastodon?: string;
-  letterboxd?: string;
-  hackernews?: string;
-  gitlab?: string;
-  gravatar?: string;
-  reddit?: string;
-  keybase?: string;
   force?: boolean;
+  [source: string]: string | boolean | undefined;
 }
 
 export interface GenerateResult {

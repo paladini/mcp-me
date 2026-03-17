@@ -2,19 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify as toYaml } from "yaml";
 import type { GenerateOptions, GenerateResult, PartialProfile } from "./generators/types.js";
-import { githubGenerator } from "./generators/github.js";
-import { stackoverflowGenerator } from "./generators/stackoverflow.js";
-import { devtoGenerator } from "./generators/devto.js";
-import { npmGenerator, pypiGenerator } from "./generators/npm.js";
-import { mediumGenerator } from "./generators/medium.js";
-import { wakatimeGenerator } from "./generators/wakatime.js";
-import { mastodonGenerator } from "./generators/mastodon.js";
-import { letterboxdGenerator } from "./generators/letterboxd.js";
-import { hackernewsGenerator } from "./generators/hackernews.js";
-import { gitlabGenerator } from "./generators/gitlab.js";
-import { gravatarGenerator } from "./generators/gravatar.js";
-import { redditGenerator } from "./generators/reddit.js";
-import { keybaseGenerator } from "./generators/keybase.js";
+import { generators } from "./generators/index.js";
 import { mergeProfiles } from "./generators/merger.js";
 
 export type { GenerateOptions, GenerateResult };
@@ -79,14 +67,16 @@ async function writeProfile(
  */
 export async function generateProfile(options: GenerateOptions): Promise<GenerateResult> {
   const warnings: string[] = [];
-  const sources: string[] = [];
 
-  const sourceKeys: (keyof GenerateOptions)[] = [
-    "github", "gitlab", "stackoverflow", "devto", "medium",
-    "hackernews", "npm", "pypi", "wakatime", "mastodon", "letterboxd",
-    "gravatar", "reddit", "keybase",
-  ];
-  if (!sourceKeys.some((k) => options[k])) {
+  // Match CLI flags to registered generators
+  const tasks = generators
+    .filter((g) => options[g.flag])
+    .map((g) => ({
+      name: g.name,
+      run: () => g.generate({ username: options[g.flag] as string, email: options[g.flag] as string, userId: options[g.flag] as string, handle: options[g.flag] as string, packages: typeof options[g.flag] === "string" ? (options[g.flag] as string).split(",") : [] }),
+    }));
+
+  if (tasks.length === 0) {
     throw new Error("At least one data source is required. Use --help to see available sources.");
   }
 
@@ -94,52 +84,7 @@ export async function generateProfile(options: GenerateOptions): Promise<Generat
     warnings.push("No GITHUB_TOKEN set. Using unauthenticated GitHub API (60 requests/hour limit).");
   }
 
-  // Build list of generators to run (lazy — functions, not promises)
-  const tasks: { name: string; run: () => Promise<PartialProfile> }[] = [];
-
-  if (options.github) {
-    tasks.push({ name: "github", run: () => githubGenerator.generate({ username: options.github! }) });
-  }
-  if (options.stackoverflow) {
-    tasks.push({ name: "stackoverflow", run: () => stackoverflowGenerator.generate({ userId: options.stackoverflow! }) });
-  }
-  if (options.devto) {
-    tasks.push({ name: "devto", run: () => devtoGenerator.generate({ username: options.devto! }) });
-  }
-  if (options.npm) {
-    tasks.push({ name: "npm", run: () => npmGenerator.generate({ username: options.npm! }) });
-  }
-  if (options.pypi) {
-    tasks.push({ name: "pypi", run: () => pypiGenerator.generate({ packages: options.pypi!.split(",") }) });
-  }
-  if (options.medium) {
-    tasks.push({ name: "medium", run: () => mediumGenerator.generate({ username: options.medium! }) });
-  }
-  if (options.wakatime) {
-    tasks.push({ name: "wakatime", run: () => wakatimeGenerator.generate({ username: options.wakatime! }) });
-  }
-  if (options.mastodon) {
-    tasks.push({ name: "mastodon", run: () => mastodonGenerator.generate({ handle: options.mastodon! }) });
-  }
-  if (options.letterboxd) {
-    tasks.push({ name: "letterboxd", run: () => letterboxdGenerator.generate({ username: options.letterboxd! }) });
-  }
-  if (options.hackernews) {
-    tasks.push({ name: "hackernews", run: () => hackernewsGenerator.generate({ username: options.hackernews! }) });
-  }
-  if (options.gitlab) {
-    tasks.push({ name: "gitlab", run: () => gitlabGenerator.generate({ username: options.gitlab! }) });
-  }
-  if (options.gravatar) {
-    tasks.push({ name: "gravatar", run: () => gravatarGenerator.generate({ email: options.gravatar! }) });
-  }
-  if (options.reddit) {
-    tasks.push({ name: "reddit", run: () => redditGenerator.generate({ username: options.reddit! }) });
-  }
-  if (options.keybase) {
-    tasks.push({ name: "keybase", run: () => keybaseGenerator.generate({ username: options.keybase! }) });
-  }
-  sources.push(...tasks.map((t) => t.name));
+  const sources = tasks.map((t) => t.name);
 
   // Run generators sequentially (avoids rate limits, keeps logs readable, graceful error handling)
   const partials: PartialProfile[] = [];

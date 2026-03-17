@@ -136,36 +136,20 @@ export const myserviceGenerator: GeneratorSource = {
 
 ### 3. Register the generator
 
-**a.** Export from `src/generators/index.ts`:
-```ts
-export { myserviceGenerator } from "./myservice.js";
-```
+Add **one line** to the registry in `src/generators/index.ts`:
 
-**b.** Add to `GenerateOptions` in `src/generators/types.ts`:
 ```ts
-export interface GenerateOptions {
-  // ... existing options
-  myservice?: string;
-}
-```
+import { myserviceGenerator } from "./myservice.js";
 
-**c.** Add to `src/generator.ts` — in the source keys array and task list:
-```ts
-const sourceKeys: (keyof GenerateOptions)[] = [
-  // ... existing keys
-  "myservice",
+export const generators: GeneratorSource[] = [
+  // ... existing generators
+  myserviceGenerator,  // ← add here
 ];
-
-// ... in the task building section:
-if (options.myservice) {
-  tasks.push({ name: "myservice", run: () => myserviceGenerator.generate({ username: options.myservice! }) });
-}
 ```
 
-**d.** Add CLI flag in `src/cli.ts`:
-```ts
-.option("--myservice <username>", "MyService username")
-```
+That's it. The CLI flag (`--myservice <username>`) and orchestrator integration are **automatic** — they read from the `flag`, `flagArg`, and `description` fields you defined in step 2.
+
+No need to touch `generator.ts`, `cli.ts`, or `types.ts`.
 
 ### 4. Add tests
 

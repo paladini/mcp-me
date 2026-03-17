@@ -72,6 +72,10 @@ async function fetchAllRepos(username: string, token?: string): Promise<GitHubRe
 
 export const githubGenerator: GeneratorSource = {
   name: "github",
+  flag: "github",
+  flagArg: "<username>",
+  description: "GitHub profile, repos, languages, topics",
+  category: "code",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

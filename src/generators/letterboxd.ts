@@ -37,6 +37,10 @@ function parseLetterboxdRSS(xml: string): LetterboxdRSSItem[] {
 
 export const letterboxdGenerator: GeneratorSource = {
   name: "letterboxd",
+  flag: "letterboxd",
+  flagArg: "<username>",
+  description: "Letterboxd film diary, ratings, favorites",
+  category: "activity",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

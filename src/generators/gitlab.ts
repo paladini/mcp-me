@@ -30,6 +30,10 @@ interface GitLabProject {
 
 export const gitlabGenerator: GeneratorSource = {
   name: "gitlab",
+  flag: "gitlab",
+  flagArg: "<username>",
+  description: "GitLab projects, topics, profile",
+  category: "code",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

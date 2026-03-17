@@ -27,6 +27,10 @@ interface MastodonStatus {
 
 export const mastodonGenerator: GeneratorSource = {
   name: "mastodon",
+  flag: "mastodon",
+  flagArg: "<user@instance>",
+  description: "Mastodon/Fediverse posts, hashtags, bio",
+  category: "community",
 
   async generate(config): Promise<PartialProfile> {
     const handle = config.handle as string;

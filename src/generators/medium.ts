@@ -39,6 +39,10 @@ function parseRSSItems(xml: string): MediumRSSItem[] {
 
 export const mediumGenerator: GeneratorSource = {
   name: "medium",
+  flag: "medium",
+  flagArg: "<username>",
+  description: "Medium articles and categories (via RSS)",
+  category: "writing",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

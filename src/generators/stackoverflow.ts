@@ -31,6 +31,10 @@ async function fetchSO<T>(path: string): Promise<T> {
 
 export const stackoverflowGenerator: GeneratorSource = {
   name: "stackoverflow",
+  flag: "stackoverflow",
+  flagArg: "<user-id>",
+  description: "Stack Overflow tags, reputation, badges",
+  category: "community",
 
   async generate(config): Promise<PartialProfile> {
     const userId = config.userId as string;

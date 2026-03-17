@@ -24,6 +24,10 @@ async function fetchDevTo<T>(path: string): Promise<T> {
 
 export const devtoGenerator: GeneratorSource = {
   name: "devto",
+  flag: "devto",
+  flagArg: "<username>",
+  description: "DEV.to articles, tags, reactions",
+  category: "writing",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

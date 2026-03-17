@@ -20,6 +20,10 @@ interface RedditUser {
 
 export const redditGenerator: GeneratorSource = {
   name: "reddit",
+  flag: "reddit",
+  flagArg: "<username>",
+  description: "Reddit karma, bio, account age",
+  category: "community",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

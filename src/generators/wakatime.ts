@@ -13,6 +13,10 @@ interface WakaTimeStats {
 
 export const wakatimeGenerator: GeneratorSource = {
   name: "wakatime",
+  flag: "wakatime",
+  flagArg: "<username>",
+  description: "WakaTime coding time, languages, editors",
+  category: "activity",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

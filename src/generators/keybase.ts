@@ -31,6 +31,10 @@ interface KeybaseUser {
 
 export const keybaseGenerator: GeneratorSource = {
   name: "keybase",
+  flag: "keybase",
+  flagArg: "<username>",
+  description: "Keybase verified identity proofs, PGP",
+  category: "identity",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;

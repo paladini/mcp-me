@@ -52,6 +52,10 @@ async function fetchPyPIPackage(packageName: string): Promise<PyPIPackage | null
 
 export const npmGenerator: GeneratorSource = {
   name: "npm",
+  flag: "npm",
+  flagArg: "<username>",
+  description: "npm published packages, keywords",
+  category: "packages",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;
@@ -118,6 +122,10 @@ export const npmGenerator: GeneratorSource = {
 
 export const pypiGenerator: GeneratorSource = {
   name: "pypi",
+  flag: "pypi",
+  flagArg: "<packages>",
+  description: "PyPI package metadata (comma-separated names)",
+  category: "packages",
 
   async generate(config): Promise<PartialProfile> {
     const packageNames = config.packages as string[];

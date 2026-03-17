@@ -10,6 +10,10 @@ interface HNUser {
 
 export const hackernewsGenerator: GeneratorSource = {
   name: "hackernews",
+  flag: "hackernews",
+  flagArg: "<username>",
+  description: "Hacker News karma, submissions, bio",
+  category: "community",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;
