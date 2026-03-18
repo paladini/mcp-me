@@ -3,12 +3,22 @@ import type { McpMePlugin, McpMePluginFactory } from "./types.js";
 import createGitHubPlugin from "../plugins/github/index.js";
 import createSpotifyPlugin from "../plugins/spotify/index.js";
 import createLinkedInPlugin from "../plugins/linkedin/index.js";
+import createWakaTimePlugin from "../plugins/wakatime/index.js";
+import createDevToPlugin from "../plugins/devto/index.js";
+import createBlueskyPlugin from "../plugins/bluesky/index.js";
+import createHackerNewsPlugin from "../plugins/hackernews/index.js";
+import createRedditPlugin from "../plugins/reddit/index.js";
 
 /** Registry of built-in plugins with explicit imports (avoids dynamic import bundling issues). */
 const BUILTIN_REGISTRY: Record<string, McpMePluginFactory> = {
   github: createGitHubPlugin,
   spotify: createSpotifyPlugin,
   linkedin: createLinkedInPlugin,
+  wakatime: createWakaTimePlugin,
+  devto: createDevToPlugin,
+  bluesky: createBlueskyPlugin,
+  hackernews: createHackerNewsPlugin,
+  reddit: createRedditPlugin,
 };
 
 /**

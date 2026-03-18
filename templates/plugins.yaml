@@ -1,13 +1,13 @@
-# Plugin configuration — enable integrations to enrich your profile
+# Plugin configuration — enable live integrations that AI queries in real-time.
 # See docs/creating-plugins.md for how to build your own plugin.
 plugins:
-  # GitHub — your repositories, contributions, and activity
+  # GitHub — live repos, contributions, and activity
   # github:
   #   enabled: true
   #   username: "your-github-username"
-  #   token_env: "GITHUB_TOKEN"
+  #   token_env: "GITHUB_TOKEN"     # optional, for higher rate limits
 
-  # Spotify — your music taste, top artists, recently played
+  # Spotify — now playing, top artists, recently played (requires OAuth)
   # spotify:
   #   enabled: true
   #   client_id_env: "SPOTIFY_CLIENT_ID"
@@ -18,3 +18,29 @@ plugins:
   # linkedin:
   #   enabled: true
   #   data_path: "./linkedin-export.json"
+
+  # WakaTime — live coding activity, today's stats, weekly summary
+  # wakatime:
+  #   enabled: true
+  #   username: "your-wakatime-username"
+  #   api_key_env: "WAKATIME_API_KEY"  # optional, for private profiles
+
+  # DEV.to — live article stats, latest posts
+  # devto:
+  #   enabled: true
+  #   username: "your-devto-username"
+
+  # Bluesky — live feed, profile, follower stats (no auth needed)
+  # bluesky:
+  #   enabled: true
+  #   handle: "you.bsky.social"
+
+  # Hacker News — live karma, recent submissions (no auth needed)
+  # hackernews:
+  #   enabled: true
+  #   username: "your-hn-username"
+
+  # Reddit — live karma, recent posts (no auth needed)
+  # reddit:
+  #   enabled: true
+  #   username: "your-reddit-username"
