@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **300 batch generators** bringing total to 342 data sources for `mcp-me generate`
+  - **Gaming (19):** speedrun, retroachievements, boardgamegeek, itch.io, rawg, osu, minecraft, roblox, league of legends, valorant, fortnite, apex, overwatch, csgo, pokemon go, moxfield, dndbeyond, board game arena, nexusmods
+  - **Music (18):** soundcloud, bandcamp, discogs, genius, mixcloud, listenbrainz, setlist.fm, splice, beatstars, distrokid, audius, songkick, musixmatch, soundtrap, rateyourmusic, kompoz, ultimate guitar, spotify artist
+  - **Creative (19):** deviantart, artstation, pixiv, behance, flickr, 500px, sketchfab, society6, redbubble, codepen, observablehq, glitch, codesandbox, replit, figma, canva, openprocessing, shadertoy, three.js
+  - **Fitness & Sports (19):** strava, garmin, myfitnesspal, peloton, runkeeper, habitica, alltrails, parkrun, zwift, komoot, fitocracy, coros, espn fantasy, transfermarkt, sofascore, f1, cricket, marathon, yoga
+  - **Food & Travel (18):** untappd, vivino, yelp, happycow, allrecipes, cookpad, tripadvisor, nomadlist, foursquare, geocaching, polarsteps, wikiloc, atlas obscura, roame, couchsurfing, beeradvocate, buymeacoffee, whiskybase
+  - **Learning & Science (19):** duolingo, coursera, edx, udemy, skillshare, codecademy, freecodecamp, khan academy, brilliant, pluralsight, memrise, ankiweb, italki, lingq, treehouse, researchgate, zenodo, arxiv, google scholar
+  - **Entertainment (19):** tmdb, trakt, simkl, tvtime, mydramalist, mubi, storygraph, librarything, bookwyrm, mangadex, novelupdates, podchaser, goodpods, pocketcasts, anchor, podbean, wattpad, royalroad, ao3
+  - **Social (19):** tumblr, pinterest, tiktok, instagram, twitter, lemmy, lobsters, tildes, discord, telegram, signal, matrix, linkedin, facebook, snapchat, whatsapp, wechat, line, vk
+  - **Maker & Nature (19):** thingiverse, printables, instructables, hackaday, hackster, tindie, adafruit, arduino, inaturalist, ebird, plantnet, zooniverse, gbif, gardenate, observation.org, raspberry pi, home assistant, oshwa, mushroom observer
+  - **Finance & Crypto (19):** etherscan, ens, opensea, mirror, farcaster, lens, gitcoin, debank, zora, tradingview, stocktwits, seekingalpha, ko-fi, patreon, gumroad, lemon squeezy, indie hackers, acquire, pioneer
+  - **Code Extra (19):** codeforces, atcoder, topcoder, project euler, codingame, dmoj, kattis, rubygems, packagist, nuget, hex.pm, pub.dev, cocoapods, maven, sourcehut, wandb, dagshub, gitea, forgejo
+  - **Video (19):** vimeo, dailymotion, peertube, odysee, kick, bilibili, rumble, nebula, floatplane, streamlabs, loom, substack video, youtube shorts, reels, clipchamp, davinci resolve, adobe portfolio, cargo collective, read.cv
+  - **Productivity (19):** notion, obsidian publish, raindrop, are.na, pinboard, todoist, linear, grailed, depop, vinted, etsy, shopify, producthunt maker, typefully, convertkit, buttondown, revue, polywork, bio link
+  - **Weird & Fun (20):** zodiac, mbti, enneagram, hogwarts house, d&d alignment, color palette, timezone, languages spoken, diet, sleep schedule, coffee/tea, ide, os, keyboard, desk setup, dotfiles, /now page, /uses page, personal site, pronouns
+  - **Misc (19):** waze, openstreetmap, wikipedia, stack exchange, meetup, eventbrite, luma, speakerdeck, slideshare, calendly, cal.com, giphy, gravatar profile, about.me, humans.txt, webring, indieweb, mastodon verify, keyoxide
+- **Generator factory** (`src/generators/factory.ts`) — `createGenerator()`, `createRssGenerator()`, `createStaticGenerator()` for defining generators in ~10 lines instead of ~60
+- **24 generator categories** expanded from 6: gaming, music, creative, fitness, food, travel, learning, science, finance, maker, social, entertainment, podcasts, photography, sports, nature, productivity, crypto
 - **10 new generators** bringing total to 42 data sources for `mcp-me generate`
   - **Code:** `--kaggle` (Kaggle competitions, datasets), `--codeberg` (Gitea-based repos)
   - **Community:** `--producthunt` (launched products, upvotes), `--threads` (Meta Threads profile)

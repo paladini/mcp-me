@@ -46,6 +46,32 @@ export interface PartialProfile {
   plugins?: Record<string, Record<string, unknown>>;
 }
 
+export type GeneratorCategory =
+  | "code"
+  | "writing"
+  | "community"
+  | "packages"
+  | "activity"
+  | "identity"
+  | "gaming"
+  | "music"
+  | "creative"
+  | "fitness"
+  | "food"
+  | "travel"
+  | "learning"
+  | "science"
+  | "finance"
+  | "maker"
+  | "social"
+  | "entertainment"
+  | "podcasts"
+  | "photography"
+  | "sports"
+  | "nature"
+  | "productivity"
+  | "crypto";
+
 export interface GeneratorSource {
   /** Unique identifier, e.g. "github", "stackoverflow" */
   name: string;
@@ -56,7 +82,7 @@ export interface GeneratorSource {
   /** Short description for CLI help */
   description: string;
   /** Category for grouping in help output */
-  category: "code" | "writing" | "community" | "packages" | "activity" | "identity";
+  category: GeneratorCategory;
   /** Fetch data and return partial profile */
   generate(config: Record<string, unknown>): Promise<PartialProfile>;
 }

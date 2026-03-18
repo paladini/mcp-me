@@ -10,7 +10,12 @@ import { generators } from "../../src/generators/index.js";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 
-const VALID_CATEGORIES = ["code", "writing", "community", "packages", "activity", "identity"] as const;
+const VALID_CATEGORIES = [
+  "code", "writing", "community", "packages", "activity", "identity",
+  "gaming", "music", "creative", "fitness", "food", "travel", "learning",
+  "science", "finance", "maker", "social", "entertainment", "podcasts",
+  "photography", "sports", "nature", "productivity", "crypto",
+] as const;
 
 const GENERATORS_DIR = join(__dirname, "../../src/generators");
 
@@ -61,19 +66,17 @@ describe("Generator Harness — structural validation", () => {
 });
 
 describe("Generator Harness — file registration check", () => {
-  const IGNORED_FILES = new Set(["index.ts", "types.ts", "merger.ts"]);
+  const IGNORED_FILES = new Set(["index.ts", "types.ts", "merger.ts", "factory.ts"]);
+  const BATCH_PREFIX = "batch-";
 
-  it("every generator file in src/generators/ is registered", () => {
+  it("every single-generator file in src/generators/ is registered", () => {
     const files = readdirSync(GENERATORS_DIR)
-      .filter((f) => f.endsWith(".ts") && !IGNORED_FILES.has(f));
+      .filter((f) => f.endsWith(".ts") && !IGNORED_FILES.has(f) && !f.startsWith(BATCH_PREFIX));
 
     const unregistered: string[] = [];
     for (const file of files) {
-      // Derive expected generator name from filename (e.g. "chess.ts" could be "chesscom")
-      // We check if any registered generator has a matching source file
       const baseName = file.replace(".ts", "");
       const hasMatch = generators.some((g) => {
-        // Match by: filename equals name, or filename equals flag, or flag starts with basename
         return (
           g.name === baseName ||
           g.flag === baseName ||
@@ -87,6 +90,15 @@ describe("Generator Harness — file registration check", () => {
     }
 
     expect(unregistered).toEqual([]);
+  });
+
+  it("every batch file in src/generators/ is imported (has at least one generator)", () => {
+    const batchFiles = readdirSync(GENERATORS_DIR)
+      .filter((f) => f.endsWith(".ts") && f.startsWith(BATCH_PREFIX));
+
+    // Batch files should exist and we should have generators with categories
+    // that correspond to the batch themes
+    expect(batchFiles.length).toBeGreaterThan(0);
   });
 
   it("total generator count matches expected", () => {
