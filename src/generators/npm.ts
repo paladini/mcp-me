@@ -1,3 +1,17 @@
+/**
+ * npm & PyPI Generators
+ *
+ * npm: Fetches your published npm packages, keywords, and project metadata.
+ * PyPI: Fetches metadata for specified Python packages you've published.
+ *
+ * @flag --npm <username>        npm packages by maintainer
+ * @flag --pypi <pkg1,pkg2>      PyPI packages (comma-separated names)
+ * @example mcp-me generate ./profile --npm sindresorhus --pypi requests,flask
+ * @auth None required (public registries)
+ * @api https://github.com/npm/registry/blob/main/docs/REGISTRY-API.md
+ * @api https://warehouse.pypa.io/api-reference/json.html
+ * @data identity, skills (keywords), projects (packages), faq
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface NpmPackage {

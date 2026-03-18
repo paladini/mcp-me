@@ -1,3 +1,14 @@
+/**
+ * Open Library Generator
+ *
+ * Searches for an author by name and fetches their published books.
+ *
+ * @flag --openlibrary <author-name>
+ * @example mcp-me generate ./profile --openlibrary "Isaac Asimov"
+ * @auth None required (public API)
+ * @api https://openlibrary.org/developers/api
+ * @data identity (name, bio), projects (books), faq
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface OLAuthor {

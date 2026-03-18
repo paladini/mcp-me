@@ -1,3 +1,14 @@
+/**
+ * Keybase Generator
+ *
+ * Fetches your verified identity proofs, PGP keys, and linked social accounts.
+ *
+ * @flag --keybase <username>
+ * @example mcp-me generate ./profile --keybase myuser
+ * @auth None required (public API)
+ * @api https://keybase.io/docs/api/1.0
+ * @data identity (name, bio, verified social links), faq (identity verification)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface KeybaseUser {

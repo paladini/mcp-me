@@ -1,3 +1,14 @@
+/**
+ * Mastodon Generator
+ *
+ * Fetches your Fediverse profile, posts, and hashtag interests.
+ *
+ * @flag --mastodon <user@instance>
+ * @example mcp-me generate ./profile --mastodon user@mastodon.social
+ * @auth None required (public Mastodon API)
+ * @api https://docs.joinmastodon.org/api/
+ * @data identity (bio, profile fields), interests (hashtags), faq (follower count)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface MastodonAccount {

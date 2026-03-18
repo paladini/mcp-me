@@ -8,9 +8,9 @@ import { mergeProfiles } from "./generators/merger.js";
 export type { GenerateOptions, GenerateResult };
 
 const OPTIONAL_FILE_HEADERS: Record<string, string> = {
-  "interests.yaml": "# Your interests — hobbies, music, books, movies, food\n# Edit this file to add your personal interests.\n",
-  "personality.yaml": "# Your personality — traits, values, work style\n# Edit this file to describe yourself.\n",
-  "goals.yaml": "# Your goals — short-term, medium-term, long-term\n# Edit this file to add your goals.\n",
+  "interests.yaml": "# Your interests — hobbies, music, books, movies, food\nhobbies: []\n",
+  "personality.yaml": "# Your personality — traits, values, work style\ntraits: []\n",
+  "goals.yaml": "# Your goals — short-term, medium-term, long-term\nshort_term: []\n",
 };
 
 /**

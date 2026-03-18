@@ -1,3 +1,14 @@
+/**
+ * Crates.io Generator
+ *
+ * Fetches your published Rust crates, download counts, and keywords.
+ *
+ * @flag --crates <user-id>
+ * @example mcp-me generate ./profile --crates 12345
+ * @auth None required (public API)
+ * @api https://crates.io/policies
+ * @data identity, skills (Rust), projects (crates), faq (download stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface CratesIoCrate {

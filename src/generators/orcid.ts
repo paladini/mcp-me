@@ -1,3 +1,14 @@
+/**
+ * ORCID Generator
+ *
+ * Fetches your academic publications, affiliations, and researcher URLs.
+ *
+ * @flag --orcid <orcid-id>
+ * @example mcp-me generate ./profile --orcid 0000-0002-1234-5678
+ * @auth None required (public API)
+ * @api https://pub.orcid.org/v3.0/
+ * @data identity (name, bio, URLs), projects (publications with DOI), faq
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface ORCIDPerson {

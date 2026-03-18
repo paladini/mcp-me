@@ -1,3 +1,14 @@
+/**
+ * WakaTime Generator
+ *
+ * Fetches your coding time stats, top languages, editors, and OS breakdown.
+ *
+ * @flag --wakatime <username>
+ * @example mcp-me generate ./profile --wakatime myuser
+ * @auth None required if profile is public. Set "Display code time publicly" in WakaTime settings.
+ * @api https://wakatime.com/developers
+ * @data identity, skills (languages, editors, OS), faq (coding time summary)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface WakaTimeStats {

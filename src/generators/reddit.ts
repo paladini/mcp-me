@@ -1,3 +1,14 @@
+/**
+ * Reddit Generator
+ *
+ * Fetches your Reddit profile, karma breakdown, and account age.
+ *
+ * @flag --reddit <username>
+ * @example mcp-me generate ./profile --reddit spez
+ * @auth None required (public JSON API)
+ * @api https://www.reddit.com/dev/api/
+ * @data identity (bio), faq (karma stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface RedditUser {

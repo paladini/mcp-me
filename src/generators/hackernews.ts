@@ -1,3 +1,14 @@
+/**
+ * Hacker News Generator
+ *
+ * Fetches your HN profile, karma, and submission count.
+ *
+ * @flag --hackernews <username>
+ * @example mcp-me generate ./profile --hackernews pg
+ * @auth None required (public Firebase API)
+ * @api https://github.com/HackerNews/API
+ * @data identity (bio), faq (karma, submissions)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface HNUser {

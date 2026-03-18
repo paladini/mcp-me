@@ -1,3 +1,14 @@
+/**
+ * Docker Hub Generator
+ *
+ * Fetches your published container images, stars, and pull counts.
+ *
+ * @flag --dockerhub <username>
+ * @example mcp-me generate ./profile --dockerhub myuser
+ * @auth None required (public API)
+ * @api https://docs.docker.com/docker-hub/api/latest/
+ * @data identity, skills (docker), projects (images), faq (pull stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface DockerHubRepo {

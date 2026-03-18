@@ -1,3 +1,14 @@
+/**
+ * DEV.to Generator
+ *
+ * Fetches your published articles, tags, and reaction counts from DEV.to.
+ *
+ * @flag --devto <username>
+ * @example mcp-me generate ./profile --devto bendhalpern
+ * @auth None required (public API)
+ * @api https://developers.forem.com/api/v1
+ * @data identity, skills (article tags), projects (top articles), interests (topics), faq
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface DevToArticle {

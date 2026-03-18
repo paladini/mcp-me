@@ -1,3 +1,14 @@
+/**
+ * Lichess Generator
+ *
+ * Fetches your Lichess profile, ratings across game modes, and play stats.
+ *
+ * @flag --lichess <username>
+ * @example mcp-me generate ./profile --lichess DrNykterstein
+ * @auth None required (public API)
+ * @api https://lichess.org/api
+ * @data identity, interests (chess), faq (ratings, game count)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface LichessUser {

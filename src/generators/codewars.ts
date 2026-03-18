@@ -1,3 +1,14 @@
+/**
+ * Codewars Generator
+ *
+ * Fetches your Codewars rank, honor, and languages practiced from coding challenges.
+ *
+ * @flag --codewars <username>
+ * @example mcp-me generate ./profile --codewars myuser
+ * @auth None required (public API)
+ * @api https://dev.codewars.com/#rest-api
+ * @data identity, skills (languages with ranks), faq (rank, honor, kata completed)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface CodewarsUser {

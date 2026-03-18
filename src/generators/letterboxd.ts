@@ -1,3 +1,14 @@
+/**
+ * Letterboxd Generator
+ *
+ * Fetches your film diary, ratings, and favorites from Letterboxd via RSS.
+ *
+ * @flag --letterboxd <username>
+ * @example mcp-me generate ./profile --letterboxd myuser
+ * @auth None required (public RSS feed)
+ * @api https://letterboxd.com/<username>/rss/
+ * @data identity, interests (cinema), faq (film stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface LetterboxdRSSItem {

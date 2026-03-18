@@ -1,3 +1,14 @@
+/**
+ * Semantic Scholar Generator
+ *
+ * Fetches your academic papers, citation count, h-index, and fields of study.
+ *
+ * @flag --semanticscholar <author-id>
+ * @example mcp-me generate ./profile --semanticscholar 1741101
+ * @auth None required (public API)
+ * @api https://api.semanticscholar.org/api-docs/
+ * @data identity, skills (research fields), projects (top cited papers), faq (impact metrics)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface S2Author {

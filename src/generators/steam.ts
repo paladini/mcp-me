@@ -1,3 +1,14 @@
+/**
+ * Steam Generator
+ *
+ * Fetches your Steam games library, playtime, and top played games.
+ *
+ * @flag --steam <steam-id>
+ * @example mcp-me generate ./profile --steam 76561198012345678
+ * @auth Requires STEAM_API_KEY env var. Get a free key at https://steamcommunity.com/dev/apikey
+ * @api https://developer.valvesoftware.com/wiki/Steam_Web_API
+ * @data identity, interests (gaming, top games), faq (playtime stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface SteamPlayer {

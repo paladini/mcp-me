@@ -1,3 +1,14 @@
+/**
+ * Goodreads Generator
+ *
+ * Fetches your reading list, ratings, and favorite books via RSS feed.
+ *
+ * @flag --goodreads <user-id>
+ * @example mcp-me generate ./profile --goodreads 12345678
+ * @auth None required (public RSS feed)
+ * @api https://www.goodreads.com/review/list_rss/<user-id>
+ * @data identity, interests (reading), faq (reading stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface GoodreadsRSSItem {

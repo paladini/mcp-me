@@ -1,3 +1,14 @@
+/**
+ * Gravatar Generator
+ *
+ * Fetches your Gravatar profile, bio, photo, and linked accounts by email.
+ *
+ * @flag --gravatar <email>
+ * @example mcp-me generate ./profile --gravatar me@example.com
+ * @auth None required (public JSON API)
+ * @api https://docs.gravatar.com/api/profiles/json/
+ * @data identity (name, bio, location, social links, email)
+ */
 import { createHash } from "node:crypto";
 import type { GeneratorSource, PartialProfile } from "./types.js";
 

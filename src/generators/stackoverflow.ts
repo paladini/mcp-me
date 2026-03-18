@@ -1,3 +1,14 @@
+/**
+ * Stack Overflow Generator
+ *
+ * Fetches your Stack Overflow profile, top answer tags, reputation, and badges.
+ *
+ * @flag --stackoverflow <user-id>
+ * @example mcp-me generate ./profile --stackoverflow 12345
+ * @auth None required (public API)
+ * @api https://api.stackexchange.com/docs
+ * @data identity, skills (top tags), faq (reputation summary)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface SOUser {

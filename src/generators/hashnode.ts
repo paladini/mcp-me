@@ -1,3 +1,14 @@
+/**
+ * Hashnode Generator
+ *
+ * Fetches your blog posts, tags, and reactions from Hashnode via GraphQL API.
+ *
+ * @flag --hashnode <username>
+ * @example mcp-me generate ./profile --hashnode myuser
+ * @auth None required (public GraphQL API)
+ * @api https://gql.hashnode.com
+ * @data identity, skills (post tags), projects (top articles), interests, faq
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface HashnodePost {

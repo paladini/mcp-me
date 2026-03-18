@@ -1,3 +1,14 @@
+/**
+ * YouTube Generator
+ *
+ * Fetches your YouTube channel stats, subscriber count, and video count.
+ *
+ * @flag --youtube <channel-id>
+ * @example mcp-me generate ./profile --youtube UCxxxxxxxxxxxxxxxxxxxxxx
+ * @auth Requires YOUTUBE_API_KEY env var. Get a free key at https://console.developers.google.com
+ * @api https://developers.google.com/youtube/v3
+ * @data identity (channel name, description), faq (subscriber/video stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface YTChannel {

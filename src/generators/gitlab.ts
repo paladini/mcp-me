@@ -1,3 +1,14 @@
+/**
+ * GitLab Generator
+ *
+ * Fetches your GitLab profile, projects, and topics.
+ *
+ * @flag --gitlab <username>
+ * @example mcp-me generate ./profile --gitlab myuser
+ * @auth None required (public API)
+ * @api https://docs.gitlab.com/ee/api/users.html
+ * @data identity, skills (topics), projects (top 20 by stars)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface GitLabUser {

@@ -1,3 +1,14 @@
+/**
+ * Chess.com Generator
+ *
+ * Fetches your Chess.com profile, ratings (rapid/blitz/bullet/puzzles), and game stats.
+ *
+ * @flag --chess <username>
+ * @example mcp-me generate ./profile --chess magnuscarlsen
+ * @auth None required (public API)
+ * @api https://www.chess.com/news/view/published-data-api
+ * @data identity, interests (chess), faq (ratings)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface ChessComPlayer {

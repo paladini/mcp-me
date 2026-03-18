@@ -1,3 +1,14 @@
+/**
+ * Medium Generator
+ *
+ * Fetches your published articles and categories from Medium via RSS feed.
+ *
+ * @flag --medium <username>
+ * @example mcp-me generate ./profile --medium @yourname
+ * @auth None required (public RSS feed)
+ * @api https://medium.com/feed/@username
+ * @data identity, skills (article categories), projects (top articles), interests, faq
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface MediumRSSItem {

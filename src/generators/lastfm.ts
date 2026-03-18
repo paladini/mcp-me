@@ -1,3 +1,14 @@
+/**
+ * Last.fm Generator
+ *
+ * Fetches your top artists, scrobble count, and music listening stats.
+ *
+ * @flag --lastfm <username>
+ * @example mcp-me generate ./profile --lastfm rj
+ * @auth Requires LASTFM_API_KEY env var. Get a free key at https://www.last.fm/api/account/create
+ * @api https://www.last.fm/api
+ * @data identity, interests (top artists, music), faq (scrobble stats)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface LastFmUser {

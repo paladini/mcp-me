@@ -1,3 +1,14 @@
+/**
+ * GitHub Generator
+ *
+ * Fetches your GitHub profile, repositories, programming languages, and topics.
+ *
+ * @flag --github <username>
+ * @example mcp-me generate ./profile --github octocat
+ * @auth Optional: set GITHUB_TOKEN env var for higher rate limits (5000 vs 60 req/hr)
+ * @api https://docs.github.com/en/rest
+ * @data identity, skills (languages), projects (top 20 repos by stars), career (company)
+ */
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
 interface GitHubUser {
@@ -113,7 +124,7 @@ export const githubGenerator: GeneratorSource = {
       },
     };
     if (user.location) {
-      identity.location = { city: user.location };
+      identity.location = { city: user.location, country: "" };
     }
 
     // Skills — languages
