@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Multi-source `mcp-me generate` with 14 data sources** — Auto-generate profile from your entire online presence
+- **Multi-source `mcp-me generate` with 30 data sources** — Auto-generate profile from your entire online presence
   - **Code:** `--github`, `--gitlab`
-  - **Writing:** `--devto`, `--medium` (RSS)
+  - **Writing:** `--devto`, `--medium`, `--hashnode`, `--openlibrary`, `--orcid`, `--semanticscholar`, `--youtube`
   - **Community:** `--stackoverflow`, `--hackernews`, `--mastodon`, `--reddit`
-  - **Packages:** `--npm`, `--pypi`
-  - **Activity:** `--wakatime`, `--letterboxd`
+  - **Packages:** `--npm`, `--pypi`, `--crates`, `--dockerhub`
+  - **Activity:** `--wakatime`, `--letterboxd`, `--goodreads`, `--chess`, `--lichess`, `--codewars`, `--lastfm`, `--steam`
   - **Identity:** `--gravatar`, `--keybase`
   - All sources can be combined in a single command; data is merged intelligently
   - Graceful error handling: if one source fails, others still succeed

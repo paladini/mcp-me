@@ -24,6 +24,19 @@ import { gitlabGenerator } from "./gitlab.js";
 import { gravatarGenerator } from "./gravatar.js";
 import { redditGenerator } from "./reddit.js";
 import { keybaseGenerator } from "./keybase.js";
+import { openlibraryGenerator } from "./openlibrary.js";
+import { goodreadsGenerator } from "./goodreads.js";
+import { orcidGenerator } from "./orcid.js";
+import { semanticScholarGenerator } from "./semanticscholar.js";
+import { chesscomGenerator } from "./chess.js";
+import { lichessGenerator } from "./lichess.js";
+import { codewarsGenerator } from "./codewars.js";
+import { dockerhubGenerator } from "./dockerhub.js";
+import { cratesioGenerator } from "./cratesio.js";
+import { lastfmGenerator } from "./lastfm.js";
+import { youtubeGenerator } from "./youtube.js";
+import { hashnodeGenerator } from "./hashnode.js";
+import { steamGenerator } from "./steam.js";
 import type { GeneratorSource } from "./types.js";
 
 /**
@@ -31,18 +44,37 @@ import type { GeneratorSource } from "./types.js";
  * To add a new generator: create the file, import it here, add to this array. Done.
  */
 export const generators: GeneratorSource[] = [
+  // Code
   githubGenerator,
   gitlabGenerator,
-  stackoverflowGenerator,
+  // Writing
   devtoGenerator,
   mediumGenerator,
+  hashnodeGenerator,
+  openlibraryGenerator,
+  orcidGenerator,
+  semanticScholarGenerator,
+  // Community
+  stackoverflowGenerator,
   hackernewsGenerator,
   mastodonGenerator,
   redditGenerator,
+  // Packages
   npmGenerator,
   pypiGenerator,
+  cratesioGenerator,
+  dockerhubGenerator,
+  // Activity
   wakatimeGenerator,
   letterboxdGenerator,
+  goodreadsGenerator,
+  chesscomGenerator,
+  lichessGenerator,
+  codewarsGenerator,
+  lastfmGenerator,
+  steamGenerator,
+  youtubeGenerator,
+  // Identity
   gravatarGenerator,
   keybaseGenerator,
 ];
