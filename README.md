@@ -14,6 +14,28 @@ Built with two extension systems for the community: **generators** (auto-populat
 - 🤖 **MCP native** — Works with any MCP-compatible AI assistant
 - 🛡️ **Schema validation** — Zod-powered validation with helpful error messages
 
+## Installation
+
+**No install needed** — run directly with `npx` (requires Node.js 20+):
+
+```bash
+npx mcp-me --help
+```
+
+Or install globally for repeated use:
+
+```bash
+npm install -g mcp-me
+```
+
+Or add to a project:
+
+```bash
+npm install mcp-me
+```
+
+> **Prerequisite:** [Node.js](https://nodejs.org/) 20 or later. Verify with `node -v`.
+
 ## Quick Start
 
 ```bash
@@ -33,7 +55,7 @@ code ~/my-profile
 npx mcp-me serve ~/my-profile
 ```
 
-The `generate` command pulls your data from public APIs and auto-populates profile YAML files — no API keys needed for most sources.
+All commands work with `npx` (zero install) or with `mcp-me` directly if installed globally. The `generate` command pulls your data from public APIs and auto-populates profile YAML files — no API keys needed for most sources.
 
 ## Configure Your AI Assistant
 
