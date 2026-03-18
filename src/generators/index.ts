@@ -37,6 +37,12 @@ import { lastfmGenerator } from "./lastfm.js";
 import { youtubeGenerator } from "./youtube.js";
 import { hashnodeGenerator } from "./hashnode.js";
 import { steamGenerator } from "./steam.js";
+import { blueskyGenerator } from "./bluesky.js";
+import { leetcodeGenerator } from "./leetcode.js";
+import { bitbucketGenerator } from "./bitbucket.js";
+import { huggingfaceGenerator } from "./huggingface.js";
+import { substackGenerator } from "./substack.js";
+import { twitchGenerator } from "./twitch.js";
 import type { GeneratorSource } from "./types.js";
 
 /**
@@ -47,17 +53,22 @@ export const generators: GeneratorSource[] = [
   // Code
   githubGenerator,
   gitlabGenerator,
+  bitbucketGenerator,
+  huggingfaceGenerator,
   // Writing
   devtoGenerator,
   mediumGenerator,
   hashnodeGenerator,
+  substackGenerator,
   openlibraryGenerator,
   orcidGenerator,
   semanticScholarGenerator,
+  youtubeGenerator,
   // Community
   stackoverflowGenerator,
   hackernewsGenerator,
   mastodonGenerator,
+  blueskyGenerator,
   redditGenerator,
   // Packages
   npmGenerator,
@@ -71,9 +82,10 @@ export const generators: GeneratorSource[] = [
   chesscomGenerator,
   lichessGenerator,
   codewarsGenerator,
+  leetcodeGenerator,
   lastfmGenerator,
   steamGenerator,
-  youtubeGenerator,
+  twitchGenerator,
   // Identity
   gravatarGenerator,
   keybaseGenerator,
