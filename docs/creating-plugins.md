@@ -263,6 +263,49 @@ interface PluginPrompt {
 7. **Use semantic versioning** — Follow semver for your plugin versions
 8. **Add the `mcp-me-plugin` keyword** — Helps with npm discoverability
 
+## Scaffolding a New Plugin
+
+The fastest way to start is with the built-in scaffolding command:
+
+```bash
+mcp-me create plugin myservice
+```
+
+This creates `src/plugins/myservice/schema.ts` and `src/plugins/myservice/index.ts` with ready-to-edit templates. Then:
+
+1. Edit the schema and index files — implement your API calls
+2. Register in `src/plugin-engine/loader.ts` (one import + one registry entry)
+3. Run `npm test` — the **plugin harness** validates it automatically
+
+## Test Harness
+
+Every registered built-in plugin is automatically tested by `tests/plugins/plugin-harness.test.ts`:
+
+- Validates factory returns a valid `McpMePlugin` (name, description, version)
+- Initializes with minimal config
+- Verifies `getResources()` and `getTools()` return arrays with required fields
+- Checks all resource URIs follow `me://` convention
+- Verifies every plugin directory in `src/plugins/` is registered
+- No manual test setup needed — just register and it's covered
+
+## Built-in Plugins (13)
+
+| Plugin | Resources | Tools | Auth |
+|---|---|---|---|
+| **github** | profile, repos, activity, languages | `get_github_repos` | Optional token |
+| **spotify** | now playing, top artists, top tracks, recently played | `get_spotify_top`, `get_spotify_now_playing` | OAuth (refresh token) |
+| **linkedin** | profile, experience, education, skills | `search_linkedin_data` | Data export JSON |
+| **wakatime** | stats, languages, activity | `get_wakatime_stats` | Optional API key |
+| **devto** | profile, articles | `get_devto_articles` | Optional API key |
+| **bluesky** | profile, feed | `get_bluesky_posts` | None |
+| **hackernews** | profile, stories | `get_hn_stories` | None |
+| **reddit** | profile, posts | `get_reddit_karma` | None |
+| **gitlab** | profile, projects, activity | `get_gitlab_projects` | Optional token |
+| **mastodon** | profile, toots | `get_mastodon_posts` | None |
+| **youtube** | channel, videos | `get_youtube_videos` | Optional API key |
+| **lastfm** | profile, recent, top artists | `get_lastfm_now_playing`, `get_lastfm_top` | Optional API key |
+| **steam** | profile, games | `get_steam_recent_games`, `get_steam_playtime` | Optional API key |
+
 ## Local Development
 
 You can test your plugin locally without publishing:

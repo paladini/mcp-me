@@ -4,11 +4,11 @@
 
 **mcp-me** makes it easy for AI assistants (Claude, Copilot, Cursor, Windsurf, etc.) to know about *you* — your bio, career, skills, interests, projects, and more — by serving structured personal data through a standardized MCP server.
 
-Built with two extension systems for the community: **generators** (auto-populate from 14 data sources) and **plugins** (live data for AI at runtime).
+Built with two extension systems for the community: **generators** (auto-populate from 42 data sources) and **plugins** (13 live integrations for AI at runtime).
 
 ## Features
 
-- ⚡ **Auto-generate from 14 sources** — GitHub, GitLab, Stack Overflow, DEV.to, Medium, npm, and more
+- ⚡ **Auto-generate from 42 sources** — GitHub, GitLab, Stack Overflow, DEV.to, Kaggle, AniList, and many more
 - 📝 **YAML-based profiles** — Human-friendly, version-controllable personal data
 - 🔌 **Plugin ecosystem** — Community-built live integrations (Spotify, LinkedIn, etc.)
 - 🤖 **MCP native** — Works with any MCP-compatible AI assistant
@@ -126,7 +126,7 @@ Static profile data exposed as MCP resources:
 - **`technical_profile`** — Describe technical skills and stack
 - **`collaboration_fit`** — Evaluate fit for a project
 
-## Generators (14 data sources)
+## Generators (42 data sources)
 
 Generators run during `mcp-me generate` to auto-populate your profile from public APIs. **No API keys needed** for most sources.
 
@@ -134,22 +134,51 @@ Generators run during `mcp-me generate` to auto-populate your profile from publi
 |---|---|---|---|
 | **Code** | `--github <user>` | GitHub API | Repos, languages, stars, profile |
 | **Code** | `--gitlab <user>` | GitLab API | Projects, topics, profile |
+| **Code** | `--bitbucket <user>` | Bitbucket API | Repos, languages |
+| **Code** | `--huggingface <user>` | Hugging Face API | Models, datasets, spaces |
+| **Code** | `--kaggle <user>` | Kaggle API | Competitions, datasets, medals |
+| **Code** | `--codeberg <user>` | Gitea API | Repos, languages |
 | **Writing** | `--devto <user>` | DEV.to API | Articles, tags, reactions |
 | **Writing** | `--medium <user>` | Medium RSS | Articles, categories |
+| **Writing** | `--hashnode <user>` | Hashnode GraphQL | Blog posts, tags |
+| **Writing** | `--substack <user>` | Substack RSS | Newsletter posts |
+| **Writing** | `--wordpress <site>` | WordPress API | Blog posts, categories, tags |
+| **Writing** | `--openlibrary <user>` | Open Library API | Books authored |
+| **Writing** | `--orcid <id>` | ORCID API | Academic publications |
+| **Writing** | `--semanticscholar <id>` | S2 API | Research papers, citations |
+| **Writing** | `--youtube <channel>` | YouTube RSS | Videos, channel info |
 | **Community** | `--stackoverflow <id>` | Stack Exchange API | Top tags, reputation, badges |
 | **Community** | `--hackernews <user>` | HN Firebase API | Karma, submissions |
 | **Community** | `--mastodon <user@host>` | Mastodon API | Posts, hashtags, bio |
+| **Community** | `--bluesky <handle>` | AT Protocol API | Posts, followers |
 | **Community** | `--reddit <user>` | Reddit JSON API | Karma, bio |
+| **Community** | `--producthunt <user>` | ProductHunt GraphQL | Launched products, upvotes |
+| **Community** | `--threads <user>` | Threads API | Bio, follower stats |
 | **Packages** | `--npm <user>` | npm Registry | Published packages |
 | **Packages** | `--pypi <pkgs>` | PyPI JSON API | Package metadata |
+| **Packages** | `--crates <user>` | Crates.io API | Rust crates |
+| **Packages** | `--dockerhub <user>` | Docker Hub API | Container images |
 | **Activity** | `--wakatime <user>` | WakaTime API | Coding time, languages, editors |
 | **Activity** | `--letterboxd <user>` | Letterboxd RSS | Films watched, ratings |
+| **Activity** | `--goodreads <user>` | Goodreads RSS | Books, reading list |
+| **Activity** | `--chess <user>` | Chess.com API | Rating, stats |
+| **Activity** | `--lichess <user>` | Lichess API | Rating, games |
+| **Activity** | `--codewars <user>` | Codewars API | Rank, honor, languages |
+| **Activity** | `--leetcode <user>` | LeetCode GraphQL | Problems solved, contests |
+| **Activity** | `--lastfm <user>` | Last.fm API | Listening history, top artists |
+| **Activity** | `--steam <id>` | Steam API | Games, playtime |
+| **Activity** | `--twitch <user>` | Twitch API | Stream info |
+| **Activity** | `--dribbble <user>` | Dribbble | Design shots, portfolio |
+| **Activity** | `--unsplash <user>` | Unsplash API | Photos, downloads, collections |
+| **Activity** | `--exercism <user>` | Exercism API | Language tracks, exercises |
+| **Activity** | `--hackerrank <user>` | HackerRank API | Badges, challenges solved |
+| **Activity** | `--anilist <user>` | AniList GraphQL | Anime/manga stats, genres |
 | **Identity** | `--gravatar <email>` | Gravatar API | Bio, linked accounts, photo |
 | **Identity** | `--keybase <user>` | Keybase API | Verified identity proofs |
 
 Want to add a new data source? See the [Generator Creation Guide](docs/creating-generators.md).
 
-## Plugins (live data at runtime)
+## Plugins (13 live integrations)
 
 Plugins run during `mcp-me serve` and provide **real-time data** to AI assistants on every query.
 
@@ -158,6 +187,16 @@ Plugins run during `mcp-me serve` and provide **real-time data** to AI assistant
 | **GitHub** | Live repos, activity, languages | Optional token |
 | **Spotify** | Now playing, top artists, playlists | OAuth required |
 | **LinkedIn** | Professional history from export | Local JSON file |
+| **WakaTime** | Live coding stats, languages | Optional API key |
+| **DEV.to** | Live articles, reactions | Optional API key |
+| **Bluesky** | Live posts, profile, followers | None |
+| **Hacker News** | Live stories, karma | None |
+| **Reddit** | Live karma, posts | None |
+| **GitLab** | Live projects, activity, MRs | Optional token |
+| **Mastodon** | Live toots, profile, engagement | None |
+| **YouTube** | Live videos, channel stats | Optional API key |
+| **Last.fm** | Now playing, top artists, scrobbles | Optional API key |
+| **Steam** | Currently playing, game library | Optional API key |
 
 Enable plugins in `plugins.yaml`:
 
@@ -199,6 +238,10 @@ mcp-me validate <directory>
 
 # Start the MCP server
 mcp-me serve <directory>
+
+# Scaffold a new generator or plugin (for contributors)
+mcp-me create generator <name> [--category <category>]
+mcp-me create plugin <name>
 ```
 
 ## Development

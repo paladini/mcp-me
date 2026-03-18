@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { cp, mkdir, readdir, access } from "node:fs/promises";
+import { cp, mkdir, readdir, access, writeFile } from "node:fs/promises";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -192,5 +192,200 @@ generateCmd.action(async (directory: string, options: Record<string, string | bo
     process.exit(1);
   }
 });
+
+// --- Scaffolding: mcp-me create generator/plugin ---
+const createCmd = program
+  .command("create")
+  .description("Scaffold a new generator or plugin from a template");
+
+createCmd
+  .command("generator")
+  .description("Create a new generator file with boilerplate code")
+  .argument("<name>", "Generator name (e.g. myservice)")
+  .option("-c, --category <category>", "Category: code, writing, community, packages, activity, identity", "community")
+  .action(async (name: string, options: { category: string }) => {
+    const fileName = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const className = fileName.charAt(0).toUpperCase() + fileName.slice(1);
+    const filePath = join(__dirname, "..", "src", "generators", `${fileName}.ts`);
+
+    try {
+      await access(filePath);
+      console.error(`Generator file already exists: src/generators/${fileName}.ts`);
+      process.exit(1);
+    } catch {
+      // File doesn't exist — good
+    }
+
+    const template = `/**
+ * ${className} Generator
+ *
+ * TODO: Describe what data this generator fetches.
+ *
+ * @flag --${fileName} <username>
+ * @example mcp-me generate ./profile --${fileName} myuser
+ * @auth None required (public API)
+ * @api TODO: API documentation URL
+ * @data identity, skills, projects, faq (update as needed)
+ */
+import type { GeneratorSource, PartialProfile } from "./types.js";
+
+interface ${className}User {
+  username: string;
+  displayName: string;
+  bio: string;
+  // TODO: Add API response fields
+}
+
+export const ${fileName}Generator: GeneratorSource = {
+  name: "${fileName}",
+  flag: "${fileName}",
+  flagArg: "<username>",
+  description: "TODO: Short description for CLI help",
+  category: "${options.category}",
+
+  async generate(config): Promise<PartialProfile> {
+    const username = config.username as string;
+    if (!username) throw new Error("${className} username is required");
+
+    console.log(\`  [${className}] Fetching profile for \${username}...\`);
+
+    const resp = await fetch(\`https://api.example.com/users/\${username}\`, {
+      headers: { Accept: "application/json", "User-Agent": "mcp-me-generator" },
+    });
+    if (!resp.ok) throw new Error(\`${className} API error: \${resp.status} \${resp.statusText}\`);
+    const user = (await resp.json()) as ${className}User;
+
+    console.log(\`  [${className}] Found: \${user.displayName}\`);
+
+    return {
+      identity: {
+        name: user.displayName,
+        bio: user.bio,
+        contact: {
+          social: [{ platform: "${fileName}", url: \`https://example.com/\${username}\`, username }],
+        },
+      },
+      // TODO: Add skills, projects, faq as applicable
+    };
+  },
+};
+`;
+
+    await writeFile(filePath, template, "utf-8");
+    console.log(`  Created: src/generators/${fileName}.ts`);
+    console.log();
+    console.log("Next steps:");
+    console.log(`  1. Edit src/generators/${fileName}.ts — implement the API calls`);
+    console.log(`  2. Add to src/generators/index.ts:`);
+    console.log(`     import { ${fileName}Generator } from "./${fileName}.js";`);
+    console.log(`     // Then add ${fileName}Generator to the generators array`);
+    console.log(`  3. Run: npm test (the generator harness will validate it automatically)`);
+  });
+
+createCmd
+  .command("plugin")
+  .description("Create a new plugin directory with boilerplate code")
+  .argument("<name>", "Plugin name (e.g. myservice)")
+  .action(async (name: string) => {
+    const pluginName = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const className = pluginName.charAt(0).toUpperCase() + pluginName.slice(1);
+    const pluginDir = join(__dirname, "..", "src", "plugins", pluginName);
+
+    try {
+      await access(pluginDir);
+      console.error(`Plugin directory already exists: src/plugins/${pluginName}/`);
+      process.exit(1);
+    } catch {
+      // Directory doesn't exist — good
+    }
+
+    await mkdir(pluginDir, { recursive: true });
+
+    // schema.ts
+    const schemaContent = `import { z } from "zod";
+
+export const ${pluginName}PluginConfigSchema = z.object({
+  enabled: z.boolean().optional().default(true),
+  username: z.string().describe("${className} username"),
+  // TODO: Add config fields (use _env suffix for secrets)
+});
+
+export type ${className}PluginConfig = z.infer<typeof ${pluginName}PluginConfigSchema>;
+`;
+
+    // index.ts
+    const indexContent = `/**
+ * ${className} Plugin
+ *
+ * TODO: Describe what live data this plugin provides.
+ *
+ * @config username: ${className} username
+ */
+import { z } from "zod";
+import type { McpMePlugin, PluginResource, PluginTool } from "../../plugin-engine/types.js";
+import { ${pluginName}PluginConfigSchema, type ${className}PluginConfig } from "./schema.js";
+
+class ${className}Plugin implements McpMePlugin {
+  name = "${pluginName}";
+  description = "TODO: Plugin description.";
+  version = "0.1.0";
+
+  private config!: ${className}PluginConfig;
+
+  async initialize(rawConfig: Record<string, unknown>): Promise<void> {
+    this.config = ${pluginName}PluginConfigSchema.parse(rawConfig);
+  }
+
+  getResources(): PluginResource[] {
+    return [
+      {
+        name: "${pluginName}-profile",
+        uri: "me://${pluginName}/profile",
+        title: "${className} Profile",
+        description: \`${className} profile for \${this.config.username}\`,
+        read: async () => {
+          // TODO: Fetch live data from API
+          return JSON.stringify({ username: this.config.username }, null, 2);
+        },
+      },
+    ];
+  }
+
+  getTools(): PluginTool[] {
+    return [
+      {
+        name: "get_${pluginName}_data",
+        title: "Get ${className} Data",
+        description: \`Get data from ${className} for \${this.config.username}\`,
+        inputSchema: z.object({}),
+        annotations: { readOnlyHint: true },
+        execute: async () => {
+          // TODO: Implement tool logic
+          return JSON.stringify({ status: "ok" });
+        },
+      },
+    ];
+  }
+}
+
+export default function createPlugin(): McpMePlugin {
+  return new ${className}Plugin();
+}
+`;
+
+    await writeFile(join(pluginDir, "schema.ts"), schemaContent, "utf-8");
+    await writeFile(join(pluginDir, "index.ts"), indexContent, "utf-8");
+
+    console.log(`  Created: src/plugins/${pluginName}/schema.ts`);
+    console.log(`  Created: src/plugins/${pluginName}/index.ts`);
+    console.log();
+    console.log("Next steps:");
+    console.log(`  1. Edit src/plugins/${pluginName}/schema.ts — define your config fields`);
+    console.log(`  2. Edit src/plugins/${pluginName}/index.ts — implement resources and tools`);
+    console.log(`  3. Register in src/plugin-engine/loader.ts:`);
+    console.log(`     import create${className}Plugin from "../plugins/${pluginName}/index.js";`);
+    console.log(`     // Then add to BUILTIN_REGISTRY: ${pluginName}: create${className}Plugin`);
+    console.log(`  4. Run: npm test (the plugin harness will validate it automatically)`);
+  });
 
 program.parse();

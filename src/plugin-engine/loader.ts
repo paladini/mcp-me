@@ -8,6 +8,11 @@ import createDevToPlugin from "../plugins/devto/index.js";
 import createBlueskyPlugin from "../plugins/bluesky/index.js";
 import createHackerNewsPlugin from "../plugins/hackernews/index.js";
 import createRedditPlugin from "../plugins/reddit/index.js";
+import createGitLabPlugin from "../plugins/gitlab/index.js";
+import createMastodonPlugin from "../plugins/mastodon/index.js";
+import createYouTubePlugin from "../plugins/youtube/index.js";
+import createLastfmPlugin from "../plugins/lastfm/index.js";
+import createSteamPlugin from "../plugins/steam/index.js";
 
 /** Registry of built-in plugins with explicit imports (avoids dynamic import bundling issues). */
 const BUILTIN_REGISTRY: Record<string, McpMePluginFactory> = {
@@ -19,6 +24,11 @@ const BUILTIN_REGISTRY: Record<string, McpMePluginFactory> = {
   bluesky: createBlueskyPlugin,
   hackernews: createHackerNewsPlugin,
   reddit: createRedditPlugin,
+  gitlab: createGitLabPlugin,
+  mastodon: createMastodonPlugin,
+  youtube: createYouTubePlugin,
+  lastfm: createLastfmPlugin,
+  steam: createSteamPlugin,
 };
 
 /**

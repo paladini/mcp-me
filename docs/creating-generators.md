@@ -187,36 +187,86 @@ import { myserviceGenerator } from "../../src/generators/myservice.js";
 
 **When to build a plugin:** The data is dynamic and the AI needs real-time access (now playing, current availability, live stats).
 
-## Current Generators (14)
+## Current Generators (42)
 
 | Category | Generator | API | Auth |
 |---|---|---|---|
 | **Code** | `--github` | GitHub REST API v3 | Optional token |
 | **Code** | `--gitlab` | GitLab REST API v4 | None |
+| **Code** | `--bitbucket` | Bitbucket REST API v2 | None |
+| **Code** | `--huggingface` | Hugging Face API | None |
+| **Code** | `--kaggle` | Kaggle API | None |
+| **Code** | `--codeberg` | Gitea REST API v1 | None |
 | **Writing** | `--devto` | DEV.to API | None |
 | **Writing** | `--medium` | Medium RSS feed | None |
+| **Writing** | `--hashnode` | Hashnode GraphQL API | None |
+| **Writing** | `--substack` | Substack RSS | None |
+| **Writing** | `--openlibrary` | Open Library API | None |
+| **Writing** | `--orcid` | ORCID Public API | None |
+| **Writing** | `--semanticscholar` | Semantic Scholar API | None |
+| **Writing** | `--youtube` | YouTube RSS / Data API | Optional key |
+| **Writing** | `--wordpress` | WordPress REST API v2 | None |
 | **Community** | `--stackoverflow` | Stack Exchange API v2.3 | None |
 | **Community** | `--hackernews` | HN Firebase API | None |
 | **Community** | `--mastodon` | Mastodon API v1 | None |
+| **Community** | `--bluesky` | AT Protocol API | None |
 | **Community** | `--reddit` | Reddit JSON API | None |
+| **Community** | `--producthunt` | ProductHunt GraphQL | None |
+| **Community** | `--threads` | Threads API | None |
 | **Packages** | `--npm` | npm Registry API | None |
 | **Packages** | `--pypi` | PyPI JSON API | None |
+| **Packages** | `--crates` | Crates.io API | None |
+| **Packages** | `--dockerhub` | Docker Hub API | None |
 | **Activity** | `--wakatime` | WakaTime API v1 | None (public profile) |
 | **Activity** | `--letterboxd` | Letterboxd RSS | None |
+| **Activity** | `--goodreads` | Goodreads RSS | None |
+| **Activity** | `--chess` | Chess.com API | None |
+| **Activity** | `--lichess` | Lichess API | None |
+| **Activity** | `--codewars` | Codewars API | None |
+| **Activity** | `--leetcode` | LeetCode GraphQL | None |
+| **Activity** | `--lastfm` | Last.fm API | Optional key |
+| **Activity** | `--steam` | Steam Web API | Optional key |
+| **Activity** | `--twitch` | Twitch API | None |
+| **Activity** | `--dribbble` | Dribbble public profile | None |
+| **Activity** | `--unsplash` | Unsplash API | None |
+| **Activity** | `--exercism` | Exercism API v2 | None |
+| **Activity** | `--hackerrank` | HackerRank REST API | None |
+| **Activity** | `--anilist` | AniList GraphQL | None |
 | **Identity** | `--gravatar` | Gravatar JSON API | None |
 | **Identity** | `--keybase` | Keybase API v1 | None |
+
+## Scaffolding a New Generator
+
+The fastest way to start is with the built-in scaffolding command:
+
+```bash
+mcp-me create generator myservice --category community
+```
+
+This creates `src/generators/myservice.ts` with a ready-to-edit template. Then:
+
+1. Edit the file — implement your API calls
+2. Register in `src/generators/index.ts` (one import + one array entry)
+3. Run `npm test` — the **generator harness** validates it automatically
+
+## Test Harness
+
+Every registered generator is automatically tested by `tests/generators/generator-harness.test.ts`:
+
+- Validates `name`, `flag`, `flagArg`, `description`, `category`, `generate()` exist
+- Checks no duplicate names or flags
+- Verifies every `.ts` file in `src/generators/` is registered
+- No manual test setup needed — just register and it's covered
 
 ## Ideas for New Generators
 
 Looking to contribute? Here are some public APIs that would make great generators:
 
-- **Hashnode** — GraphQL API for tech blog articles
-- **Dribbble** — Design portfolio shots
-- **ORCID** — Academic publications and research
-- **Goodreads** — Reading list via RSS feed
-- **Last.fm** — Music listening history (needs API key)
-- **Chess.com** — Player stats and rating
-- **Lichess** — Chess profile (public API, no auth)
-- **Crates.io** — Rust packages
-- **Docker Hub** — Published container images
-- **Kaggle** — Data science competitions and datasets
+- **Behance** — Adobe creative portfolio
+- **Figma Community** — Figma plugins/files
+- **CodinGame** — Competitive programming
+- **SourceHut** — sr.ht code hosting
+- **MyAnimeList** — Anime/manga tracking
+- **Spotify** — Public playlists (generator, not plugin)
+- **Twitch VODs** — Stream history and clips
+- **GitBook** — Published documentation

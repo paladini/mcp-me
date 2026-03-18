@@ -43,6 +43,16 @@ import { bitbucketGenerator } from "./bitbucket.js";
 import { huggingfaceGenerator } from "./huggingface.js";
 import { substackGenerator } from "./substack.js";
 import { twitchGenerator } from "./twitch.js";
+import { kaggleGenerator } from "./kaggle.js";
+import { dribbbleGenerator } from "./dribbble.js";
+import { producthuntGenerator } from "./producthunt.js";
+import { exercismGenerator } from "./exercism.js";
+import { hackerrankGenerator } from "./hackerrank.js";
+import { wordpressGenerator } from "./wordpress.js";
+import { unsplashGenerator } from "./unsplash.js";
+import { codebergGenerator } from "./codeberg.js";
+import { anilistGenerator } from "./anilist.js";
+import { threadsGenerator } from "./threads.js";
 import type { GeneratorSource } from "./types.js";
 
 /**
@@ -89,4 +99,19 @@ export const generators: GeneratorSource[] = [
   // Identity
   gravatarGenerator,
   keybaseGenerator,
+  // Creative & Design
+  dribbbleGenerator,
+  unsplashGenerator,
+  // Community (additional)
+  producthuntGenerator,
+  threadsGenerator,
+  // Activity (additional)
+  exercismGenerator,
+  hackerrankGenerator,
+  anilistGenerator,
+  // Code (additional)
+  kaggleGenerator,
+  codebergGenerator,
+  // Writing (additional)
+  wordpressGenerator,
 ];
