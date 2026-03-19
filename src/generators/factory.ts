@@ -85,7 +85,7 @@ export function createGenerator(config: SimpleGeneratorConfig): GeneratorSource 
     description: config.description,
     category: config.category,
     async generate(opts): Promise<PartialProfile> {
-      const input = (opts.username ?? opts.handle ?? opts.userId ?? opts.email) as string;
+      const input = String(opts.username ?? opts.handle ?? opts.userId ?? opts.email ?? "");
       if (!input) throw new Error(`${label} input is required`);
 
       console.log(`  [${label}] Fetching data for ${input}...`);
@@ -161,7 +161,7 @@ export function createRssGenerator(config: RssGeneratorConfig): GeneratorSource 
     description: config.description,
     category: config.category,
     async generate(opts): Promise<PartialProfile> {
-      const input = (opts.username ?? opts.handle ?? opts.userId) as string;
+      const input = String(opts.username ?? opts.handle ?? opts.userId ?? "");
       if (!input) throw new Error(`${label} input is required`);
 
       console.log(`  [${label}] Fetching RSS for ${input}...`);
@@ -226,7 +226,7 @@ export function createStaticGenerator(config: StaticGeneratorConfig): GeneratorS
     description: config.description,
     category: config.category,
     async generate(opts): Promise<PartialProfile> {
-      const input = (opts.username ?? opts.handle ?? opts.userId ?? opts.email) as string;
+      const input = String(opts.username ?? opts.handle ?? opts.userId ?? opts.email ?? "");
       if (!input) throw new Error(`${label} input is required`);
       console.log(`  [${label}] Building profile for ${input}...`);
       return config.buildProfile(input);

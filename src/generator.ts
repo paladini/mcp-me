@@ -90,7 +90,16 @@ export async function generateProfile(options: GenerateOptions): Promise<Generat
     try {
       partials.push(await task.run());
     } catch (error) {
-      warnings.push(`[${task.name}] Failed: ${(error as Error).message}`);
+      const msg = (error as Error).message;
+      // Provide actionable hints for common network errors
+      if (msg.includes("fetch failed") || msg.includes("SELF_SIGNED_CERT")) {
+        warnings.push(
+          `[${task.name}] Failed: Network error (${(error as Error).cause ? ((error as Error).cause as { code?: string }).code ?? "fetch failed" : "fetch failed"}). ` +
+          `If you're behind a corporate proxy/VPN, try: NODE_TLS_REJECT_UNAUTHORIZED=0 mcp-me generate <dir>`
+        );
+      } else {
+        warnings.push(`[${task.name}] Failed: ${msg}`);
+      }
     }
   }
 

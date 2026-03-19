@@ -144,7 +144,13 @@ export async function loadGeneratorsConfig(
   profileDir: string,
 ): Promise<Record<string, string>> {
   const config = await loadConfig(profileDir);
-  return config.generators;
+  // YAML parses bare numbers (e.g. goodreads: 16062300) as integers, not strings.
+  // Coerce all values to strings so generators can safely call .split(), etc.
+  const coerced: Record<string, string> = {};
+  for (const [key, value] of Object.entries(config.generators)) {
+    coerced[key] = String(value);
+  }
+  return coerced;
 }
 
 /**
