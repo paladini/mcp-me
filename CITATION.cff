@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use mcp-me, please cite it as below."
+type: software
+title: "mcp-me"
+abstract: "A community-driven MCP server framework that lets anyone expose personal information to AI assistants via the Model Context Protocol. 342+ generators, 13 plugins."
+authors:
+  - family-names: "Paladini"
+    given-names: "Fernando"
+    orcid: ""
+repository-code: "https://github.com/paladini/mcp-me"
+url: "https://www.npmjs.com/package/mcp-me"
+license: MIT
+keywords:
+  - mcp
+  - model-context-protocol
+  - ai
+  - llm
+  - personal-profile
+  - yaml
+  - plugin
+  - generator
+  - typescript
+  - cli
+  - mcp-server

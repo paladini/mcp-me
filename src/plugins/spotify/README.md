@@ -4,7 +4,7 @@ Integrates with the Spotify Web API to provide music taste, top artists, top tra
 
 ## Configuration
 
-Add to your `plugins.yaml`:
+Add to your `.mcp-me.yaml`:
 
 ```yaml
 plugins:

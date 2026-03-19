@@ -1,20 +1,44 @@
 import { resolve } from "node:path";
 import type { McpMePlugin, McpMePluginFactory } from "./types.js";
+import createGitHubPlugin from "../plugins/github/index.js";
+import createSpotifyPlugin from "../plugins/spotify/index.js";
+import createLinkedInPlugin from "../plugins/linkedin/index.js";
+import createWakaTimePlugin from "../plugins/wakatime/index.js";
+import createDevToPlugin from "../plugins/devto/index.js";
+import createBlueskyPlugin from "../plugins/bluesky/index.js";
+import createHackerNewsPlugin from "../plugins/hackernews/index.js";
+import createRedditPlugin from "../plugins/reddit/index.js";
+import createGitLabPlugin from "../plugins/gitlab/index.js";
+import createMastodonPlugin from "../plugins/mastodon/index.js";
+import createYouTubePlugin from "../plugins/youtube/index.js";
+import createLastfmPlugin from "../plugins/lastfm/index.js";
+import createSteamPlugin from "../plugins/steam/index.js";
 
-/** Built-in plugin names that ship with mcp-me */
-const BUILTIN_PLUGINS = ["github", "spotify", "linkedin"] as const;
+/** Registry of built-in plugins with explicit imports (avoids dynamic import bundling issues). */
+export const BUILTIN_REGISTRY: Record<string, McpMePluginFactory> = {
+  github: createGitHubPlugin,
+  spotify: createSpotifyPlugin,
+  linkedin: createLinkedInPlugin,
+  wakatime: createWakaTimePlugin,
+  devto: createDevToPlugin,
+  bluesky: createBlueskyPlugin,
+  hackernews: createHackerNewsPlugin,
+  reddit: createRedditPlugin,
+  gitlab: createGitLabPlugin,
+  mastodon: createMastodonPlugin,
+  youtube: createYouTubePlugin,
+  lastfm: createLastfmPlugin,
+  steam: createSteamPlugin,
+};
 
 /**
  * Load a built-in plugin by name.
  */
-async function loadBuiltinPlugin(name: string): Promise<McpMePlugin | null> {
+function loadBuiltinPlugin(name: string): McpMePlugin | null {
+  const factory = BUILTIN_REGISTRY[name];
+  if (!factory) return null;
+
   try {
-    const mod = await import(`../plugins/${name}/index.js`);
-    const factory: McpMePluginFactory = mod.default ?? mod.createPlugin;
-    if (typeof factory !== "function") {
-      console.error(`Built-in plugin "${name}" does not export a factory function.`);
-      return null;
-    }
     return factory();
   } catch (error) {
     console.error(`Failed to load built-in plugin "${name}":`, (error as Error).message);
@@ -60,7 +84,7 @@ async function loadLocalPlugin(filePath: string): Promise<McpMePlugin | null> {
 }
 
 /**
- * Discover and load all enabled plugins based on the plugins.yaml config.
+ * Discover and load all enabled plugins based on the .mcp-me.yaml config.
  *
  * Loading order:
  * 1. Built-in plugins from src/plugins/
@@ -80,8 +104,8 @@ export async function discoverPlugins(
     let plugin: McpMePlugin | null = null;
 
     // 1. Try built-in
-    if ((BUILTIN_PLUGINS as readonly string[]).includes(name)) {
-      plugin = await loadBuiltinPlugin(name);
+    if (name in BUILTIN_REGISTRY) {
+      plugin = loadBuiltinPlugin(name);
     }
 
     // 2. Try npm package

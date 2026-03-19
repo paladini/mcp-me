@@ -4,7 +4,7 @@ Integrates with the GitHub API to provide repository, contribution, language, an
 
 ## Configuration
 
-Add to your `plugins.yaml`:
+Add to your `.mcp-me.yaml`:
 
 ```yaml
 plugins:

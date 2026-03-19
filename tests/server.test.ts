@@ -47,7 +47,7 @@ describe("createMcpMeServer", () => {
     }
   });
 
-  it("works with missing plugins.yaml", async () => {
+  it("works with missing .mcp-me.yaml", async () => {
     const server = await createMcpMeServer(TEST_DIR);
     expect(server).toBeDefined();
   });
