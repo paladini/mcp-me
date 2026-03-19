@@ -80,11 +80,11 @@ generators:
   # webring: your-webring-url
 
   # ── Packages & Registries ──────────────────────────────────────────────────
-  # npm: your-username
+  npm: paladini
   # pypi: package1,package2
   # crates: your-username
-  # dockerhub: your-username
-  # rubygems: your-username
+  dockerhub: paladini
+  rubygems: paladini
   # packagist: your-vendor
   # nuget: your-author
   # hexpm: your-username
@@ -296,7 +296,7 @@ generators:
   # habitica: your-user-id
 
   # ── Identity & Personal ────────────────────────────────────────────────────
-  # gravatar: your@email.com                 # optional: set GRAVATAR_API_KEY for full profile
+  gravatar: fnpaladini@gmail.com                 # optional: set GRAVATAR_API_KEY for full profile
   # keybase: your-username
   # linkedin: /path/to/linkedin-export.json  # LinkedIn data export (JSON format)
   # polywork: your-username
@@ -304,18 +304,18 @@ generators:
   # personalsite: https://your-site.com
   # nowpage: https://your-site.com/now
   # usespage: https://your-site.com/uses
-  # biolink: your-linktree-slug
+  biolink: your-linktree-slug
   # pronouns: they/them
   # mbti: INTJ
   # enneagram: 5
   # hogwarts: gryffindor
   # alignment: chaotic-good
-  # timezone: America/Sao_Paulo
-  # languagesspoken: English,Portuguese,Spanish
+  timezone: America/Sao_Paulo
+  languagesspoken: English,Portuguese,Spanish
   # ide: vscode
-  # os: Linux
+  os: Linux
   # keyboard: your-keyboard-model
-  # dotfiles: your-github-username
+  dotfiles: paladini
   # zodiac: aquarius
 
 # ═══════════════════════════════════════════════════════════════════════════════

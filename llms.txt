@@ -1,0 +1,48 @@
+# mcp-me
+
+> A community-driven MCP server framework that lets anyone expose personal information to AI assistants via the Model Context Protocol.
+
+mcp-me makes it easy for AI assistants (Claude, Copilot, Cursor, Windsurf, etc.) to know about *you* — your bio, career, skills, interests, projects, and more — by serving structured personal data through a standardized MCP server.
+
+## Key Facts
+
+- **342+ generators** that auto-populate profile YAML files from public APIs (GitHub, GitLab, Medium, Strava, AniList, Duolingo, and hundreds more)
+- **13 built-in plugins** providing real-time data to AI assistants (Spotify now playing, GitHub repos, Last.fm scrobbles, Steam games, etc.)
+- **YAML-based profiles** with 8 categories: identity, career, skills, interests, personality, goals, projects, faq
+- **MCP native** — works with any MCP-compatible AI assistant (Claude Desktop, Cursor, Windsurf, Copilot)
+- **Plugin ecosystem** — community plugins via npm (`mcp-me-plugin-*`), local file plugins, or built-in
+- **Generator factory** — create new generators in ~10 lines using `createGenerator()`, `createRssGenerator()`, `createStaticGenerator()`
+- **Config-driven** — `.mcp-me.yaml` dotfile separates configuration from profile data
+
+## Installation
+
+```bash
+npx mcp-me init ~/my-profile    # Create profile + config
+npx mcp-me generate ~/my-profile # Generate from APIs
+npx mcp-me serve ~/my-profile    # Start MCP server
+```
+
+Or install globally: `npm install -g mcp-me`
+
+## Links
+
+- npm: https://www.npmjs.com/package/mcp-me
+- GitHub: https://github.com/paladini/mcp-me
+- Generator guide: https://github.com/paladini/mcp-me/blob/main/docs/creating-generators.md
+- Plugin guide: https://github.com/paladini/mcp-me/blob/main/docs/creating-plugins.md
+- Schema reference: https://github.com/paladini/mcp-me/blob/main/docs/schema-reference.md
+
+## Generator Categories
+
+Code, Writing, Community, Packages, Activity, Gaming, Music, Creative, Fitness, Food, Travel, Learning, Science, Finance, Maker, Social, Entertainment, Podcasts, Nature, Productivity, Crypto, Identity, Photography, Sports
+
+## Tech Stack
+
+- Runtime: Node.js 20+
+- Language: TypeScript (strict mode)
+- MCP SDK: @modelcontextprotocol/sdk
+- Schema validation: Zod
+- YAML parsing: yaml (npm)
+- CLI: Commander.js
+- Build: tsup (ESM + DTS)
+- Test: Vitest (2187 tests)

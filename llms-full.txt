@@ -1,0 +1,130 @@
+# mcp-me — Full Documentation for LLMs
+
+> A community-driven MCP server framework that lets anyone expose personal information to AI assistants via the Model Context Protocol.
+
+## What is mcp-me?
+
+mcp-me is an open-source Node.js CLI tool and MCP server that helps people create a structured digital identity that AI assistants can read. It solves the problem of AI assistants not knowing anything about the user they're talking to.
+
+With mcp-me, users can:
+1. Auto-generate a profile from 342+ public APIs (GitHub, Medium, Strava, Duolingo, AniList, etc.)
+2. Serve that profile as an MCP server that any AI assistant can connect to
+3. Extend with 13 built-in plugins for real-time data (Spotify now playing, GitHub repos, etc.)
+
+## How it works
+
+1. User runs `mcp-me init ~/my-profile` → creates YAML templates + `.mcp-me.yaml` config
+2. User edits `.mcp-me.yaml` → uncomments data sources (e.g. `github: octocat`)
+3. User runs `mcp-me generate ~/my-profile` → fetches data from APIs, writes YAML files
+4. User runs `mcp-me serve ~/my-profile` → starts MCP server on stdio
+5. AI assistant connects to the MCP server → reads profile data, uses tools and prompts
+
+## Profile YAML Files
+
+- identity.yaml — Name, bio, location, contact info, social links
+- career.yaml — Work experience, education, certifications
+- skills.yaml — Programming languages, technical skills, tools
+- interests.yaml — Hobbies, topics, music, books, movies
+- personality.yaml — Values, traits, MBTI, strengths
+- goals.yaml — Short, medium, and long-term goals
+- projects.yaml — Personal and open-source projects
+- faq.yaml — Custom Q&A pairs about yourself
+
+## MCP Resources
+
+- me://identity — Personal identity and contact
+- me://career — Professional history
+- me://skills — Skills and proficiencies
+- me://interests — Hobbies and preferences
+- me://personality — Personality traits and values
+- me://goals — Personal and professional goals
+- me://projects — Portfolio and projects
+- me://faq — Frequently asked questions
+
+## MCP Tools
+
+- ask_about_me — Free-form question about the user using all profile data as context
+- search_profile — Keyword search across all profile data
+
+## MCP Prompts
+
+- introduce_me — Generate a 2-paragraph introduction
+- summarize_career — Summarize career trajectory
+- technical_profile — Describe technical skills and stack
+- collaboration_fit — Evaluate fit for a project
+
+## Generator Categories (342+ generators)
+
+### Code & Dev (23)
+github, gitlab, bitbucket, huggingface, kaggle, codeberg, codeforces, atcoder, topcoder, projecteuler, codingame, dmoj, kattis, sourcehut, gitea, forgejo, wandb, dagshub, codepen, codesandbox, replit, glitch, observablehq
+
+### Writing & Blogs (15)
+devto, medium, hashnode, substack, wordpress, openlibrary, orcid, semanticscholar, youtube, typefully, convertkit, buttondown, wattpad, royalroad, ao3
+
+### Community & Social (26)
+stackoverflow, hackernews, mastodon, bluesky, reddit, producthunt, threads, twitter, instagram, tiktok, tumblr, pinterest, discord, telegram, lemmy, lobsters, tildes, facebook, linkedin, wikipedia, meetup, speakerdeck, slideshare, indieweb, webring, signal
+
+### Packages & Registries (11)
+npm, pypi, crates, dockerhub, rubygems, packagist, nuget, hexpm, pubdev, cocoapods, maven
+
+### Activity & Tracking (16)
+wakatime, letterboxd, goodreads, chess, lichess, codewars, leetcode, lastfm, steam, twitch, dribbble, unsplash, exercism, hackerrank, anilist, strava
+
+### Gaming & Esports (19)
+speedrun, retroachievements, boardgamegeek, itchio, rawg, osu, minecraft, roblox, lol, valorant, fortnite, apex, overwatch, csgo, pokemongo, moxfield, dndbeyond, bga, nexusmods
+
+### Music & Audio (18)
+soundcloud, bandcamp, discogs, mixcloud, listenbrainz, audius, genius, setlistfm, songkick, rym, ultimateguitar, spotifyartist, splice, beatstars, distrokid, musixmatch, soundtrap, kompoz
+
+### Creative & Design (19)
+deviantart, artstation, pixiv, behance, flickr, 500px, sketchfab, figma, canva, shadertoy, society6, redbubble, openprocessing, threejs, vimeo, dailymotion, peertube, adobeportfolio, cargocollective
+
+### Fitness & Sports (19)
+strava, garmin, myfitnesspal, peloton, runkeeper, alltrails, parkrun, zwift, komoot, fitocracy, coros, espnfantasy, transfermarkt, sofascore, f1, cricket, marathon, yoga, habitica
+
+### Food & Travel (18)
+untappd, vivino, yelp, happycow, allrecipes, cookpad, tripadvisor, nomadlist, foursquare, geocaching, polarsteps, wikiloc, atlasobscura, couchsurfing, beeradvocate, buymeacoffee, whiskybase, openstreetmap
+
+### Learning & Education (19)
+duolingo, coursera, edx, udemy, skillshare, codecademy, freecodecamp, khanacademy, brilliant, pluralsight, memrise, ankiweb, italki, lingq, treehouse, researchgate, zenodo, arxiv, googlescholar
+
+### Entertainment (19)
+tmdb, trakt, simkl, tvtime, mydramalist, mubi, storygraph, librarything, bookwyrm, mangadex, novelupdates, podchaser, goodpods, pocketcasts, anchor, podbean, zodiac, alignment, hogwarts
+
+### Identity & Personal (20)
+gravatar, keybase, polywork, aboutme, personalsite, nowpage, usespage, biolink, pronouns, mbti, enneagram, timezone, languagesspoken, ide, os, keyboard, desksetup, dotfiles, coffeetea, diet
+
+### More Categories
+Maker/Hardware (19), Nature (6), Finance/Crypto (19), Productivity (9), Video/Streaming (19)
+
+## Built-in Plugins (13)
+
+1. github — Live repos, activity, languages (optional token)
+2. spotify — Now playing, top artists, playlists (OAuth)
+3. linkedin — Professional history from data export (local JSON)
+4. wakatime — Live coding stats and languages (optional API key)
+5. devto — Live articles and reactions (optional API key)
+6. bluesky — Live posts, profile, followers (no auth)
+7. hackernews — Live stories and karma (no auth)
+8. reddit — Live karma and posts (no auth)
+9. gitlab — Live projects, MRs, activity (optional token)
+10. mastodon — Live toots, profile, engagement (no auth)
+11. youtube — Live videos, channel stats (optional API key)
+12. lastfm — Now playing, scrobbles, top artists (optional API key)
+13. steam — Currently playing, game library (optional API key)
+
+## Tech Stack
+
+- Runtime: Node.js 20+
+- Language: TypeScript (strict mode)
+- MCP SDK: @modelcontextprotocol/sdk
+- Validation: Zod
+- YAML: yaml (npm)
+- CLI: Commander.js
+- Build: tsup (ESM + DTS)
+- Tests: Vitest (2187 tests)
+- Lint: ESLint 9 + Prettier
+
+## Author
+
+Fernando Paladini — https://github.com/paladini

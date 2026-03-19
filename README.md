@@ -317,6 +317,26 @@ npm run build
 npm run dev
 ```
 
+## FAQ
+
+**What is MCP (Model Context Protocol)?**
+MCP is an open standard by Anthropic that connects AI assistants to external data sources. mcp-me uses MCP to let AI assistants read your personal profile data.
+
+**Do I need API keys?**
+Most generators use public APIs with no auth needed. Some (Strava, Spotify) require tokens — see the `.mcp-me.yaml` comments for details.
+
+**Can I use this with Claude Desktop / Cursor / Windsurf?**
+Yes! Any MCP-compatible AI assistant works. See the [Configure Your AI Assistant](#configure-your-ai-assistant) section.
+
+**How do I add a new data source?**
+Run `mcp-me create generator myservice` to scaffold a new generator, or see the [Generator Creation Guide](docs/creating-generators.md).
+
+**Is my data stored anywhere?**
+No. All data stays local in your YAML files. The MCP server reads from disk — nothing is sent to any cloud.
+
+**How many generators are there?**
+342+ generators across 24 categories — from GitHub and Medium to Zodiac signs and D&D alignment.
+
 ## Contributing
 
 We welcome contributions! Whether it's a new plugin, a bug fix, or documentation improvements — see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
