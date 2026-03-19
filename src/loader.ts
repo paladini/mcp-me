@@ -108,10 +108,6 @@ export interface McpMeConfig {
 
 /**
  * Load the unified .mcp-me.yaml config file from the profile directory.
-<<<<<<< copilot/sub-pr-1-again
- * Falls back to plugins.yaml for backward compatibility (only when file is missing).
-=======
->>>>>>> feat/plugins-v1
  */
 export async function loadConfig(profileDir: string): Promise<McpMeConfig> {
   const configPath = join(profileDir, ".mcp-me.yaml");
@@ -122,19 +118,8 @@ export async function loadConfig(profileDir: string): Promise<McpMeConfig> {
       generators: (parsed?.generators as Record<string, string>) ?? {},
       plugins: (parsed?.plugins as Record<string, Record<string, unknown>>) ?? {},
     };
-<<<<<<< copilot/sub-pr-1-again
-  } catch (error) {
-    // Only fall back to legacy plugins.yaml when the config file is missing.
-    // Re-throw parse errors and permission issues so they are not silently ignored.
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
-      throw error;
-    }
-    const plugins = await loadPluginsConfigLegacy(profileDir);
-    return { generators: {}, plugins };
-=======
   } catch {
     return { generators: {}, plugins: {} };
->>>>>>> feat/plugins-v1
   }
 }
 
