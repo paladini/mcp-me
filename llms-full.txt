@@ -7,7 +7,7 @@
 mcp-me is an open-source Node.js CLI tool and MCP server that helps people create a structured digital identity that AI assistants can read. It solves the problem of AI assistants not knowing anything about the user they're talking to.
 
 With mcp-me, users can:
-1. Auto-generate a profile from 342+ public APIs (GitHub, Medium, Strava, Duolingo, AniList, etc.)
+1. Auto-generate a profile from 328 public APIs (GitHub, Medium, Strava, Duolingo, AniList, etc.)
 2. Serve that profile as an MCP server that any AI assistant can connect to
 3. Extend with 13 built-in plugins for real-time data (Spotify now playing, GitHub repos, etc.)
 
@@ -53,7 +53,7 @@ With mcp-me, users can:
 - technical_profile — Describe technical skills and stack
 - collaboration_fit — Evaluate fit for a project
 
-## Generator Categories (342+ generators)
+## Generator Categories (328 generators)
 
 ### Code & Dev (23)
 github, gitlab, bitbucket, huggingface, kaggle, codeberg, codeforces, atcoder, topcoder, projecteuler, codingame, dmoj, kattis, sourcehut, gitea, forgejo, wandb, dagshub, codepen, codesandbox, replit, glitch, observablehq

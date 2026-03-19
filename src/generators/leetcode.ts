@@ -32,12 +32,12 @@ export const leetcodeGenerator: GeneratorSource = {
     if (!username) throw new Error("LeetCode username is required");
 
     console.log(`  [LeetCode] Fetching profile for ${username}...`);
-    const query = `query { matchedUser(username: "${username}") { username profile { realName aboutMe ranking reputation countryName } submitStats: submitStatsGlobal { acSubmissionNum { difficulty count } } languageProblemCount { languageName problemsSolved } } }`;
+    const query = `query GetUserProfile($username: String!) { matchedUser(username: $username) { username profile { realName aboutMe ranking reputation countryName } submitStats: submitStatsGlobal { acSubmissionNum { difficulty count } } languageProblemCount { languageName problemsSolved } } }`;
 
     const resp = await fetch("https://leetcode.com/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json", "User-Agent": "mcp-me-generator" },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables: { username } }),
     });
     if (!resp.ok) throw new Error(`LeetCode API error: ${resp.status}`);
     const data = (await resp.json()) as { data: LCProfile };

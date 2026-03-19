@@ -1,5 +1,5 @@
 import { access, mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import { stringify as toYaml } from "yaml";
 import type { GenerateOptions, GenerateResult, PartialProfile } from "./generators/types.js";
 import { generators } from "./generators/index.js";
@@ -21,7 +21,7 @@ async function shouldWriteFile(filePath: string, force: boolean): Promise<boolea
   if (force) return true;
   try {
     await access(filePath);
-    const filename = filePath.split("/").pop() ?? filePath;
+    const filename = basename(filePath);
     console.log(`  ⚠ Skipping ${filename} (already exists, use --force to overwrite)`);
     return false;
   } catch {
@@ -115,7 +115,7 @@ export async function generateProfile(options: GenerateOptions): Promise<Generat
       if (msg.includes("fetch failed") || msg.includes("SELF_SIGNED_CERT")) {
         warnings.push(
           `[${task.name}] Failed: Network error (${(error as Error).cause ? ((error as Error).cause as { code?: string }).code ?? "fetch failed" : "fetch failed"}). ` +
-          `If you're behind a corporate proxy/VPN, try: NODE_TLS_REJECT_UNAUTHORIZED=0 mcp-me generate <dir>`
+          `If you're behind a corporate proxy/VPN, check your proxy settings or CA certificate configuration.`
         );
       } else {
         warnings.push(`[${task.name}] Failed: ${msg}`);

@@ -6,7 +6,7 @@ mcp-me makes it easy for AI assistants (Claude, Copilot, Cursor, Windsurf, etc.)
 
 ## Key Facts
 
-- **342+ generators** that auto-populate profile YAML files from public APIs (GitHub, GitLab, Medium, Strava, AniList, Duolingo, and hundreds more)
+- **328 generators** that auto-populate profile YAML files from public APIs (GitHub, GitLab, Medium, Strava, AniList, Duolingo, and hundreds more)
 - **13 built-in plugins** providing real-time data to AI assistants (Spotify now playing, GitHub repos, Last.fm scrobbles, Steam games, etc.)
 - **YAML-based profiles** with 8 categories: identity, career, skills, interests, personality, goals, projects, faq
 - **MCP native** — works with any MCP-compatible AI assistant (Claude Desktop, Cursor, Windsurf, Copilot)

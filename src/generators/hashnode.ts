@@ -42,12 +42,12 @@ export const hashnodeGenerator: GeneratorSource = {
     if (!username) throw new Error("Hashnode username is required");
 
     console.log(`  [Hashnode] Fetching profile for ${username}...`);
-    const query = `query { user(username: "${username}") { name username bio { text } socialMediaLinks { website twitter github } publications(first: 1) { edges { node { posts(first: 50) { edges { node { title brief slug dateAdded totalReactions tags { name slug } url } } } } } } } }`;
+    const query = `query GetUser($username: String!) { user(username: $username) { name username bio { text } socialMediaLinks { website twitter github } publications(first: 1) { edges { node { posts(first: 50) { edges { node { title brief slug dateAdded totalReactions tags { name slug } url } } } } } } } }`;
 
     const resp = await fetch("https://gql.hashnode.com", {
       method: "POST",
       headers: { "Content-Type": "application/json", "User-Agent": "mcp-me-generator" },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables: { username } }),
     });
     if (!resp.ok) throw new Error(`Hashnode API error: ${resp.status}`);
     const data = (await resp.json()) as { data: { user: HashnodeUser | null } };
