@@ -12,16 +12,17 @@ Generators auto-populate profile YAML from public APIs during `mcp-me generate`.
 
 See the [Generator Creation Guide](../docs/creating-generators.md) for a step-by-step walkthrough.
 
+**Quick start:** Run `mcp-me create generator myservice --category community` to scaffold a new generator with boilerplate code.
+
 **Generator ideas we'd love to see:**
-- Hashnode (tech blog articles via GraphQL)
-- Goodreads (reading list via RSS)
-- Last.fm (music history — needs API key)
-- Chess.com / Lichess (player rating and stats)
-- Dribbble (design portfolio)
-- ORCID (academic publications)
-- Crates.io (Rust packages)
-- Docker Hub (published images)
-- Kaggle (data science competitions)
+- Behance (Adobe creative portfolio)
+- Figma Community (plugins and community files)
+- MyAnimeList (anime/manga tracking — alternative to AniList)
+- CodinGame (competitive programming with AI bots)
+- GitBook (published documentation)
+- Spotify public playlists (generator, not plugin)
+- Twitch VODs (stream history and clips)
+- Apple Podcasts (podcast host profile)
 
 ### 🔌 Build a Plugin
 
@@ -29,12 +30,15 @@ Plugins provide **live, real-time data** to AI assistants during `mcp-me serve`.
 
 See the [Plugin Creation Guide](../docs/creating-plugins.md) for a step-by-step walkthrough.
 
+**Quick start:** Run `mcp-me create plugin myservice` to scaffold a new plugin with boilerplate code.
+
 **Plugin ideas we'd love to see:**
-- Google Calendar (live availability)
-- Notion / Obsidian (knowledge base queries)
-- Strava / Fitness (live activity data)
-- YouTube (channel stats, recent videos)
-- Twitter/X (recent posts)
+- Google Calendar (live availability and scheduling)
+- Notion (knowledge base queries and page summaries)
+- Obsidian (local vault search)
+- Twitter/X (recent posts and engagement)
+- Twitch (live stream status, chat, clips)
+- Goodreads (live reading progress)
 
 ### Generators vs Plugins — Which should I build?
 
@@ -124,8 +128,8 @@ If you're contributing a **built-in plugin** (added to `src/plugins/`):
    - `schema.ts` — Zod config schema
    - `README.md` — Plugin documentation
 3. Add tests in `tests/plugins/<name>.test.ts`
-4. Register in `src/plugin-engine/loader.ts` `BUILTIN_PLUGINS` array
-5. Add a config example to `templates/plugins.yaml`
+4. Register in `src/plugin-engine/loader.ts` `BUILTIN_REGISTRY`
+5. Add a config example to `templates/.mcp-me.yaml` (under the `plugins:` section)
 6. Update `README.md` built-in plugins table
 
 ## Code of Conduct

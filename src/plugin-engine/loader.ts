@@ -84,7 +84,7 @@ async function loadLocalPlugin(filePath: string): Promise<McpMePlugin | null> {
 }
 
 /**
- * Discover and load all enabled plugins based on the plugins.yaml config.
+ * Discover and load all enabled plugins based on the .mcp-me.yaml config.
  *
  * Loading order:
  * 1. Built-in plugins from src/plugins/

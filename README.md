@@ -251,7 +251,7 @@ Plugins run during `mcp-me serve` and provide **real-time data** to AI assistant
 | **Last.fm** | Now playing, top artists, scrobbles | Optional API key |
 | **Steam** | Currently playing, game library | Optional API key |
 
-Enable plugins in `plugins.yaml`:
+Enable plugins in `.mcp-me.yaml`:
 
 ```yaml
 plugins:

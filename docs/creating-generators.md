@@ -79,64 +79,92 @@ Only include the fields your source can provide. The merger handles deduplicatio
 
 ## Step-by-Step: Adding a Built-in Generator
 
-### 1. Create the generator file
+### Option A: Use the scaffolding command (recommended)
 
 ```bash
-# Create a new file in src/generators/
-touch src/generators/myservice.ts
+mcp-me create generator myservice --category community
 ```
 
-### 2. Implement the generator
+This creates `src/generators/myservice.ts` with a ready-to-edit template. Then:
+
+1. Edit the file — implement your API calls
+2. Register in `src/generators/index.ts` (one import + one array entry)
+3. Run `npm test` — the generator harness validates it automatically
+
+### Option B: Use the generator factory (for simple APIs)
+
+The factory lets you define a generator in ~10 lines:
+
+```ts
+// src/generators/myservice.ts
+import { createGenerator } from "./factory.js";
+
+export const myserviceGenerator = createGenerator({
+  name: "myservice",
+  flag: "myservice",
+  description: "MyService profile, posts, stats",
+  category: "community",
+  platform: "myservice",
+  profileUrl: "https://myservice.com/{input}",
+  apiUrl: "https://api.myservice.com/users/{input}",
+  extract: (data: unknown) => {
+    const d = data as { name?: string; bio?: string; followers?: number };
+    return {
+      displayName: d.name,
+      bio: d.bio,
+      stats: `I have ${d.followers ?? 0} followers on MyService.`,
+      topics: ["myservice"],
+    };
+  },
+});
+```
+
+Three factory functions are available:
+
+- **`createGenerator()`** — fetches a JSON API endpoint
+- **`createRssGenerator()`** — fetches an RSS/XML feed
+- **`createStaticGenerator()`** — no API call, builds profile from user input (e.g. zodiac, MBTI)
+
+### Option C: Write a full custom generator
 
 ```ts
 // src/generators/myservice.ts
 import type { GeneratorSource, PartialProfile } from "./types.js";
 
-interface MyServiceUser {
-  username: string;
-  displayName: string;
-  bio: string;
-  // ... API response fields
-}
-
 export const myserviceGenerator: GeneratorSource = {
   name: "myservice",
+  flag: "myservice",
+  flagArg: "<username>",
+  description: "MyService profile and stats",
+  category: "community",
 
   async generate(config): Promise<PartialProfile> {
     const username = config.username as string;
     if (!username) throw new Error("MyService username is required");
 
     console.log(`  [MyService] Fetching profile for ${username}...`);
-
     const response = await fetch(`https://api.myservice.com/users/${username}`, {
       headers: { Accept: "application/json", "User-Agent": "mcp-me-generator" },
     });
-    if (!response.ok) {
-      throw new Error(`MyService API error: ${response.status} ${response.statusText}`);
-    }
-
-    const user = (await response.json()) as MyServiceUser;
-    console.log(`  [MyService] Found profile: ${user.displayName}`);
+    if (!response.ok) throw new Error(`MyService API error: ${response.status}`);
+    const user = (await response.json()) as { displayName: string; bio: string };
 
     return {
       identity: {
         name: user.displayName,
         bio: user.bio,
         contact: {
-          social: [
-            { platform: "myservice", url: `https://myservice.com/${username}`, username },
-          ],
+          social: [{ platform: "myservice", url: `https://myservice.com/${username}`, username }],
         },
       },
-      // Add skills, projects, faq as applicable
     };
   },
 };
 ```
 
-### 3. Register the generator
+### Register the generator
 
-Add **one line** to the registry in `src/generators/index.ts`:
+Add **two lines** to `src/generators/index.ts`:
 
 ```ts
 import { myserviceGenerator } from "./myservice.js";
@@ -147,19 +175,15 @@ export const generators: GeneratorSource[] = [
 ];
 ```
 
-That's it. The CLI flag (`--myservice <username>`) and orchestrator integration are **automatic** — they read from the `flag`, `flagArg`, and `description` fields you defined in step 2.
+That's it. The CLI flag (`--myservice <username>`) and orchestrator integration are **automatic** — they read from the `flag`, `flagArg`, and `description` fields.
 
-No need to touch `generator.ts`, `cli.ts`, or `types.ts`.
+No need to touch `generator.ts`, `cli.ts`, or `types.ts`. The test harness validates your generator automatically on `npm test`.
 
-### 4. Add tests
+## Generator Categories
 
-```ts
-// tests/generators/myservice.test.ts
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { myserviceGenerator } from "../../src/generators/myservice.js";
+Generators must use one of the valid `GeneratorCategory` values:
 
-// Mock fetch, test the generator output
-```
+`code` · `writing` · `community` · `packages` · `activity` · `identity` · `gaming` · `music` · `creative` · `fitness` · `food` · `travel` · `learning` · `science` · `finance` · `maker` · `social` · `entertainment` · `podcasts` · `photography` · `sports` · `nature` · `productivity` · `crypto`
 
 ## Best Practices
 

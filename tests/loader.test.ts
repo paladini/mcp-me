@@ -85,7 +85,7 @@ plugins:
     enabled: true
     username: "testuser"
 `;
-    await writeFile(join(TEST_DIR, "plugins.yaml"), content);
+    await writeFile(join(TEST_DIR, ".mcp-me.yaml"), content);
     const config = await loadPluginsConfig(TEST_DIR);
     expect(config.github).toBeDefined();
     expect(config.github.username).toBe("testuser");
