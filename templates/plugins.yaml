@@ -1,5 +1,6 @@
-# Plugin configuration — enable live integrations that AI queries in real-time.
-# See docs/creating-plugins.md for how to build your own plugin.
+# DEPRECATED — Plugin config has moved to .mcp-me.yaml
+# This file is kept for backward compatibility only.
+# Please use .mcp-me.yaml for all configuration (generators + plugins).
 plugins:
   # GitHub — live repos, contributions, and activity
   # github:
