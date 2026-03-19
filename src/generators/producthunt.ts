@@ -40,8 +40,8 @@ export const producthuntGenerator: GeneratorSource = {
     console.log(`  [ProductHunt] Fetching profile for ${username}...`);
 
     const query = `
-      query {
-        user(username: "${username}") {
+      query GetUser($username: String!) {
+        user(username: $username) {
           id name headline username websiteUrl profileImage twitterUsername
           followersCount followingCount
           madePosts(first: 20) {
@@ -58,7 +58,7 @@ export const producthuntGenerator: GeneratorSource = {
         "User-Agent": "mcp-me-generator",
         Accept: "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables: { username } }),
     });
     if (!resp.ok) throw new Error(`ProductHunt API error: ${resp.status} ${resp.statusText}`);
     const data = (await resp.json()) as { data?: { user?: PHUser } };
