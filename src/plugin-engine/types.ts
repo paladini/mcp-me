@@ -62,7 +62,7 @@ export interface PluginPrompt {
  * Plugins can be:
  * 1. Built-in — shipped with mcp-me in src/plugins/
  * 2. npm packages — community plugins named `mcp-me-plugin-*`
- * 3. Local files — custom .ts/.js files referenced by path in plugins.yaml
+ * 3. Local files — custom .ts/.js files referenced by path in .mcp-me.yaml
  */
 export interface McpMePlugin {
   /** Unique plugin identifier, e.g. "github", "spotify" */
@@ -74,7 +74,7 @@ export interface McpMePlugin {
   /** Plugin version (semver) */
   version: string;
 
-  /** Initialize the plugin with user-provided config from plugins.yaml */
+  /** Initialize the plugin with user-provided config from .mcp-me.yaml */
   initialize(config: Record<string, unknown>): Promise<void>;
 
   /** MCP Resources this plugin provides */

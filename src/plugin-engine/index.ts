@@ -6,4 +6,4 @@ export type {
   PluginPrompt,
 } from "./types.js";
 
-export { discoverPlugins } from "./loader.js";
+export { discoverPlugins, BUILTIN_REGISTRY } from "./loader.js";

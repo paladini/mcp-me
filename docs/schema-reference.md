@@ -196,9 +196,9 @@ Each FAQ item:
 | `category` | string | | Category for grouping |
 | `tags` | string[] | | Tags for searchability |
 
-## plugins.yaml
+## Plugin Configuration (in .mcp-me.yaml)
 
-Plugin configuration. See [Creating Plugins](creating-plugins.md).
+Plugin configuration lives in the `plugins:` section of `.mcp-me.yaml`. See [Creating Plugins](creating-plugins.md).
 
 ```yaml
 plugins:

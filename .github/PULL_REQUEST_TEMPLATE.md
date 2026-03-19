@@ -23,11 +23,19 @@
 - [ ] I have updated `CHANGELOG.md`
 - [ ] I have updated documentation if needed
 
+## Generator Checklist (if adding a generator)
+
+- [ ] Generator implements the `GeneratorSource` interface
+- [ ] Generator is registered in `src/generators/index.ts`
+- [ ] Generator uses a valid `GeneratorCategory`
+- [ ] Generator passes the generator test harness (`npm test`)
+
 ## Plugin Checklist (if adding a plugin)
 
 - [ ] Plugin implements the `McpMePlugin` interface
 - [ ] Plugin has a `schema.ts` with Zod config validation
 - [ ] Plugin has a `README.md` with setup instructions
 - [ ] Plugin exports a default factory function
-- [ ] Plugin is registered in `BUILTIN_PLUGINS` (if built-in)
-- [ ] Plugin config example added to `templates/plugins.yaml`
+- [ ] Plugin is registered in `src/plugin-engine/loader.ts` `BUILTIN_REGISTRY`
+- [ ] Plugin config example added to `templates/.mcp-me.yaml`
+- [ ] Plugin passes the plugin test harness (`npm test`)

@@ -4,21 +4,50 @@ Thank you for your interest in contributing to mcp-me! Whether it's a new plugin
 
 ## Ways to Contribute
 
+mcp-me has **two extension systems** — pick the one that fits your idea:
+
+### ⚡ Build a Generator
+
+Generators auto-populate profile YAML from public APIs during `mcp-me generate`. They're the **easiest way to contribute** — just one file, no auth needed.
+
+See the [Generator Creation Guide](../docs/creating-generators.md) for a step-by-step walkthrough.
+
+**Quick start:** Run `mcp-me create generator myservice --category community` to scaffold a new generator with boilerplate code.
+
+**Generator ideas we'd love to see:**
+- Behance (Adobe creative portfolio)
+- Figma Community (plugins and community files)
+- MyAnimeList (anime/manga tracking — alternative to AniList)
+- CodinGame (competitive programming with AI bots)
+- GitBook (published documentation)
+- Spotify public playlists (generator, not plugin)
+- Twitch VODs (stream history and clips)
+- Apple Podcasts (podcast host profile)
+
 ### 🔌 Build a Plugin
 
-The #1 way to contribute is by building a new plugin. See the [Plugin Creation Guide](../docs/creating-plugins.md) for a step-by-step walkthrough.
+Plugins provide **live, real-time data** to AI assistants during `mcp-me serve`. They're more complex but more powerful.
+
+See the [Plugin Creation Guide](../docs/creating-plugins.md) for a step-by-step walkthrough.
+
+**Quick start:** Run `mcp-me create plugin myservice` to scaffold a new plugin with boilerplate code.
 
 **Plugin ideas we'd love to see:**
-- Goodreads / Open Library (reading lists)
-- Twitter/X (social activity)
-- Stack Overflow (developer Q&A)
-- YouTube (channels, playlists)
-- Google Calendar (availability)
-- Strava / Fitness (activity data)
-- Notion / Obsidian (knowledge base)
-- Blog / RSS (published articles)
-- Google Drive (documents)
-- Reddit (community activity)
+- Google Calendar (live availability and scheduling)
+- Notion (knowledge base queries and page summaries)
+- Obsidian (local vault search)
+- Twitter/X (recent posts and engagement)
+- Twitch (live stream status, chat, clips)
+- Goodreads (live reading progress)
+
+### Generators vs Plugins — Which should I build?
+
+| Build a **Generator** if... | Build a **Plugin** if... |
+|---|---|
+| Data is mostly static (profile, repos, articles) | Data changes frequently (now playing, availability) |
+| Public API exists, no auth needed | OAuth or API key required |
+| User only needs a snapshot | AI needs real-time access |
+| You want to contribute quickly (1 file) | You want to build something richer (tools, prompts) |
 
 ### 🐛 Report Bugs
 
@@ -99,8 +128,8 @@ If you're contributing a **built-in plugin** (added to `src/plugins/`):
    - `schema.ts` — Zod config schema
    - `README.md` — Plugin documentation
 3. Add tests in `tests/plugins/<name>.test.ts`
-4. Register in `src/plugin-engine/loader.ts` `BUILTIN_PLUGINS` array
-5. Add a config example to `templates/plugins.yaml`
+4. Register in `src/plugin-engine/loader.ts` `BUILTIN_REGISTRY`
+5. Add a config example to `templates/.mcp-me.yaml` (under the `plugins:` section)
 6. Update `README.md` built-in plugins table
 
 ## Code of Conduct
