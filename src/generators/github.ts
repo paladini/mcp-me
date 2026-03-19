@@ -200,7 +200,6 @@ export const githubGenerator: GeneratorSource = {
       skills: { languages, ...(tools.length > 0 ? { tools } : {}) },
       projects,
       career,
-      plugins: { github: { enabled: true, username } },
     };
   },
 };

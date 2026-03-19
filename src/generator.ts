@@ -29,9 +29,7 @@ async function writeProfile(
   if (profile.skills) filesToWrite.push(["skills.yaml", profile.skills]);
   if (profile.projects?.length) filesToWrite.push(["projects.yaml", { projects: profile.projects }]);
   if (profile.career?.experience?.length) filesToWrite.push(["career.yaml", profile.career]);
-  if (profile.plugins && Object.keys(profile.plugins).length > 0) {
-    filesToWrite.push(["plugins.yaml", { plugins: profile.plugins }]);
-  }
+  // Plugin config now lives in .mcp-me.yaml — don't generate plugins.yaml
   if (profile.faq?.length) {
     filesToWrite.push(["faq.yaml", { items: profile.faq }]);
   }

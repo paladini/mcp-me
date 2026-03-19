@@ -150,12 +150,12 @@ describe("generateFromGitHub", () => {
     expect(result.filesCreated).toContain("skills.yaml");
     expect(result.filesCreated).toContain("projects.yaml");
     expect(result.filesCreated).toContain("career.yaml");
-    expect(result.filesCreated).toContain("plugins.yaml");
+    // plugins.yaml is no longer generated — plugin config lives in .mcp-me.yaml
     expect(result.filesCreated).toContain("interests.yaml");
     expect(result.filesCreated).toContain("personality.yaml");
     expect(result.filesCreated).toContain("goals.yaml");
     // faq.yaml is only generated when FAQ data exists; GitHub alone doesn't produce FAQ
-    expect(result.filesCreated.length).toBeGreaterThanOrEqual(8);
+    expect(result.filesCreated.length).toBeGreaterThanOrEqual(7);
   });
 
   it("returns correct profile summary", async () => {
@@ -246,15 +246,7 @@ describe("generateFromGitHub", () => {
     });
   });
 
-  describe("plugins.yaml", () => {
-    it("enables GitHub plugin with correct username", async () => {
-      await generateFromGitHub({ github: "testdev", directory: TEST_DIR });
-      const content = await readFile(join(TEST_DIR, "plugins.yaml"), "utf-8");
-      expect(content).toContain("github");
-      expect(content).toContain("enabled: true");
-      expect(content).toContain("testdev");
-    });
-  });
+  // plugins.yaml is no longer generated — plugin config lives in .mcp-me.yaml
 
   it("warns about missing GITHUB_TOKEN", async () => {
     const originalToken = process.env.GITHUB_TOKEN;

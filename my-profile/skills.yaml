@@ -1,0 +1,138 @@
+languages:
+  - name: Shell
+    category: programming
+    proficiency: intermediate
+    description: Used in 4 repo(s), 572 total stars
+  - name: Python
+    category: programming
+    proficiency: expert
+    description: Used in 22 repo(s), 76 total stars
+  - name: JavaScript
+    category: programming
+    proficiency: expert
+    description: Used in 12 repo(s), 23 total stars
+  - name: HTML
+    category: programming
+    proficiency: advanced
+    description: Used in 6 repo(s), 18 total stars
+  - name: CSS
+    category: programming
+    proficiency: advanced
+    description: Used in 6 repo(s), 15 total stars
+  - name: TypeScript
+    category: programming
+    proficiency: advanced
+    description: Used in 7 repo(s), 6 total stars
+  - name: Ruby
+    category: programming
+    proficiency: advanced
+    description: Used in 7 repo(s), 6 total stars
+  - name: C++
+    category: programming
+    proficiency: advanced
+    description: Used in 5 repo(s), 4 total stars
+  - name: Java
+    category: programming
+    proficiency: advanced
+    description: Used in 5 repo(s), 2 total stars
+  - name: Swift
+    category: programming
+    proficiency: intermediate
+    description: Used in 2 repo(s), 1 total stars
+  - name: TeX
+    category: programming
+    proficiency: beginner
+    description: Used in 1 repo(s), 1 total stars
+  - name: Batchfile
+    category: programming
+    proficiency: beginner
+    description: Used in 1 repo(s), 1 total stars
+  - name: C
+    category: programming
+    proficiency: beginner
+    description: Used in 1 repo(s), 1 total stars
+  - name: PHP
+    category: programming
+    proficiency: beginner
+    description: Used in 1 repo(s), 0 total stars
+  - name: Prolog
+    category: programming
+    proficiency: beginner
+    description: Used in 1 repo(s), 0 total stars
+tools:
+  - name: python
+    category: technology
+  - name: open-source
+    category: technology
+  - name: ai
+    category: technology
+  - name: free
+    category: technology
+  - name: generator
+    category: technology
+  - name: music
+    category: technology
+  - name: song
+    category: technology
+  - name: gh-pages
+    category: technology
+  - name: ghost
+    category: technology
+  - name: aa
+    category: technology
+  - name: alcoholics-anonymous
+    category: technology
+  - name: daily-reflections
+    category: technology
+  - name: reflections
+    category: technology
+  - name: sync
+    category: technology
+  - name: node
+    category: technology
+technical:
+  - name: <![CDATA[echo-cleaner]]>
+    category: topic
+    description: Written about in 2 Medium article(s)
+  - name: <![CDATA[ubuntu]]>
+    category: topic
+    description: Written about in 2 Medium article(s)
+  - name: <![CDATA[linux]]>
+    category: topic
+    description: Written about in 2 Medium article(s)
+  - name: <![CDATA[free]]>
+    category: topic
+    description: Written about in 2 Medium article(s)
+  - name: <![CDATA[vibe-coding]]>
+    category: topic
+    description: Written about in 2 Medium article(s)
+  - name: <![CDATA[vibe-researching]]>
+    category: topic
+    description: Written about in 2 Medium article(s)
+  - name: <![CDATA[artificial-intelligence]]>
+    category: topic
+    description: Written about in 2 Medium article(s)
+  - name: <![CDATA[running]]>
+    category: topic
+    description: Written about in 1 Medium article(s)
+  - name: <![CDATA[performance]]>
+    category: topic
+    description: Written about in 1 Medium article(s)
+  - name: <![CDATA[typescript]]>
+    category: topic
+    description: Written about in 1 Medium article(s)
+  - name: <![CDATA[http-client]]>
+    category: topic
+    description: Written about in 1 Medium article(s)
+  - name: <![CDATA[intervalsicu]]>
+    category: topic
+    description: Written about in 1 Medium article(s)
+  - name: <![CDATA[edge-extensions]]>
+    category: topic
+    description: Written about in 1 Medium article(s)
+  - name: <![CDATA[pcb]]>
+    category: topic
+    description: Written about in 1 Medium article(s)
+  - name: <![CDATA[chrome-extension]]>
+    category: topic
+    description: Written about in 1 Medium article(s)

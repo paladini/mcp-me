@@ -1,0 +1,388 @@
+projects:
+  - name: ghost-on-github-pages
+    description: Ghost on Github Pages. Build and deploy Ghost for free in a few minutes.
+    repo_url: https://github.com/paladini/ghost-on-github-pages
+    status: active
+    technologies:
+      - Shell
+      - blog
+      - free
+      - gh-pages
+      - ghost
+      - ghost-blog
+      - ghost-installation
+      - ghost-on-github-pages
+      - ghost-server
+      - github-page
+      - hosting
+    start_date: 2016-01-11
+    category: open-source
+    url: http://paladini.github.io/ghost-on-github-pages-demo/
+    stars: 493
+  - name: awesome-poscomp
+    description: Uma coleção de incríveis recursos para as provas da POSCOMP.
+    repo_url: https://github.com/paladini/awesome-poscomp
+    status: active
+    technologies:
+      - awesome
+      - awesome-list
+      - ciencia-da-computacao
+      - computacao
+      - mestrado
+      - poscomp
+      - prova
+      - sbc
+      - tecnologia
+      - universidade
+    start_date: 2016-06-02
+    category: open-source
+    stars: 176
+  - name: activeadmin-themes
+    description: Awesome themes for ActiveAdmin.
+    repo_url: https://github.com/paladini/activeadmin-themes
+    status: active
+    technologies:
+      - activeadmin
+      - activeadmin-themes
+      - admin
+      - admin-dashboard
+      - admin-tool
+      - administration-interface
+      - administration-page
+      - rails
+      - rails-activeadmin
+      - theme
+    start_date: 2016-05-23
+    category: open-source
+    stars: 173
+  - name: aax2mp3-easy
+    description: Convert Audible AAX (.aax) files to MP3 (.mp3) with no effort.
+    repo_url: https://github.com/paladini/aax2mp3-easy
+    status: active
+    technologies:
+      - Shell
+    start_date: 2016-10-05
+    category: open-source
+    stars: 76
+  - name: voice-separator-demucs
+    description: A simple and efficient self-hosted application to separate vocals from music using Artificial Intelligence.
+    repo_url: https://github.com/paladini/voice-separator-demucs
+    status: active
+    technologies:
+      - Python
+      - ai
+      - artificial-intelligence
+      - demucs
+      - facebook
+      - fastapi
+      - instruments
+      - meta
+      - music
+      - python
+      - separator
+      - song
+      - sound
+      - vocal
+      - voice
+    start_date: 2025-07-11
+    category: open-source
+    url: https://hub.docker.com/r/paladini/voice-separator
+    stars: 24
+  - name: py-simple-lyric-generator
+    description: A simple Markov chains lyric generator written in Python.
+    repo_url: https://github.com/paladini/py-simple-lyric-generator
+    status: active
+    technologies:
+      - Python
+      - artists
+      - creator
+      - generator
+      - lyric
+      - lyric-generator
+      - lyrics
+      - markov-chain
+      - music
+      - pink-floyd
+      - pymarkovchain
+      - python
+      - song
+    start_date: 2016-01-17
+    category: open-source
+    stars: 20
+  - name: dublin-core-basics
+    description: "Dublin Core Basics: The Beginners Guide."
+    repo_url: https://github.com/paladini/dublin-core-basics
+    status: active
+    technologies:
+      - HTML
+    start_date: 2014-02-22
+    category: open-source
+    url: http://paladini.github.io/dublin-core-basics/
+    stars: 17
+  - name: good_reads_to_read_downloader
+    description: Download all books from your "to read" shelf from Goodreads to your computer.
+    repo_url: https://github.com/paladini/good_reads_to_read_downloader
+    status: active
+    technologies:
+      - Python
+    start_date: 2016-05-30
+    category: open-source
+    stars: 9
+  - name: Rocket.Chat.Export.Settings
+    description: Export your settings from a Rocket.Chat instance and import it into another Rocket.Chat instance.
+    repo_url: https://github.com/paladini/Rocket.Chat.Export.Settings
+    status: active
+    technologies:
+      - Python
+      - export
+      - import
+      - rocket
+      - rocketchat
+      - settings
+      - settings-sync
+    start_date: 2016-09-17
+    category: open-source
+    stars: 8
+  - name: QuantoCusta1BitcoinHoje
+    description: Extensão para Chrome / Firefox que mostra quanto custa 1 Bitcoin hoje no Brasil.
+    repo_url: https://github.com/paladini/QuantoCusta1BitcoinHoje
+    status: active
+    technologies:
+      - JavaScript
+      - bitcoin
+      - bitcoin-price
+      - chrome
+      - extension
+      - firefox
+      - javascript
+    start_date: 2015-03-13
+    category: open-source
+    url: https://chrome.google.com/webstore/detail/quanto-custa-1-bitcoin-ho/klhbbnoigogbencgojdicbkfmnangimg?hl=pt-BR
+    stars: 7
+  - name: citacoes-bitcoin
+    description: "Citações Bitcoin: conheça as melhores frases e citações sobre Bitcoin."
+    repo_url: https://github.com/paladini/citacoes-bitcoin
+    status: active
+    technologies:
+      - CSS
+    start_date: 2015-01-03
+    category: open-source
+    url: http://citacoesbitcoin.com/
+    stars: 7
+  - name: bolsonaros.com.br
+    description: Projeto open-source do site Bolsonaros.com.br, com números da violência no país.
+    repo_url: https://github.com/paladini/bolsonaros.com.br
+    status: active
+    technologies:
+      - JavaScript
+    start_date: 2018-02-25
+    category: open-source
+    url: http://www.bolsonaros.com.br
+    stars: 6
+  - name: tvbitcoinbrasil
+    description: Legendas em PT-BR dos vídeos legendados pelo canal TV Bitcoin Brasil.
+    repo_url: https://github.com/paladini/tvbitcoinbrasil
+    status: active
+    technologies: []
+    start_date: 2015-02-17
+    category: open-source
+    stars: 4
+  - name: btc-stores
+    description: The first open-source directory of sites that accept Bitcoin.
+    repo_url: https://github.com/paladini/btc-stores
+    status: active
+    technologies:
+      - Ruby
+    start_date: 2013-12-16
+    category: open-source
+    url: http://btc-stores.herokuapp.com/
+    stars: 4
+  - name: pySpark-connector-kairosdb
+    description: Easily query data on KairosDB and make it available as DataFrame on Apache Spark.
+    repo_url: https://github.com/paladini/pySpark-connector-kairosdb
+    status: active
+    technologies:
+      - Python
+    start_date: 2015-10-13
+    category: open-source
+    stars: 4
+  - name: echo-transcribe
+    description: An open-source desktop application for audio transcription using local AI. Private, secure and efficient.
+    repo_url: https://github.com/paladini/echo-transcribe
+    status: active
+    technologies:
+      - TypeScript
+      - ai
+      - free
+      - open-source
+      - speach-to-text
+      - srt
+      - srt-subtitles
+      - transcribe
+      - transcriber
+      - whisper
+      - whisper-ai
+    start_date: 2025-08-24
+    category: open-source
+    stars: 3
+  - name: node-intervals-icu
+    description: A lightweight TypeScript / Javascript client library for the Intervals.icu API.
+    repo_url: https://github.com/paladini/node-intervals-icu
+    status: active
+    technologies:
+      - TypeScript
+      - intervals
+      - intervals-icu
+    start_date: 2025-12-11
+    category: open-source
+    url: https://www.npmjs.com/package/intervals-icu
+    stars: 3
+  - name: bolsonaroCristao
+    description: Veja o deputado federal Jair Bolsonaro espalhando um pouco dos ensinamentos de Jesus!
+    repo_url: https://github.com/paladini/bolsonaroCristao
+    status: active
+    technologies:
+      - CSS
+      - bolsonaro
+      - bolsonaro-cristao
+    start_date: 2015-08-16
+    category: open-source
+    url: http://paladini.github.io/bolsonaroCristao/
+    stars: 3
+  - name: nude-finder
+    description: A command line tool to search for nudity in a given directory. Based on nudepy.
+    repo_url: https://github.com/paladini/nude-finder
+    status: active
+    technologies:
+      - Python
+    start_date: 2017-05-28
+    category: open-source
+    stars: 3
+  - name: UFSC-cco-tccema
+    description: Um pequeno ajudante para escolher o tema do seu TCC de Ciência da Computação (UFSC).
+    repo_url: https://github.com/paladini/UFSC-cco-tccema
+    status: active
+    technologies:
+      - CSS
+    start_date: 2016-04-10
+    category: open-source
+    url: http://paladini.github.io/UFSC-cco-tccema/
+    stars: 3
+  - name: "intervals-icu: A complete TypeScript client for the Intervals.icu API"
+    description: "intervals-icu: A complete TypeScript client for the Intervals.icu API"
+    url: https://medium.com/@fernandopaladini/intervals-icu-a-complete-typescript-client-for-the-intervals-icu-api-52d2ac7bcfb4?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[running]]>
+      - <![CDATA[performance]]>
+      - <![CDATA[typescript]]>
+      - <![CDATA[http-client]]>
+      - <![CDATA[intervalsicu]]>
+    start_date: 2026-03-04
+    category: article
+  - name: Como pular/quebrar Paywalls em 2026?
+    description: Como pular/quebrar Paywalls em 2026?
+    url: https://medium.com/@fernandopaladini/como-pular-quebrar-paywalls-em-2026-estadao-folha-de-sp-bloqueio-f584e5b0965e?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[edge-extensions]]>
+      - <![CDATA[pcb]]>
+      - <![CDATA[chrome-extension]]>
+      - <![CDATA[bypass-paywalls-clean]]>
+      - <![CDATA[paywall]]>
+    start_date: 2026-03-02
+    category: article
+  - name: "Echo Cleaner: The Smart Cleaning Your Linux (and You) Deserved"
+    description: "Echo Cleaner: The Smart Cleaning Your Linux (and You) Deserved"
+    url: https://medium.com/@fernandopaladini/echo-cleaner-the-smart-cleaning-your-linux-and-you-deserved-f6a0f60444bc?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[cleaning]]>
+      - <![CDATA[echo-cleaner]]>
+      - <![CDATA[disk-space]]>
+      - <![CDATA[ubuntu]]>
+      - <![CDATA[maintenance]]>
+    start_date: 2025-10-22
+    category: article
+  - name: "Echo Cleaner: A limpeza inteligente que o seu Linux (e você) merecia"
+    description: "Echo Cleaner: A limpeza inteligente que o seu Linux (e você) merecia"
+    url: https://medium.com/@fernandopaladini/echo-cleaner-a-limpeza-inteligente-que-o-seu-linux-e-voce-merecia-6f676d7da6d6?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[linux]]>
+      - <![CDATA[echo-cleaner]]>
+      - <![CDATA[appimage]]>
+      - <![CDATA[disk-usage]]>
+      - <![CDATA[free]]>
+    start_date: 2025-10-22
+    category: article
+  - name: How to disable Startup Apps in Ubuntu?
+    description: How to disable Startup Apps in Ubuntu?
+    url: https://medium.com/@fernandopaladini/how-to-disable-startup-apps-in-ubuntu-1ede00cd61a5?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[ubuntu]]>
+      - <![CDATA[system]]>
+      - <![CDATA[apps]]>
+      - <![CDATA[application-startup]]>
+      - <![CDATA[linux]]>
+    start_date: 2025-10-17
+    category: article
+  - name: "Vibe Researching: A Proposal for a New Method of Scientific Exploration"
+    description: "Vibe Researching: A Proposal for a New Method of Scientific Exploration"
+    url: https://medium.com/@fernandopaladini/vibe-researching-a-proposal-for-a-new-method-of-scientific-exploration-3d845520ffcf?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[science]]>
+      - <![CDATA[experimentation]]>
+      - <![CDATA[research]]>
+      - <![CDATA[vibe-coding]]>
+      - <![CDATA[vibe-researching]]>
+    start_date: 2025-10-02
+    category: article
+  - name: O que é Vibe Researching?
+    description: O que é Vibe Researching?
+    url: https://medium.com/@fernandopaladini/o-que-%C3%A9-vibe-researching-1cdda34ab311?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[ciencia]]>
+      - <![CDATA[vibe-coding]]>
+      - <![CDATA[vibe-researching]]>
+    start_date: 2025-10-02
+    category: article
+  - name: Estou trabalhando em um protocolo para resolver o problema de DDoS
+    description: Estou trabalhando em um protocolo para resolver o problema de DDoS
+    url: https://medium.com/@fernandopaladini/estou-trabalhando-em-um-protocolo-para-resolver-o-problema-de-ddos-028b8e798e7c?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[security]]>
+      - <![CDATA[redes-de-computadores]]>
+      - <![CDATA[redes]]>
+      - <![CDATA[ddos]]>
+      - <![CDATA[protocol]]>
+    start_date: 2025-09-12
+    category: article
+  - name: Como usar Github Copilot sem limite de Requisições Premium no VS Code
+    description: Como usar Github Copilot sem limite de Requisições Premium no VS Code
+    url: https://medium.com/@fernandopaladini/como-usar-github-copilot-sem-limite-de-requisi%C3%A7%C3%B5es-premium-no-vs-code-9311216cd0b5?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[artificial-intelligence]]>
+      - <![CDATA[github-copilot]]>
+      - <![CDATA[microsoft-copilot]]>
+      - <![CDATA[free]]>
+      - <![CDATA[vscode]]>
+    start_date: 2025-09-06
+    category: article
+  - name: "FOSSAI: An Open-Source Manifesto Against Digital Inequality — v0.1"
+    description: "FOSSAI: An Open-Source Manifesto Against Digital Inequality — v0.1"
+    url: https://medium.com/@fernandopaladini/fossai-an-open-source-manifesto-against-digital-inequality-v0-1-c37a0ee05082?source=rss-ae4df2526747------2
+    status: completed
+    technologies:
+      - <![CDATA[digital]]>
+      - <![CDATA[artificial-intelligence]]>
+      - <![CDATA[ai]]>
+      - <![CDATA[llm]]>
+      - <![CDATA[llm-applications]]>
+    start_date: 2025-08-21
+    category: article
