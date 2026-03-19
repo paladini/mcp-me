@@ -8,6 +8,7 @@ import { createMcpMeServer } from "./server.js";
 import { loadProfile, loadGeneratorsConfig } from "./loader.js";
 import { generateProfile } from "./generator.js";
 import { generators } from "./generators/index.js";
+import { version } from "../package.json";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,7 +20,7 @@ program
   .description(
     "A community-driven MCP server that lets anyone expose personal information to AI assistants.",
   )
-  .version("0.1.0");
+  .version(version);
 
 program
   .command("init")

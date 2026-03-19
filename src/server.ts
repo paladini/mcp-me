@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { version } from "../package.json";
 import { PROFILE_CATEGORIES, type ProfileCategory } from "./schema/index.js";
 import { loadProfile, loadPluginsConfig, searchProfile, type ProfileBundle } from "./loader.js";
 import { discoverPlugins, type McpMePlugin, type PluginPrompt } from "./plugin-engine/index.js";
@@ -24,7 +25,7 @@ const RESOURCE_DESCRIPTIONS: Record<ProfileCategory, { title: string; descriptio
 export async function createMcpMeServer(profileDir: string): Promise<McpServer> {
   const server = new McpServer({
     name: "mcp-me",
-    version: "0.2.5",
+    version,
   });
 
   // Load profile data
