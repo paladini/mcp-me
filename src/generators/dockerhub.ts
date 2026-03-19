@@ -34,10 +34,13 @@ export const dockerhubGenerator: GeneratorSource = {
 
     console.log(`  [DockerHub] Fetching repos for ${username}...`);
     const resp = await fetch(
-      `https://hub.docker.com/v2/repositories/${username}/?page_size=100&ordering=-star_count`,
+      `https://hub.docker.com/v2/namespaces/${username}/repositories/?page_size=100`,
       { headers: { Accept: "application/json", "User-Agent": "mcp-me-generator" } },
     );
-    if (!resp.ok) throw new Error(`Docker Hub API error: ${resp.status}`);
+    if (!resp.ok) {
+      if (resp.status === 404) throw new Error(`Docker Hub user "${username}" not found`);
+      throw new Error(`Docker Hub API error: ${resp.status} ${resp.statusText}`);
+    }
     const data = (await resp.json()) as { results: DockerHubRepo[] };
     const repos = data.results ?? [];
     console.log(`  [DockerHub] Found ${repos.length} repositories.`);

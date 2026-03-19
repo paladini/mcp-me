@@ -27,12 +27,24 @@ function mergeIdentity(target: PartialProfile, source: PartialProfile): void {
     target.identity = { contact: {} };
   }
 
-  // First non-empty wins for scalar fields
+  // For name: first non-empty wins
   target.identity.name = target.identity.name || source.identity.name;
-  target.identity.bio = target.identity.bio || source.identity.bio;
 
-  if (source.identity.location && !target.identity.location) {
-    target.identity.location = source.identity.location;
+  // For bio: prefer the longer/richer one
+  if (source.identity.bio) {
+    if (!target.identity.bio || source.identity.bio.length > target.identity.bio.length) {
+      target.identity.bio = source.identity.bio;
+    }
+  }
+
+  // Merge location fields individually instead of replacing the whole object
+  if (source.identity.location) {
+    if (!target.identity.location) {
+      target.identity.location = source.identity.location;
+    } else {
+      target.identity.location.city = target.identity.location.city || source.identity.location.city;
+      target.identity.location.country = target.identity.location.country || source.identity.location.country;
+    }
   }
 
   // Merge contact
