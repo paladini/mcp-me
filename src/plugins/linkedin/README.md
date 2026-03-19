@@ -11,7 +11,7 @@ Provides professional history from LinkedIn exported data in JSON format.
 
 ## Configuration
 
-Add to your `plugins.yaml`:
+Add to your `.mcp-me.yaml`:
 
 ```yaml
 plugins:

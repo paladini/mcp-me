@@ -108,7 +108,6 @@ export interface McpMeConfig {
 
 /**
  * Load the unified .mcp-me.yaml config file from the profile directory.
- * Falls back to plugins.yaml for backward compatibility.
  */
 export async function loadConfig(profileDir: string): Promise<McpMeConfig> {
   const configPath = join(profileDir, ".mcp-me.yaml");
@@ -120,14 +119,12 @@ export async function loadConfig(profileDir: string): Promise<McpMeConfig> {
       plugins: (parsed?.plugins as Record<string, Record<string, unknown>>) ?? {},
     };
   } catch {
-    // Fall back to legacy plugins.yaml
-    const plugins = await loadPluginsConfigLegacy(profileDir);
-    return { generators: {}, plugins };
+    return { generators: {}, plugins: {} };
   }
 }
 
 /**
- * Load plugins config — prefers .mcp-me.yaml, falls back to plugins.yaml.
+ * Load plugins config from .mcp-me.yaml.
  */
 export async function loadPluginsConfig(
   profileDir: string,
@@ -151,22 +148,6 @@ export async function loadGeneratorsConfig(
     coerced[key] = String(value);
   }
   return coerced;
-}
-
-/**
- * Legacy: Load plugins.yaml configuration from the profile directory.
- */
-async function loadPluginsConfigLegacy(
-  profileDir: string,
-): Promise<Record<string, Record<string, unknown>>> {
-  const filePath = join(profileDir, "plugins.yaml");
-  try {
-    const content = await readFile(filePath, "utf-8");
-    const parsed = parseYaml(content);
-    return (parsed?.plugins as Record<string, Record<string, unknown>>) ?? {};
-  } catch {
-    return {};
-  }
 }
 
 /**

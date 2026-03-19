@@ -25,7 +25,7 @@ export interface McpMePlugin {
   // Semver version string
   version: string;
 
-  // Called once with user config from plugins.yaml
+  // Called once with user config from .mcp-me.yaml
   initialize(config: Record<string, unknown>): Promise<void>;
 
   // MCP Resources this plugin exposes
@@ -191,7 +191,7 @@ npm install mcp-me-plugin-goodreads
 ```
 
 ```yaml
-# plugins.yaml
+# .mcp-me.yaml
 plugins:
   goodreads:
     enabled: true
@@ -311,7 +311,7 @@ Every registered built-in plugin is automatically tested by `tests/plugins/plugi
 You can test your plugin locally without publishing:
 
 ```yaml
-# plugins.yaml
+# .mcp-me.yaml
 plugins:
   my-plugin:
     enabled: true
