@@ -2,46 +2,22 @@
  * Universal Plugin Test Harness
  *
  * Automatically validates every built-in plugin for structural correctness.
- * Adding a new plugin to the BUILTIN_REGISTRY is all that's needed — this
- * harness picks it up and verifies it conforms to the McpMePlugin interface.
+ * Adding a new plugin to BUILTIN_REGISTRY in src/plugin-engine/loader.ts is
+ * all that's needed — this harness imports the registry directly and verifies
+ * every entry conforms to the McpMePlugin interface.
  */
 import { describe, it, expect } from "vitest";
 import { readdirSync } from "node:fs";
-import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import os from "node:os";
+import { BUILTIN_REGISTRY } from "../../src/plugin-engine/loader.js";
+import type { McpMePlugin } from "../../src/plugin-engine/types.js";
 
-// Import all built-in plugin factories directly
-import createGitHubPlugin from "../../src/plugins/github/index.js";
-import createSpotifyPlugin from "../../src/plugins/spotify/index.js";
-import createLinkedInPlugin from "../../src/plugins/linkedin/index.js";
-import createWakaTimePlugin from "../../src/plugins/wakatime/index.js";
-import createDevToPlugin from "../../src/plugins/devto/index.js";
-import createBlueskyPlugin from "../../src/plugins/bluesky/index.js";
-import createHackerNewsPlugin from "../../src/plugins/hackernews/index.js";
-import createRedditPlugin from "../../src/plugins/reddit/index.js";
-import createGitLabPlugin from "../../src/plugins/gitlab/index.js";
-import createMastodonPlugin from "../../src/plugins/mastodon/index.js";
-import createYouTubePlugin from "../../src/plugins/youtube/index.js";
-import createLastfmPlugin from "../../src/plugins/lastfm/index.js";
-import createSteamPlugin from "../../src/plugins/steam/index.js";
-import type { McpMePlugin, McpMePluginFactory } from "../../src/plugin-engine/types.js";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const PLUGINS_DIR = join(__dirname, "../../src/plugins");
-
-const BUILTIN_FACTORIES: Record<string, McpMePluginFactory> = {
-  github: createGitHubPlugin,
-  spotify: createSpotifyPlugin,
-  linkedin: createLinkedInPlugin,
-  wakatime: createWakaTimePlugin,
-  devto: createDevToPlugin,
-  bluesky: createBlueskyPlugin,
-  hackernews: createHackerNewsPlugin,
-  reddit: createRedditPlugin,
-  gitlab: createGitLabPlugin,
-  mastodon: createMastodonPlugin,
-  youtube: createYouTubePlugin,
-  lastfm: createLastfmPlugin,
-  steam: createSteamPlugin,
-};
 
 /**
  * Minimal config objects to satisfy Zod schemas during initialize().
@@ -50,7 +26,7 @@ const BUILTIN_FACTORIES: Record<string, McpMePluginFactory> = {
 const MINIMAL_CONFIGS: Record<string, Record<string, unknown>> = {
   github: { username: "test-user" },
   spotify: { client_id_env: "SPOTIFY_ID", client_secret_env: "SPOTIFY_SECRET", refresh_token_env: "SPOTIFY_REFRESH" },
-  linkedin: { data_path: "/tmp/linkedin.json" },
+  linkedin: { data_path: join(os.tmpdir(), "linkedin.json") },
   wakatime: { username: "test-user" },
   devto: { username: "test-user" },
   bluesky: { handle: "test.bsky.social" },
@@ -65,17 +41,17 @@ const MINIMAL_CONFIGS: Record<string, Record<string, unknown>> = {
 
 /** Create and initialize a plugin with minimal config for structural testing. */
 async function createInitializedPlugin(name: string): Promise<McpMePlugin> {
-  const plugin = BUILTIN_FACTORIES[name]();
+  const plugin = BUILTIN_REGISTRY[name]();
   await plugin.initialize(MINIMAL_CONFIGS[name] ?? {});
   return plugin;
 }
 
 describe("Plugin Harness — structural validation", () => {
   it("has at least one built-in plugin", () => {
-    expect(Object.keys(BUILTIN_FACTORIES).length).toBeGreaterThan(0);
+    expect(Object.keys(BUILTIN_REGISTRY).length).toBeGreaterThan(0);
   });
 
-  describe.each(Object.entries(BUILTIN_FACTORIES))("%s", (_name, factory) => {
+  describe.each(Object.entries(BUILTIN_REGISTRY))("%s", (_name, factory) => {
     it("factory returns a valid plugin object", () => {
       const plugin = factory();
       expect(plugin).toBeDefined();
@@ -144,7 +120,7 @@ describe("Plugin Harness — structural validation", () => {
   });
 
   it("has no duplicate plugin names", () => {
-    const names = Object.entries(BUILTIN_FACTORIES).map(([, f]) => f().name);
+    const names = Object.entries(BUILTIN_REGISTRY).map(([, f]) => f().name);
     expect(new Set(names).size).toBe(names.length);
   });
 });
@@ -155,12 +131,14 @@ describe("Plugin Harness — directory registration check", () => {
       .filter((d) => d.isDirectory())
       .map((d) => d.name);
 
-    const registered = new Set(Object.keys(BUILTIN_FACTORIES));
+    const registered = new Set(Object.keys(BUILTIN_REGISTRY));
     const unregistered = dirs.filter((d) => !registered.has(d));
     expect(unregistered).toEqual([]);
   });
 
   it("total built-in plugin count matches expected", () => {
-    expect(Object.keys(BUILTIN_FACTORIES).length).toBeGreaterThanOrEqual(8);
+    // This test documents the current count and will break if plugins are
+    // added to the registry or removed. Update this number when adding new plugins.
+    expect(Object.keys(BUILTIN_REGISTRY).length).toBe(13);
   });
 });

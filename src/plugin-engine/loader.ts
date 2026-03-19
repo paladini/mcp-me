@@ -15,7 +15,7 @@ import createLastfmPlugin from "../plugins/lastfm/index.js";
 import createSteamPlugin from "../plugins/steam/index.js";
 
 /** Registry of built-in plugins with explicit imports (avoids dynamic import bundling issues). */
-const BUILTIN_REGISTRY: Record<string, McpMePluginFactory> = {
+export const BUILTIN_REGISTRY: Record<string, McpMePluginFactory> = {
   github: createGitHubPlugin,
   spotify: createSpotifyPlugin,
   linkedin: createLinkedInPlugin,

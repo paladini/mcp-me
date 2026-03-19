@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { access, mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify as toYaml } from "yaml";
 import type { GenerateOptions, GenerateResult, PartialProfile } from "./generators/types.js";
@@ -14,12 +14,29 @@ const OPTIONAL_FILE_HEADERS: Record<string, string> = {
 };
 
 /**
+ * Returns true if the file should be written (either it doesn't exist, or force is true).
+ * Logs a skip warning when an existing file is bypassed.
+ */
+async function shouldWriteFile(filePath: string, force: boolean): Promise<boolean> {
+  if (force) return true;
+  try {
+    await access(filePath);
+    const filename = filePath.split("/").pop() ?? filePath;
+    console.log(`  ⚠ Skipping ${filename} (already exists, use --force to overwrite)`);
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+/**
  * Convert a merged PartialProfile into YAML files on disk.
  */
 async function writeProfile(
   directory: string,
   profile: PartialProfile,
   filesCreated: string[],
+  force: boolean = false,
 ): Promise<void> {
   await mkdir(directory, { recursive: true });
 
@@ -39,6 +56,7 @@ async function writeProfile(
 
   for (const [filename, data] of filesToWrite) {
     const filePath = join(directory, filename);
+    if (!(await shouldWriteFile(filePath, force))) continue;
     const yamlContent = toYaml(data, { lineWidth: 120 });
     await writeFile(filePath, yamlContent, "utf-8");
     filesCreated.push(filename);
@@ -49,7 +67,9 @@ async function writeProfile(
   const createdSet = new Set(filesCreated);
   for (const [filename, header] of Object.entries(OPTIONAL_FILE_HEADERS)) {
     if (!createdSet.has(filename)) {
-      await writeFile(join(directory, filename), header, "utf-8");
+      const filePath = join(directory, filename);
+      if (!(await shouldWriteFile(filePath, force))) continue;
+      await writeFile(filePath, header, "utf-8");
       filesCreated.push(filename);
       console.log(`  ✔ Created ${filename} (template)`);
     }
@@ -113,7 +133,7 @@ export async function generateProfile(options: GenerateOptions): Promise<Generat
 
   // Write to disk
   const filesCreated: string[] = [];
-  await writeProfile(options.directory, merged, filesCreated);
+  await writeProfile(options.directory, merged, filesCreated, options.force ?? false);
 
   return {
     filesCreated,

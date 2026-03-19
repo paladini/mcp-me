@@ -8,7 +8,11 @@
 import { describe, it, expect } from "vitest";
 import { generators } from "../../src/generators/index.js";
 import { readdirSync } from "node:fs";
-import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const VALID_CATEGORIES = [
   "code", "writing", "community", "packages", "activity", "identity",
@@ -102,9 +106,9 @@ describe("Generator Harness — file registration check", () => {
   });
 
   it("total generator count matches expected", () => {
-    // This test documents the current count and will break if generators are
-    // added to files but not registered (or vice versa). Update the number
-    // when adding new generators.
-    expect(generators.length).toBeGreaterThanOrEqual(32);
+    // This test documents the current count (44 named + 284 batch generators = 328 total)
+    // and will break if generators are added to files but not registered (or vice versa).
+    // Update this number when adding new generators.
+    expect(generators.length).toBe(328);
   });
 });
