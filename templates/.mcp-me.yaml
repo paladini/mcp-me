@@ -4,69 +4,388 @@
 #
 # Docs: https://github.com/paladini/mcp-me
 
-# ─── Generators ──────────────────────────────────────────────────────────────
-# Data sources for `mcp-me generate`. Uncomment the ones you want.
-# Run: mcp-me generate .   (reads this file automatically, no flags needed)
+# ═══════════════════════════════════════════════════════════════════════════════
+# GENERATORS — Data sources for `mcp-me generate`
+# Uncomment the ones you want. Run: mcp-me generate .
+# ═══════════════════════════════════════════════════════════════════════════════
 generators:
-  # Code
+
+  # ── Code & Dev ──────────────────────────────────────────────────────────────
   # github: your-username
   # gitlab: your-username
   # bitbucket: your-username
-  # codeberg: your-username
+  # huggingface: your-username
   # kaggle: your-username
+  # codeberg: your-username
+  # codeforces: your-username
+  # atcoder: your-username
+  # topcoder: your-username
+  # projecteuler: your-member-id
+  # codingame: your-user-id
+  # dmoj: your-username
+  # kattis: your-username
+  # sourcehut: your-username
+  # gitea: user@instance
+  # forgejo: user@instance
+  # wandb: your-username
+  # dagshub: your-username
+  # codepen: your-username
+  # codesandbox: your-username
+  # replit: your-username
+  # glitch: your-username
+  # observablehq: your-username
 
-  # Writing
+  # ── Writing & Blogs ────────────────────────────────────────────────────────
   # devto: your-username
   # medium: your-username
   # hashnode: your-username
   # substack: your-newsletter
   # wordpress: your-site.wordpress.com
+  # openlibrary: your-username
+  # orcid: your-orcid-id
+  # semanticscholar: your-author-id
+  # youtube: your-channel-id
+  # typefully: your-username
+  # convertkit: your-creator-slug
+  # buttondown: your-username
+  # wattpad: your-username
+  # royalroad: your-author-id
+  # ao3: your-username
 
-  # Community
-  # stackoverflow: 12345
+  # ── Community & Social ─────────────────────────────────────────────────────
+  # stackoverflow: your-user-id
   # hackernews: your-username
   # mastodon: user@mastodon.social
   # bluesky: handle.bsky.social
   # reddit: your-username
   # producthunt: your-username
   # threads: your-username
+  # twitter: your-username
+  # instagram: your-username
+  # tiktok: your-username
+  # tumblr: your-username
+  # pinterest: your-username
+  # discord: your-username
+  # telegram: your-username
+  # lemmy: user@instance
+  # lobsters: your-username
+  # tildes: your-username
+  # facebook: your-username
+  # linkedin: /path/to/linkedin-export/Profile.json
+  # wikipedia: your-username
+  # meetup: your-member-id
+  # speakerdeck: your-username
+  # slideshare: your-username
+  # indieweb: your-domain.com
+  # webring: your-webring-url
 
-  # Activity
+  # ── Packages & Registries ──────────────────────────────────────────────────
+  # npm: your-username
+  # pypi: package1,package2
+  # crates: your-username
+  # dockerhub: your-username
+  # rubygems: your-username
+  # packagist: your-vendor
+  # nuget: your-author
+  # hexpm: your-username
+  # pubdev: your-publisher
+  # cocoapods: your-owner
+  # maven: your-group-id
+
+  # ── Activity & Tracking ────────────────────────────────────────────────────
+  # wakatime: your-username
+  # letterboxd: your-username
+  # goodreads: 12345678                      # numeric user ID (from your profile URL)
+  # chess: your-username
+  # lichess: your-username
+  # codewars: your-username
+  # leetcode: your-username
   # lastfm: your-username
   # steam: your-steam-id
-  # letterboxd: your-username
-  # goodreads: your-user-id
+  # twitch: your-username
+  # dribbble: your-username
+  # unsplash: your-username
+  # exercism: your-handle
+  # hackerrank: your-username
   # anilist: your-username
+  # strava: your-athlete-id                  # requires STRAVA_TOKEN env var
+
+  # ── Gaming & Esports ───────────────────────────────────────────────────────
+  # speedrun: your-username
+  # osu: your-username
+  # minecraft: your-uuid
+  # roblox: your-user-id
+  # lol: summoner#tag
+  # valorant: name#tag
+  # fortnite: your-username
+  # apex: your-username
+  # overwatch: your-battletag
+  # csgo: your-steamid
+  # pokemongo: your-trainer-code
+  # bgg: your-username                       # BoardGameGeek
+  # moxfield: your-username                  # MTG decks
+  # dndbeyond: your-profile-id               # D&D Beyond
+  # itchio: your-username                    # itch.io games
+  # nexusmods: your-username                 # game mods
+
+  # ── Music & Audio ──────────────────────────────────────────────────────────
+  # soundcloud: your-username
+  # bandcamp: your-username
+  # discogs: your-username
+  # mixcloud: your-username
+  # listenbrainz: your-username
+  # audius: your-username
+  # genius: your-username
+  # setlistfm: your-user-id
+  # songkick: your-username
+  # rym: your-username                       # RateYourMusic
+  # ultimateguitar: your-username
+  # spotifyartist: your-artist-id
+  # splice: your-username
+  # beatstars: your-username
+
+  # ── Creative & Design ──────────────────────────────────────────────────────
+  # deviantart: your-username
+  # artstation: your-username
+  # pixiv: your-user-id
+  # behance: your-username
+  # flickr: your-nsid
+  # 500px: your-username
+  # sketchfab: your-username
+  # figma: your-username
+  # canva: your-username
+  # shadertoy: your-username
+  # society6: your-username
+  # redbubble: your-username
+
+  # ── Video & Streaming ──────────────────────────────────────────────────────
+  # vimeo: your-username
+  # dailymotion: your-username
+  # peertube: user@instance
+  # odysee: your-username
+  # kick: your-username
+  # bilibili: your-uid
+  # nebula: your-creator-slug
+  # youtubeshorts: your-channel-handle
+  # loom: your-workspace
+
+  # ── Fitness & Sports ───────────────────────────────────────────────────────
+  # strava: your-athlete-id                  # requires STRAVA_TOKEN env var
+  # garmin: your-display-name
+  # myfitnesspal: your-username
+  # peloton: your-username
+  # runkeeper: your-username
+  # alltrails: your-username
+  # parkrun: your-athlete-id
+  # zwift: your-username
+  # komoot: your-user-id
+  # espnfantasy: your-team-id
+  # f1: your-fan-name
+  # marathon: your-runner-name
+
+  # ── Food & Drink ───────────────────────────────────────────────────────────
+  # untappd: your-username
+  # vivino: your-user-id
+  # yelp: your-user-id
+  # happycow: your-username
+  # allrecipes: your-cook-id
+  # tripadvisor: your-profile-id
+  # beeradvocate: your-username
+  # whiskybase: your-username
+  # coffeetea: coffee                        # or "tea"
+  # diet: vegan                              # or keto, vegetarian, etc.
+
+  # ── Travel & Geography ─────────────────────────────────────────────────────
+  # nomadlist: your-username
+  # foursquare: your-user-id
+  # geocaching: your-username
+  # polarsteps: your-username
+  # wikiloc: your-user-id
+  # atlasobscura: your-username
+  # couchsurfing: your-username
+  # openstreetmap: your-user-id
+  # waze: your-username
+
+  # ── Learning & Education ───────────────────────────────────────────────────
   # duolingo: your-username
-  # strava: your-athlete-id
+  # coursera: your-profile-slug
+  # edx: your-username
+  # udemy: your-profile-slug
+  # skillshare: your-profile-slug
+  # codecademy: your-username
+  # freecodecamp: your-username
+  # khanacademy: your-kaid
+  # brilliant: your-username
+  # pluralsight: your-profile-id
+  # memrise: your-username
+  # ankiweb: your-username
+  # italki: your-user-id
+  # lingq: your-username
+  # treehouse: your-username
 
-  # Identity
-  # gravatar: your@email.com
+  # ── Science & Research ─────────────────────────────────────────────────────
+  # researchgate: your-profile-slug
+  # zenodo: your-orcid-or-name
+  # arxiv: your-author-name
+  # googlescholar: your-scholar-id
+
+  # ── Entertainment ──────────────────────────────────────────────────────────
+  # tmdb: your-account-id
+  # trakt: your-username
+  # simkl: your-username
+  # tvtime: your-username
+  # mydramalist: your-username
+  # mubi: your-username
+  # storygraph: your-username
+  # librarything: your-username
+  # bookwyrm: user@instance
+  # mangadex: your-user-id
+  # novelupdates: your-username
+
+  # ── Podcasts ───────────────────────────────────────────────────────────────
+  # podchaser: your-username
+  # goodpods: your-username
+  # pocketcasts: your-share-url
+  # anchor: your-username
+  # podbean: your-username
+
+  # ── Maker & Hardware ───────────────────────────────────────────────────────
+  # thingiverse: your-user-id
+  # printables: your-username
+  # instructables: your-username
+  # hackaday: your-username
+  # hackster: your-username
+  # tindie: your-username
+  # adafruit: your-username
+  # arduino: your-username
+  # raspberrypi: your-username
+  # homeassistant: your-community-username
+
+  # ── Nature & Outdoors ──────────────────────────────────────────────────────
+  # inaturalist: your-username
+  # ebird: your-ebird-id
+  # plantnet: your-username
+  # zooniverse: your-username
+  # gbif: your-username
+  # mushroomobserver: your-username
+
+  # ── Finance & Crypto ───────────────────────────────────────────────────────
+  # etherscan: your-wallet-address
+  # ens: your-name.eth
+  # opensea: your-wallet-or-username
+  # mirror: your-address-or-ens
+  # farcaster: your-username
+  # lens: your-handle.lens
+  # gitcoin: your-address-or-handle
+  # tradingview: your-username
+  # stocktwits: your-username
+  # kofi: your-username
+  # patreon: your-username
+  # gumroad: your-username
+  # indiehackers: your-username
+
+  # ── Productivity ───────────────────────────────────────────────────────────
+  # notion: your-workspace-slug
+  # obsidianpublish: your-site-slug
+  # raindrop: your-user-id
+  # arena: your-username                     # Are.na
+  # todoist: your-karma-level
+  # linear: your-workspace
+  # calendly: your-username
+  # caldotcom: your-username
+  # habitica: your-user-id
+
+  # ── Identity & Personal ────────────────────────────────────────────────────
+  # gravatar: your@email.com                 # optional: set GRAVATAR_API_KEY for full profile
   # keybase: your-username
-  # mbti: INTJ
+  # linkedin: /path/to/linkedin-export.json  # LinkedIn data export (JSON format)
+  # polywork: your-username
+  # aboutme: your-username
+  # personalsite: https://your-site.com
+  # nowpage: https://your-site.com/now
+  # usespage: https://your-site.com/uses
+  # biolink: your-linktree-slug
   # pronouns: they/them
+  # mbti: INTJ
+  # enneagram: 5
+  # hogwarts: gryffindor
+  # alignment: chaotic-good
   # timezone: America/Sao_Paulo
+  # languagesspoken: English,Portuguese,Spanish
+  # ide: vscode
+  # os: Linux
+  # keyboard: your-keyboard-model
+  # dotfiles: your-github-username
+  # zodiac: aquarius
 
-# ─── Plugins ─────────────────────────────────────────────────────────────────
-# Live data integrations for `mcp-me serve`. These provide real-time MCP
-# resources and tools to AI assistants.
+# ═══════════════════════════════════════════════════════════════════════════════
+# PLUGINS — Live data integrations for `mcp-me serve`
+# These provide real-time MCP resources and tools to AI assistants.
+# ═══════════════════════════════════════════════════════════════════════════════
 plugins:
+
   # github:
   #   enabled: true
   #   username: your-username
-  #   token_env: GITHUB_TOKEN
+  #   token_env: GITHUB_TOKEN               # optional: higher rate limits
+  #   include_forks: false
+  #   max_repos: 30
 
   # spotify:
   #   enabled: true
   #   client_id_env: SPOTIFY_CLIENT_ID
   #   client_secret_env: SPOTIFY_CLIENT_SECRET
   #   refresh_token_env: SPOTIFY_REFRESH_TOKEN
+  #   time_range: medium_term               # short_term | medium_term | long_term
+
+  # linkedin:
+  #   enabled: true
+  #   data_path: /path/to/linkedin-export.json
+
+  # wakatime:
+  #   enabled: true
+  #   username: your-username
+  #   api_key_env: WAKATIME_API_KEY         # optional: for private profiles
+
+  # devto:
+  #   enabled: true
+  #   username: your-username
+  #   api_key_env: DEVTO_API_KEY            # optional: higher rate limits
 
   # bluesky:
   #   enabled: true
   #   handle: handle.bsky.social
 
+  # hackernews:
+  #   enabled: true
+  #   username: your-username
+
+  # reddit:
+  #   enabled: true
+  #   username: your-username
+
+  # gitlab:
+  #   enabled: true
+  #   username: your-username
+  #   instance_url: https://gitlab.com      # or your self-hosted GitLab
+  #   token_env: GITLAB_TOKEN               # optional: for private data
+  #   max_projects: 30
+
+  # mastodon:
+  #   enabled: true
+  #   handle: user@mastodon.social
+
+  # youtube:
+  #   enabled: true
+  #   channel_id: UCxxxxxxx
+  #   api_key_env: YOUTUBE_API_KEY          # optional: for full channel stats
+
   # lastfm:
   #   enabled: true
   #   username: your-username
-  #   api_key_env: LASTFM_API_KEY
+  #   api_key_env: LASTFM_API_KEY           # optional: for full scrobble data
+
+  # steam:
+  #   enabled: true
+  #   steam_id: your-steam64-id
+  #   api_key_env: STEAM_API_KEY            # optional: for game library

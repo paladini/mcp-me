@@ -36,7 +36,7 @@ function parseRSSItems(xml: string): MediumRSSItem[] {
     const pubDate = block.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] ?? "";
 
     const categories: string[] = [];
-    const catRegex = /<category>(.*?)<\/category>/g;
+    const catRegex = /<category>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/category>/g;
     let catMatch;
     while ((catMatch = catRegex.exec(block)) !== null) {
       categories.push(catMatch[1]);

@@ -49,8 +49,11 @@ export const goodreadsGenerator: GeneratorSource = {
   category: "activity",
 
   async generate(config): Promise<PartialProfile> {
-    const userId = config.username as string;
-    if (!userId) throw new Error("Goodreads user ID is required");
+    const rawId = config.username as string;
+    if (!rawId) throw new Error("Goodreads user ID is required");
+
+    // Extract numeric ID from composite strings like "16062300.Fernando_Paladini"
+    const userId = rawId.split(".")[0];
 
     console.log(`  [Goodreads] Fetching reading list for user ${userId}...`);
     const response = await fetch(`https://www.goodreads.com/review/list_rss/${userId}?shelf=read`, {

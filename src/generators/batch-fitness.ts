@@ -2,18 +2,76 @@
  * Fitness, Sports & Outdoor Generators (20)
  */
 import { createGenerator, createStaticGenerator } from "./factory.js";
+import type { GeneratorSource, PartialProfile } from "./types.js";
 
-export const stravaGenerator = createGenerator({
-  name: "strava", flag: "strava", flagArg: "<athlete-id>", description: "Strava running/cycling activities",
-  category: "fitness", platform: "strava", profileUrl: "https://www.strava.com/athletes/{input}",
-  apiUrl: "https://www.strava.com/api/v3/athletes/{input}/stats",
-  extract: (data: unknown) => {
-    const d = data as { all_run_totals?: { count?: number; distance?: number }; all_ride_totals?: { count?: number; distance?: number } };
-    const runs = d.all_run_totals?.count ?? 0;
-    const rides = d.all_ride_totals?.count ?? 0;
-    return { stats: `I've logged ${runs} runs and ${rides} rides on Strava.`, hobbies: ["running", "cycling"], topics: ["endurance sports", "fitness tracking"] };
+export const stravaGenerator: GeneratorSource = {
+  name: "strava",
+  flag: "strava",
+  flagArg: "<athlete-id>",
+  description: "Strava running/cycling activities (requires STRAVA_TOKEN env var)",
+  category: "fitness",
+
+  async generate(config): Promise<PartialProfile> {
+    const athleteId = config.username as string;
+    if (!athleteId) throw new Error("Strava athlete ID is required");
+
+    const token = process.env.STRAVA_TOKEN;
+    if (!token) {
+      throw new Error(
+        "Strava requires OAuth. Set STRAVA_TOKEN env var with a valid access token.\n" +
+        "  Get one at: https://www.strava.com/settings/api\n" +
+        "  Then: export STRAVA_TOKEN=your_token"
+      );
+    }
+
+    console.log(`  [Strava] Fetching stats for athlete ${athleteId}...`);
+    const resp = await fetch(`https://www.strava.com/api/v3/athletes/${athleteId}/stats`, {
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "mcp-me-generator" },
+    });
+    if (!resp.ok) throw new Error(`Strava API error: ${resp.status} ${resp.statusText}`);
+    const data = (await resp.json()) as {
+      all_run_totals?: { count?: number; distance?: number; elapsed_time?: number };
+      all_ride_totals?: { count?: number; distance?: number; elapsed_time?: number };
+      all_swim_totals?: { count?: number; distance?: number };
+      biggest_ride_distance?: number;
+      biggest_climb_elevation_gain?: number;
+    };
+
+    const runs = data.all_run_totals;
+    const rides = data.all_ride_totals;
+    const swims = data.all_swim_totals;
+    const runKm = Math.round((runs?.distance ?? 0) / 1000);
+    const rideKm = Math.round((rides?.distance ?? 0) / 1000);
+
+    console.log(`  [Strava] ${runs?.count ?? 0} runs (${runKm}km), ${rides?.count ?? 0} rides (${rideKm}km).`);
+
+    const statsLines: string[] = [];
+    if (runs?.count) statsLines.push(`${runs.count} runs (${runKm}km)`);
+    if (rides?.count) statsLines.push(`${rides.count} rides (${rideKm}km)`);
+    if (swims?.count) statsLines.push(`${swims.count} swims`);
+
+    const identity: PartialProfile["identity"] = {
+      contact: {
+        social: [{ platform: "strava", url: `https://www.strava.com/athletes/${athleteId}`, username: athleteId }],
+      },
+    };
+
+    const faq: PartialProfile["faq"] = statsLines.length > 0
+      ? [{ question: "Do you exercise?", answer: `Yes, I track my activities on Strava: ${statsLines.join(", ")}.`, category: "fitness" }]
+      : [];
+
+    const interests: PartialProfile["interests"] = {
+      hobbies: [
+        ...(runs?.count ? ["running"] : []),
+        ...(rides?.count ? ["cycling"] : []),
+        ...(swims?.count ? ["swimming"] : []),
+      ],
+      topics: ["endurance sports", "fitness tracking"],
+    };
+
+    return { identity, faq, interests };
   },
-});
+};
 
 export const garminGenerator = createStaticGenerator({
   name: "garmin", flag: "garmin", flagArg: "<display-name>", description: "Garmin Connect fitness profile",

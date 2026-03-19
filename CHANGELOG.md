@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Robust generator fixes** — fixed bugs and upgraded APIs
+  - **Medium RSS**: Fixed CDATA tags leaking into YAML output (`<![CDATA[topic]]>` → `topic`)
+  - **Gravatar**: Migrated from deprecated JSON API to v3 REST API (SHA256) — now extracts job_title, company, pronouns, verified_accounts, interests, languages
+  - **Goodreads**: Fixed ID parsing for composite IDs like `12345.Name` (extracts numeric part)
+  - **Strava**: Now requires `STRAVA_TOKEN` env var with clear error message (Strava API requires OAuth)
+- **LinkedIn generator** (`--linkedin <json-path>`) — reads LinkedIn data export (JSON) to populate career, skills, education, identity
+- **Complete `.mcp-me.yaml` template** — lists ALL 343 generators grouped by 20 categories + ALL 13 plugins with full config options
 - **Unified `.mcp-me.yaml` config file** — separates configuration from profile data
   - `generators:` section replaces CLI flags: `mcp-me generate ./profile` reads sources automatically
   - `plugins:` section replaces `plugins.yaml` (backward compatible — old `plugins.yaml` still works)

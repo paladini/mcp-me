@@ -24,7 +24,7 @@ const RESOURCE_DESCRIPTIONS: Record<ProfileCategory, { title: string; descriptio
 export async function createMcpMeServer(profileDir: string): Promise<McpServer> {
   const server = new McpServer({
     name: "mcp-me",
-    version: "0.2.1",
+    version: "0.2.2",
   });
 
   // Load profile data
