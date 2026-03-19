@@ -39,23 +39,54 @@ npm install mcp-me
 ## Quick Start
 
 ```bash
-# Auto-generate your profile from multiple sources at once
-npx mcp-me generate ~/my-profile \
-  --github your-username \
-  --stackoverflow 12345 \
-  --devto your-username
-
-# Or initialize with blank templates
+# 1. Initialize your profile (creates YAML templates + .mcp-me.yaml config)
 npx mcp-me init ~/my-profile
 
-# Review and edit the generated YAML files
-code ~/my-profile
+# 2. Edit the config file — uncomment your sources
+code ~/my-profile/.mcp-me.yaml
+```
 
-# Start the MCP server
+Your `.mcp-me.yaml` config file:
+
+```yaml
+generators:
+  github: your-username
+  devto: your-username
+  bluesky: handle.bsky.social
+  zodiac: aquarius
+
+plugins:
+  github:
+    enabled: true
+    username: your-username
+```
+
+```bash
+# 3. Generate! Reads sources from .mcp-me.yaml automatically
+npx mcp-me generate ~/my-profile
+
+# 4. Start the MCP server
 npx mcp-me serve ~/my-profile
 ```
 
+> **CLI flags still work** as override: `npx mcp-me generate ~/my-profile --github octocat --devto myuser`
+
 All commands work with `npx` (zero install) or with `mcp-me` directly if installed globally. The `generate` command pulls your data from public APIs and auto-populates profile YAML files — no API keys needed for most sources.
+
+### Profile directory structure
+
+```
+my-profile/
+  .mcp-me.yaml        ← Configuration (generators + plugins)
+  identity.yaml        ← Your data (name, bio, contact)
+  skills.yaml          ← Your data (languages, tools)
+  projects.yaml        ← Your data (portfolio)
+  career.yaml          ← Your data (experience)
+  interests.yaml       ← Your data (hobbies, topics)
+  personality.yaml     ← Your data (traits, values)
+  goals.yaml           ← Your data (short/long-term)
+  faq.yaml             ← Your data (Q&A pairs)
+```
 
 ## Configure Your AI Assistant
 

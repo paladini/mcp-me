@@ -98,9 +98,59 @@ export async function loadProfile(profileDir: string): Promise<ProfileBundle> {
 }
 
 /**
- * Load plugins.yaml configuration from the profile directory.
+ * The unified config file format (.mcp-me.yaml).
+ * Separates configuration (how mcp-me behaves) from data (profile YAMLs).
+ */
+export interface McpMeConfig {
+  generators: Record<string, string>;
+  plugins: Record<string, Record<string, unknown>>;
+}
+
+/**
+ * Load the unified .mcp-me.yaml config file from the profile directory.
+ * Falls back to plugins.yaml for backward compatibility.
+ */
+export async function loadConfig(profileDir: string): Promise<McpMeConfig> {
+  const configPath = join(profileDir, ".mcp-me.yaml");
+  try {
+    const content = await readFile(configPath, "utf-8");
+    const parsed = parseYaml(content) as Record<string, unknown> | null;
+    return {
+      generators: (parsed?.generators as Record<string, string>) ?? {},
+      plugins: (parsed?.plugins as Record<string, Record<string, unknown>>) ?? {},
+    };
+  } catch {
+    // Fall back to legacy plugins.yaml
+    const plugins = await loadPluginsConfigLegacy(profileDir);
+    return { generators: {}, plugins };
+  }
+}
+
+/**
+ * Load plugins config — prefers .mcp-me.yaml, falls back to plugins.yaml.
  */
 export async function loadPluginsConfig(
+  profileDir: string,
+): Promise<Record<string, Record<string, unknown>>> {
+  const config = await loadConfig(profileDir);
+  return config.plugins;
+}
+
+/**
+ * Load generator sources from .mcp-me.yaml.
+ * Returns a map of flag → value (e.g. { github: "octocat", devto: "myuser" }).
+ */
+export async function loadGeneratorsConfig(
+  profileDir: string,
+): Promise<Record<string, string>> {
+  const config = await loadConfig(profileDir);
+  return config.generators;
+}
+
+/**
+ * Legacy: Load plugins.yaml configuration from the profile directory.
+ */
+async function loadPluginsConfigLegacy(
   profileDir: string,
 ): Promise<Record<string, Record<string, unknown>>> {
   const filePath = join(profileDir, "plugins.yaml");

@@ -5,7 +5,7 @@ import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createMcpMeServer } from "./server.js";
-import { loadProfile } from "./loader.js";
+import { loadProfile, loadGeneratorsConfig } from "./loader.js";
 import { generateProfile } from "./generator.js";
 import { generators } from "./generators/index.js";
 
@@ -148,8 +148,19 @@ generateCmd.option("-f, --force", "Overwrite existing files", false);
 
 generateCmd.action(async (directory: string, options: Record<string, string | boolean | undefined>) => {
   const targetDir = resolve(directory);
-  const { force, ...sources } = options;
-  const hasSources = Object.values(sources).some(Boolean);
+  const { force, ...cliSources } = options;
+  let hasSources = Object.values(cliSources).some(Boolean);
+
+  // If no CLI flags given, try reading from .mcp-me.yaml
+  let sources: Record<string, string | boolean | undefined> = { ...cliSources };
+  if (!hasSources) {
+    const configSources = await loadGeneratorsConfig(targetDir);
+    if (Object.keys(configSources).length > 0) {
+      console.log("  Reading sources from .mcp-me.yaml...\n");
+      sources = { ...configSources };
+      hasSources = true;
+    }
+  }
 
   if (!hasSources) {
     // Group generators by category for help output
@@ -157,12 +168,17 @@ generateCmd.action(async (directory: string, options: Record<string, string | bo
     for (const g of generators) {
       (byCategory[g.category] ??= []).push(`--${g.flag}`);
     }
-    console.error("At least one data source is required.\n");
+    console.error("No data sources found. Provide CLI flags or create .mcp-me.yaml in the profile directory.\n");
+    console.error("Option 1 — CLI flags:");
+    console.error("  mcp-me generate ./my-profile --github octocat --devto myuser\n");
+    console.error("Option 2 — Config file (.mcp-me.yaml in your profile directory):");
+    console.error("  generators:");
+    console.error("    github: octocat");
+    console.error("    devto: myuser\n");
+    console.error("Available sources by category:");
     for (const [cat, flags] of Object.entries(byCategory)) {
-      console.error(`  ${cat.padEnd(12)} ${flags.join(", ")}`);
+      console.error(`  ${cat.padEnd(14)} ${flags.join(", ")}`);
     }
-    console.error("\nExample:");
-    console.error("  mcp-me generate ./my-profile --github octocat --devto myuser");
     process.exit(1);
   }
 
