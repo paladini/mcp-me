@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Single source of truth for version** — both `src/server.ts` and `src/cli.ts` now import `version` from `package.json` instead of hard-coding it, preventing CLI/server version skew
 - **`--force` flag now respected** — `generateProfile` previously overwrote existing YAML files unconditionally; now skips files that already exist and only overwrites when `--force` is passed
 - **CLI shebang restored** — `tsup.config.ts` re-adds `#!/usr/bin/env node` banner for `dist/cli.js` so `mcp-me` runs correctly after install on Unix
 - **Plugin test harness** — removed duplicated `BUILTIN_FACTORIES` list; harness now imports `BUILTIN_REGISTRY` directly from `src/plugin-engine/loader.ts` (single source of truth)
