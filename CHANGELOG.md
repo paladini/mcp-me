@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
+### Fixed
+
+- **`--force` flag now respected** — `generateProfile` previously overwrote existing YAML files unconditionally; now skips files that already exist and only overwrites when `--force` is passed
+- **CLI shebang restored** — `tsup.config.ts` re-adds `#!/usr/bin/env node` banner for `dist/cli.js` so `mcp-me` runs correctly after install on Unix
+- **Plugin test harness** — removed duplicated `BUILTIN_FACTORIES` list; harness now imports `BUILTIN_REGISTRY` directly from `src/plugin-engine/loader.ts` (single source of truth)
+- **Plugin test harness** — replaced `__dirname` (unavailable in ESM) with `fileURLToPath(import.meta.url)` + `dirname()`
+- **Plugin test harness** — LinkedIn minimal config now uses `os.tmpdir()` instead of a hardcoded `/tmp` path for Windows compatibility
+- **Plugin test harness** — plugin count assertion upgraded from `>= 8` to exact `toBe(13)` to catch accidental removals
+- **Generator test harness** — replaced `__dirname` with `fileURLToPath(import.meta.url)` + `dirname()`
+- **Generator test harness** — generator count assertion upgraded from `>= 32` to exact `toBe(328)` to catch registration regressions
+
+### Changed
+
+- **`src/plugin-engine/loader.ts`** — `BUILTIN_REGISTRY` is now exported as a named export (used by the plugin test harness)
+- **`src/plugin-engine/index.ts`** — re-exports `BUILTIN_REGISTRY` for external consumers
 
 - **Robust generator fixes** — fixed bugs and upgraded APIs
   - **Medium RSS**: Fixed CDATA tags leaking into YAML output (`<![CDATA[topic]]>` → `topic`)
