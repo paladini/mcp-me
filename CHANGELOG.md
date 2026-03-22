@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **VS Code (GitHub Copilot) setup docs** — added MCP configuration instructions for VS Code in the README "Configure Your AI Assistant" section
+
 ### Fixed
 
 - **Single source of truth for version** — both `src/server.ts` and `src/cli.ts` now import `version` from `package.json` instead of hard-coding it, preventing CLI/server version skew
