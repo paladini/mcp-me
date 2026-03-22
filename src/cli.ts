@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Command } from "commander";
 import { cp, mkdir, readdir, access, writeFile } from "node:fs/promises";
 import { join, resolve, dirname } from "node:path";
