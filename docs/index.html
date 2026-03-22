@@ -89,44 +89,77 @@
         </button>
       </div>
 
-      <!-- Hero Diagram: You ↔ mcp-me ↔ AI -->
-      <div class="hero__diagram fade-in">
-        <svg viewBox="0 0 720 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- You node -->
-          <rect x="20" y="50" width="160" height="100" rx="16" fill="#EEF4FF" stroke="#7CB9E8" stroke-width="2"/>
-          <text x="100" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#2563A0">👤 You</text>
-          <text x="100" y="110" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#64748B">YAML profile files</text>
-          <text x="100" y="126" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#64748B">on your machine</text>
+      <!-- Hero Illustration: ELI5 before/after -->
+      <div class="hero-compare fade-in">
+        <!-- Scene 1: Without -->
+        <div class="hero-scene hero-scene--without">
+          <span class="hero-scene__badge hero-scene__badge--red">Without mcp-me</span>
+          <div class="hero-scene__actors">
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--user">🧑‍💻</div>
+              <span class="hero-scene__name">You</span>
+            </div>
+            <div class="hero-scene__arrow">
+              <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10h32M28 4l8 6-8 6" stroke="#CBD5E1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--ai-sad">🤖</div>
+              <span class="hero-scene__name">AI</span>
+            </div>
+          </div>
+          <div class="hero-scene__chat">
+            <div class="hero-scene__bubble hero-scene__bubble--user">Suggest a side project for this weekend</div>
+            <div class="hero-scene__bubble hero-scene__bubble--ai-confused">Sure! What programming languages do you know? What are your interests? What have you built before? What's your skill level?</div>
+          </div>
+          <div class="hero-scene__verdict hero-scene__verdict--bad">
+            <span class="hero-scene__verdict-icon">✗</span>
+            You repeat yourself every single time
+          </div>
+        </div>
 
-          <!-- Arrow You → mcp-me -->
-          <line x1="180" y1="100" x2="260" y2="100" stroke="#B9DCFE" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="258,95 268,100 258,105" fill="#7CB9E8"/>
+        <!-- Divider -->
+        <div class="hero-compare__divider"></div>
 
-          <!-- mcp-me node (center) -->
-          <rect x="268" y="35" width="184" height="130" rx="20" fill="url(#heroGrad)" stroke="#7CB9E8" stroke-width="2"/>
-          <text x="360" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="18" font-weight="800" fill="#1E293B">mcp-me</text>
-          <text x="360" y="100" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#475569">MCP Server</text>
-          <text x="360" y="118" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#475569">342+ generators</text>
-          <text x="360" y="136" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#475569">13 live plugins</text>
-
-          <!-- Arrow mcp-me → AI -->
-          <line x1="452" y1="100" x2="532" y2="100" stroke="#B9DCFE" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="530,95 540,100 530,105" fill="#7CB9E8"/>
-
-          <!-- AI node -->
-          <rect x="540" y="50" width="160" height="100" rx="16" fill="#FFFDF0" stroke="#F5D76E" stroke-width="2"/>
-          <text x="620" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#D4A72C">🤖 AI Assistants</text>
-          <text x="620" y="110" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#64748B">Claude, Cursor,</text>
-          <text x="620" y="126" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#64748B">Windsurf, Copilot</text>
-
-          <!-- Gradient def -->
-          <defs>
-            <linearGradient id="heroGrad" x1="268" y1="35" x2="452" y2="165" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#E0EFFF"/>
-              <stop offset="1" stop-color="#FEF9E0"/>
-            </linearGradient>
-          </defs>
-        </svg>
+        <!-- Scene 2: With mcp-me -->
+        <div class="hero-scene hero-scene--with">
+          <span class="hero-scene__badge hero-scene__badge--green">With mcp-me</span>
+          <div class="hero-scene__actors">
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--user">🧑‍💻</div>
+              <span class="hero-scene__name">You</span>
+            </div>
+            <div class="hero-scene__arrow">
+              <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10h32M28 4l8 6-8 6" stroke="#7CB9E8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="hero-scene__actor">
+              <div class="hero-scene__mcpme">
+                <span class="hero-scene__mcpme-icon">📋</span>
+                <strong>mcp-me</strong>
+                <div class="hero-scene__tags">
+                  <span class="hero-scene__tag hero-scene__tag--blue">skills</span>
+                  <span class="hero-scene__tag hero-scene__tag--yellow">career</span>
+                  <span class="hero-scene__tag hero-scene__tag--yellow">projects</span>
+                  <span class="hero-scene__tag hero-scene__tag--blue">bio</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-scene__arrow">
+              <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10h32M28 4l8 6-8 6" stroke="#7CB9E8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--ai-happy">🤖</div>
+              <span class="hero-scene__name">AI</span>
+            </div>
+          </div>
+          <div class="hero-scene__chat">
+            <div class="hero-scene__bubble hero-scene__bubble--user">Suggest a side project for this weekend</div>
+            <div class="hero-scene__bubble hero-scene__bubble--ai-smart">Since you know <strong>TypeScript</strong> and <strong>React</strong>, love <strong>music</strong>, and your goal is to <em>learn Rust</em> — how about a CLI that turns your <span class="hero-scene__ref">me://interests</span> into a Spotify playlist?</div>
+          </div>
+          <div class="hero-scene__verdict hero-scene__verdict--good">
+            <span class="hero-scene__verdict-icon">✓</span>
+            AI knows you from day one
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -270,12 +303,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         How It Works
       </span>
-      <h2 class="section-title">Three commands. That's it.</h2>
+      <h2 class="section-title">Four simple steps</h2>
       <p class="section-subtitle mx-auto">
-        Go from zero to a fully personalized AI experience in under a minute.
+        Go from zero to a fully personalized AI experience in just a few minutes.
       </p>
 
-      <div class="steps__grid fade-in-group">
+      <div class="steps__grid steps__grid--4 fade-in-group">
         <div class="step">
           <div class="step__number">1</div>
           <div class="step__title">Initialize</div>
@@ -287,15 +320,24 @@
 
         <div class="step">
           <div class="step__number">2</div>
+          <div class="step__title">Configure</div>
+          <div class="step__desc">Open <code>.mcp-me.yaml</code> and tell it where to find your data — your GitHub username, DEV.to handle, etc.</div>
+          <div class="step__code">
+            <span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/my-profile/.mcp-me.yaml</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">3</div>
           <div class="step__title">Generate</div>
-          <div class="step__desc">Pull data from 342+ public APIs. GitHub, DEV.to, Stack Overflow, and more.</div>
+          <div class="step__desc">Pull data from 342+ public APIs automatically based on your config.</div>
           <div class="step__code">
             <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">generate ~/my-profile</span>
           </div>
         </div>
 
         <div class="step">
-          <div class="step__number">3</div>
+          <div class="step__number">4</div>
           <div class="step__title">Serve</div>
           <div class="step__desc">Start the MCP server. Every AI assistant can now read your profile.</div>
           <div class="step__code">
@@ -572,9 +614,9 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
         Quick Start
       </span>
-      <h2 class="section-title">Up and running in 60 seconds</h2>
+      <h2 class="section-title">Up and running in a few minutes</h2>
       <p class="section-subtitle mx-auto">
-        Three commands to give every AI assistant full context about who you are.
+        Four steps to give every AI assistant full context about who you are.
       </p>
 
       <div class="quickstart__terminal fade-in">
@@ -585,16 +627,19 @@
           <span class="terminal__title">~/my-profile — bash</span>
         </div>
         <div class="terminal__body">
-          <div><span class="comment"># Install globally (or use npx)</span></div>
+          <div><span class="comment"># 1. Install globally (or use npx)</span></div>
           <div><span class="prompt">$ </span><span class="cmd">npm install -g</span> <span class="flag">mcp-me</span></div>
           <div>&nbsp;</div>
-          <div><span class="comment"># Create your profile with YAML templates</span></div>
+          <div><span class="comment"># 2. Create your profile with YAML templates</span></div>
           <div><span class="prompt">$ </span><span class="cmd">mcp-me init</span> <span class="arg">~/my-profile</span></div>
           <div>&nbsp;</div>
-          <div><span class="comment"># Auto-populate from your online presence</span></div>
-          <div><span class="prompt">$ </span><span class="cmd">mcp-me generate</span> <span class="arg">~/my-profile</span> <span class="flag">--github</span> <span class="arg">octocat</span></div>
+          <div><span class="comment"># 3. Edit the config — add your usernames and data sources</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/my-profile/.mcp-me.yaml</span></div>
           <div>&nbsp;</div>
-          <div><span class="comment"># Start the MCP server</span></div>
+          <div><span class="comment"># 4. Auto-populate from your online presence</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">mcp-me generate</span> <span class="arg">~/my-profile</span></div>
+          <div>&nbsp;</div>
+          <div><span class="comment"># 5. Start the MCP server</span></div>
           <div><span class="prompt">$ </span><span class="cmd">mcp-me serve</span> <span class="arg">~/my-profile</span></div>
           <div><span style="color: #22c55e;">✓</span> MCP server running — AI assistants can now read your profile</div>
         </div>
