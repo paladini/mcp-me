@@ -1,22 +1,19 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { version } from "../package.json";
-import { PROFILE_CATEGORIES, type ProfileCategory } from "./schema/index.js";
+import { PROFILE_CATEGORIES } from "./schema/index.js";
 import { loadProfile, loadPluginsConfig, searchProfile, type ProfileBundle } from "./loader.js";
 import { discoverPlugins, type McpMePlugin, type PluginPrompt } from "./plugin-engine/index.js";
 
-const RESOURCE_DESCRIPTIONS: Record<ProfileCategory, { title: string; description: string }> = {
-  identity: { title: "Identity", description: "Personal identity: name, bio, location, contact" },
-  career: { title: "Career", description: "Work experience, education, certifications" },
-  skills: { title: "Skills", description: "Technical and soft skills with proficiency levels" },
-  interests: { title: "Interests", description: "Hobbies, music, books, movies, food, travel" },
-  personality: {
-    title: "Personality",
-    description: "Personality traits, values, work style, MBTI",
-  },
-  goals: { title: "Goals", description: "Short, medium, and long-term goals" },
-  projects: { title: "Projects", description: "Personal and open-source projects" },
-  faq: { title: "FAQ", description: "Frequently asked questions and answers" },
+const RESOURCE_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
+  identity: { title: "Who I Am", description: "Name, bio, location, email, website, and social media links. Use this to learn who this person is and how to contact them." },
+  career: { title: "My Career & Experience", description: "Work history, job titles, companies, education, and certifications. Use this to understand professional background and expertise." },
+  skills: { title: "My Skills & Technologies", description: "Programming languages (with proficiency levels), technical skills, frameworks, and tools. Use this to evaluate technical capabilities." },
+  interests: { title: "My Interests & Hobbies", description: "Hobbies, topics of interest, favorite subjects. Use this to understand what this person cares about beyond work." },
+  personality: { title: "My Personality & Values", description: "Personality traits, values, work style preferences, MBTI type, strengths. Use this to understand communication and collaboration style." },
+  goals: { title: "My Goals", description: "Short-term, medium-term, and long-term personal and professional goals. Use this to understand aspirations and direction." },
+  projects: { title: "My Projects & Portfolio", description: "Open-source projects, published books, articles, packages, and creative work with links. Use this to see what this person has built." },
+  faq: { title: "FAQ About Me", description: "Pre-answered questions about this person — reading habits, published works, online presence, timezone, languages spoken. Use this for quick facts." },
 };
 
 /**
@@ -85,12 +82,13 @@ function registerCoreTools(server: McpServer, profile: ProfileBundle): void {
   server.registerTool(
     "ask_about_me",
     {
-      title: "Ask About Me",
+      title: "Ask About Me \u2014 Personal Q&A",
       description:
-        "Answer a free-form question about this person using their profile data. " +
-        "Returns all relevant profile sections as context.",
+        "Ask any question about this person and get an answer based on their complete profile. " +
+        "Covers: bio, career history, skills, projects, interests, personality, goals, and FAQ. " +
+        "Examples: 'What programming languages do they know?', 'Where do they work?', 'What books have they written?'",
       inputSchema: z.object({
-        question: z.string().describe("The question to answer about this person"),
+        question: z.string().describe("Any question about this person (e.g. 'What are their top skills?', 'Do they have open-source projects?')"),
       }),
       annotations: { readOnlyHint: true },
     },
@@ -121,10 +119,13 @@ function registerCoreTools(server: McpServer, profile: ProfileBundle): void {
   server.registerTool(
     "search_profile",
     {
-      title: "Search Profile",
-      description: "Search across all profile data for a keyword or phrase.",
+      title: "Search Profile \u2014 Find Skills, Projects, Experience",
+      description:
+        "Search across the entire personal profile for a keyword or phrase. " +
+        "Searches through: name, bio, job titles, companies, skill names, project names, article titles, book titles, social links, FAQ answers, and more. " +
+        "Returns matching fields with their location in the profile.",
       inputSchema: z.object({
-        query: z.string().describe("Search term to find in the profile"),
+        query: z.string().describe("Keyword to search for (e.g. 'TypeScript', 'open-source', 'running')"),
       }),
       annotations: { readOnlyHint: true },
     },
@@ -149,8 +150,8 @@ function registerCorePrompts(server: McpServer, profile: ProfileBundle): void {
   server.registerPrompt(
     "introduce_me",
     {
-      title: "Introduce Me",
-      description: `Write a 2-paragraph introduction for ${name}`,
+      title: "Write My Introduction",
+      description: `Generate a warm, professional 2-paragraph introduction for ${name} based on their career, skills, projects, and interests`,
     },
     () => ({
       messages: [
@@ -170,8 +171,8 @@ function registerCorePrompts(server: McpServer, profile: ProfileBundle): void {
   server.registerPrompt(
     "summarize_career",
     {
-      title: "Summarize Career",
-      description: `Summarize ${name}'s career trajectory`,
+      title: "Summarize My Career",
+      description: `Write a concise career summary for ${name} covering work experience, key skills, and professional growth`,
     },
     () => ({
       messages: [
@@ -192,8 +193,8 @@ function registerCorePrompts(server: McpServer, profile: ProfileBundle): void {
   server.registerPrompt(
     "technical_profile",
     {
-      title: "Technical Profile",
-      description: `Describe ${name}'s technical skills and stack`,
+      title: "Describe My Tech Stack",
+      description: `Describe ${name}'s technical skills, programming languages, frameworks, tools, and notable technical projects`,
     },
     () => ({
       messages: [
@@ -214,8 +215,8 @@ function registerCorePrompts(server: McpServer, profile: ProfileBundle): void {
   server.registerPrompt(
     "collaboration_fit",
     {
-      title: "Collaboration Fit",
-      description: `Evaluate if ${name} would be a good fit for a project`,
+      title: "Am I a Good Fit?",
+      description: `Evaluate whether ${name} would be a good fit for a specific project based on their skills, experience, interests, and availability`,
       argsSchema: {
         project_description: z.string().describe("Description of the project to evaluate fit for"),
       },
