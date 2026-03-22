@@ -22,31 +22,36 @@ AI:  (reads your me://career, me://skills, me://projects)
 
 ## Installation
 
-**No install needed** — run directly with `npx` (requires Node.js 20+):
+> **Prerequisite:** [Node.js](https://nodejs.org/) 20 or later. Verify with `node -v`.
 
-```bash
-npx mcp-me --help
-```
-
-Or install globally for repeated use:
+**Recommended — install globally:**
 
 ```bash
 npm install -g mcp-me
 ```
 
-Or add to a project:
+This makes the `mcp-me` command available everywhere on your system. No need to clone any repository — npm downloads the package for you.
 
 ```bash
-npm install mcp-me
+mcp-me --help
+mcp-me init ~/my-profile
+mcp-me generate ~/my-profile
+mcp-me serve ~/my-profile
 ```
 
-> **Prerequisite:** [Node.js](https://nodejs.org/) 20 or later. Verify with `node -v`.
+**Alternative — run without installing** (via `npx`):
+
+```bash
+npx mcp-me --help
+```
+
+`npx` downloads the package temporarily and runs it. Useful for trying mcp-me once, but slower on repeated use since it re-downloads each time.
 
 ## Quick Start
 
 ```bash
 # 1. Initialize your profile (creates YAML templates + .mcp-me.yaml config)
-npx mcp-me init ~/my-profile
+mcp-me init ~/my-profile
 
 # 2. Edit the config file — uncomment your sources
 code ~/my-profile/.mcp-me.yaml
@@ -69,13 +74,13 @@ plugins:
 
 ```bash
 # 3. Generate! Reads sources from .mcp-me.yaml automatically
-npx mcp-me generate ~/my-profile
+mcp-me generate ~/my-profile
 
 # 4. Start the MCP server
-npx mcp-me serve ~/my-profile
+mcp-me serve ~/my-profile
 ```
 
-> **CLI flags still work** as override: `npx mcp-me generate ~/my-profile --github octocat --devto myuser`
+> **CLI flags also work:** `mcp-me generate ~/my-profile --github octocat --devto myuser`
 
 All commands work with `npx` (zero install) or with `mcp-me` directly if installed globally. The `generate` command pulls your data from public APIs and auto-populates profile YAML files — no API keys needed for most sources.
 
