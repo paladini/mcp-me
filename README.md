@@ -1,18 +1,24 @@
 # mcp-me
 
-> A community-driven MCP server framework that lets anyone expose personal information to AI assistants via the [Model Context Protocol](https://modelcontextprotocol.io/).
+**Your AI assistants don't know who you are.** Every time you start a conversation with Claude, Copilot, Cursor, or Windsurf, it's a blank slate — no context about your skills, your projects, your career, or what you care about.
 
-**mcp-me** makes it easy for AI assistants (Claude, Copilot, Cursor, Windsurf, etc.) to know about *you* — your bio, career, skills, interests, projects, and more — by serving structured personal data through a standardized MCP server.
+**mcp-me fixes that.** It creates a structured personal profile that any AI assistant can read via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). Think of it as a **digital identity layer for AI** — your bio, career, skills, interests, projects, and more, always available to every AI tool you use.
 
-Built with two extension systems for the community: **generators** (auto-populate from 42 data sources) and **plugins** (13 live integrations for AI at runtime).
+```
+You: "Write me a cover letter for this job"
+AI:  (reads your me://career, me://skills, me://projects)
+     "Based on your 5 years at Acme Corp, your TypeScript expertise,
+      and your open-source work on mcp-me..."
+```
 
-## Features
+## Why mcp-me?
 
-- ⚡ **Auto-generate from 42 sources** — GitHub, GitLab, Stack Overflow, DEV.to, Kaggle, AniList, and many more
-- 📝 **YAML-based profiles** — Human-friendly, version-controllable personal data
-- 🔌 **Plugin ecosystem** — Community-built live integrations (Spotify, LinkedIn, etc.)
-- 🤖 **MCP native** — Works with any MCP-compatible AI assistant
-- 🛡️ **Schema validation** — Zod-powered validation with helpful error messages
+- **AI that knows you** — Your assistants remember your skills, career, projects, and personality across every conversation
+- **Auto-generated** — Pull data from 342+ sources (GitHub, Medium, Strava, Goodreads, and hundreds more) with one command
+- **Privacy-first** — All data stays local in YAML files on your machine. Nothing is sent to any cloud.
+- **Real-time plugins** — 13 live integrations (Spotify now playing, GitHub repos, Last.fm scrobbles) that AI queries on demand
+- **Extensible** — Community-driven generators and plugins. Add a new data source in ~10 lines of code.
+- **Works everywhere** — Claude Desktop, Cursor, Windsurf, Copilot, and any MCP-compatible AI assistant
 
 ## Installation
 

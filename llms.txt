@@ -1,8 +1,8 @@
 # mcp-me
 
-> A community-driven MCP server framework that lets anyone expose personal information to AI assistants via the Model Context Protocol.
+> Your AI assistants don't know who you are. mcp-me fixes that.
 
-mcp-me makes it easy for AI assistants (Claude, Copilot, Cursor, Windsurf, etc.) to know about *you* — your bio, career, skills, interests, projects, and more — by serving structured personal data through a standardized MCP server.
+mcp-me is a digital identity layer for AI. It creates a structured personal profile (bio, career, skills, interests, projects) that any AI assistant can read via the Model Context Protocol (MCP). Works with Claude Desktop, Cursor, Windsurf, Copilot, and any MCP-compatible tool. All data stays local — nothing is sent to any cloud.
 
 ## Key Facts
 
