@@ -54,7 +54,7 @@ import { codebergGenerator } from "./codeberg.js";
 import { anilistGenerator } from "./anilist.js";
 import { threadsGenerator } from "./threads.js";
 import { linkedinGenerator } from "./linkedin.js";
-// Batch imports — 300 generators across 14 themed files
+// Batch imports — 284 generators across 15 themed files
 import { speedrunGenerator, retroachievementsGenerator, boardgamegeekGenerator, itchioGenerator, rawgGenerator, osuGenerator, minecraftGenerator, robloxGenerator, leagueoflegendsGenerator, valorantGenerator, fortniteGenerator, apexGenerator, overwatchGenerator, csgoGenerator, pokemongoGenerator, moxfieldGenerator, dndbeyondGenerator, bgaGenerator, nexusmodsGenerator } from "./batch-gaming.js";
 import { soundcloudGenerator, bandcampGenerator, discogsGenerator, geniusGenerator, mixcloudGenerator, listenbrainzGenerator, setlistfmGenerator, spliceGenerator, beatstarsGenerator, distrokidGenerator, audiusGenerator, songkickGenerator, musixmatchGenerator, soundtrapGenerator, rateYourMusicGenerator, kompozGenerator, chordsGenerator, spotifyArtistGenerator } from "./batch-music.js";
 import { deviantartGenerator, artstationGenerator, pixivGenerator, behanceGenerator, flickrGenerator, px500Generator, sketchfabGenerator, society6Generator, redbubbleGenerator, codepenGenerator, observablehqGenerator, glitchGenerator, codesandboxGenerator, replitGenerator, figmaGenerator, canvaGenerator, processingGenerator, shadertoyGenerator, threeJsGenerator } from "./batch-creative.js";
@@ -133,7 +133,7 @@ export const generators: GeneratorSource[] = [
   wordpressGenerator,
   // Identity (additional)
   linkedinGenerator,
-  // --- 300 Batch Generators ---
+  // --- 284 Batch Generators ---
   // Gaming (19)
   speedrunGenerator, retroachievementsGenerator, boardgamegeekGenerator, itchioGenerator, rawgGenerator, osuGenerator, minecraftGenerator, robloxGenerator, leagueoflegendsGenerator, valorantGenerator, fortniteGenerator, apexGenerator, overwatchGenerator, csgoGenerator, pokemongoGenerator, moxfieldGenerator, dndbeyondGenerator, bgaGenerator, nexusmodsGenerator,
   // Music (18)

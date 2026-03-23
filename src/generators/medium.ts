@@ -1,51 +1,24 @@
 /**
  * Medium Generator
  *
- * Fetches your published articles and categories from Medium via RSS feed.
+ * Fetches your published articles, excerpts, and categories from Medium via RSS feed.
  *
  * @flag --medium <username>
  * @example mcp-me generate ./profile --medium @yourname
  * @auth None required (public RSS feed)
  * @api https://medium.com/feed/@username
- * @data identity, skills (article categories), projects (top articles), interests, faq
+ * @data identity, skills (article categories), projects (articles with body text), interests, faq
  */
 import type { GeneratorSource, PartialProfile } from "./types.js";
+import { parseRssFeed, rssHtmlToText, summarizeText } from "../utils/rss.js";
 
-interface MediumRSSItem {
-  title: string;
-  link: string;
-  pubDate: string;
-  categories: string[];
+function normalizeMediumUsername(username: string): string {
+  return username.trim().replace(/^@+/, "");
 }
 
-/**
- * Parse a simple RSS/Atom XML feed to extract items.
- * Lightweight: no external XML parser dependency — uses regex extraction.
- */
-function parseRSSItems(xml: string): MediumRSSItem[] {
-  const items: MediumRSSItem[] = [];
-  const itemRegex = /<item>([\s\S]*?)<\/item>/g;
-  let match;
-
-  while ((match = itemRegex.exec(xml)) !== null) {
-    const block = match[1];
-    const title = block.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1]
-      ?? block.match(/<title>(.*?)<\/title>/)?.[1]
-      ?? "Untitled";
-    const link = block.match(/<link>(.*?)<\/link>/)?.[1] ?? "";
-    const pubDate = block.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] ?? "";
-
-    const categories: string[] = [];
-    const catRegex = /<category>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/category>/g;
-    let catMatch;
-    while ((catMatch = catRegex.exec(block)) !== null) {
-      categories.push(catMatch[1]);
-    }
-
-    items.push({ title, link, pubDate, categories });
-  }
-
-  return items;
+function countWords(text: string): number {
+  if (!text) return 0;
+  return text.split(/\s+/).filter(Boolean).length;
 }
 
 export const mediumGenerator: GeneratorSource = {
@@ -56,7 +29,8 @@ export const mediumGenerator: GeneratorSource = {
   category: "writing",
 
   async generate(config): Promise<PartialProfile> {
-    const username = config.username as string;
+    const rawUsername = config.username as string;
+    const username = normalizeMediumUsername(rawUsername);
     if (!username) throw new Error("Medium username is required");
 
     console.log(`  [Medium] Fetching RSS feed for @${username}...`);
@@ -68,7 +42,8 @@ export const mediumGenerator: GeneratorSource = {
     }
 
     const xml = await response.text();
-    const items = parseRSSItems(xml);
+    const feed = parseRssFeed(xml);
+    const items = feed.items;
     console.log(`  [Medium] Found ${items.length} articles.`);
 
     // Extract tags across all articles
@@ -89,9 +64,16 @@ export const mediumGenerator: GeneratorSource = {
       description: `Written about in ${count} Medium article(s)`,
     }));
 
+    const articleWordCount = items.reduce((sum, item) => {
+      const articleText = rssHtmlToText(item.content) || rssHtmlToText(item.description);
+      return sum + countWords(articleText);
+    }, 0);
+
+    const averageWordCount = items.length > 0 ? Math.round(articleWordCount / items.length) : 0;
+
     const projects = items.slice(0, 10).map((item) => ({
       name: item.title,
-      description: item.title,
+      description: rssHtmlToText(item.content) || rssHtmlToText(item.description) || item.title,
       url: item.link,
       status: "completed" as const,
       technologies: item.categories,
@@ -114,7 +96,13 @@ export const mediumGenerator: GeneratorSource = {
     const faq: PartialProfile["faq"] = items.length > 0
       ? [{
           question: "Do you write on Medium?",
-          answer: `Yes, I've published ${items.length} articles on Medium covering topics like ${topTags.slice(0, 5).map(([t]) => t).join(", ")}.`,
+          answer: `Yes, I've published ${items.length} articles on Medium covering topics like ${topTags.slice(0, 5).map(([t]) => t).join(", ")}. My recent posts average about ${averageWordCount} words each.${feed.description ? ` Feed summary: ${summarizeText(rssHtmlToText(feed.description), 180)}` : ""}`,
+          category: "content",
+        }, {
+          question: "What do you usually write about on Medium?",
+          answer: topTags.length > 0
+            ? `Mostly ${topTags.slice(0, 8).map(([tag]) => tag).join(", ")}.`
+            : "I publish technical and personal essays on Medium.",
           category: "content",
         }]
       : [];

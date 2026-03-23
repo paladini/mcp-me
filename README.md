@@ -14,7 +14,7 @@ AI:  (reads your me://career, me://skills, me://projects)
 ## Why mcp-me?
 
 - **AI that knows you** — Your assistants remember your skills, career, projects, and personality across every conversation
-- **Auto-generated** — Pull data from 342+ sources (GitHub, Medium, Strava, Goodreads, and hundreds more) with one command
+- **Auto-generated** — Pull data from 328 registered generators (implemented across 43 generator source files) with one command
 - **Privacy-first** — All data stays local in YAML files on your machine. Nothing is sent to any cloud.
 - **Real-time plugins** — 13 live integrations (Spotify now playing, GitHub repos, Last.fm scrobbles) that AI queries on demand
 - **Extensible** — Community-driven generators and plugins. Add a new data source in ~10 lines of code.
@@ -207,9 +207,15 @@ Static profile data exposed as MCP resources:
 - **`technical_profile`** — Describe technical skills and stack
 - **`collaboration_fit`** — Evaluate fit for a project
 
-## Generators (42 data sources)
+## Generators (selected examples)
 
 Generators run during `mcp-me generate` to auto-populate your profile from public APIs. **No API keys needed** for most sources.
+
+Current counts:
+- **Registered generators:** 328
+- **Generator source files:** 43 single-generator files + 15 batch files (`src/generators/`)
+
+> The table below is a curated list of commonly used generators. The complete source of truth is `src/generators/index.ts`.
 
 | Category | Flag | Source | Data |
 |---|---|---|---|
@@ -220,9 +226,9 @@ Generators run during `mcp-me generate` to auto-populate your profile from publi
 | **Code** | `--kaggle <user>` | Kaggle API | Competitions, datasets, medals |
 | **Code** | `--codeberg <user>` | Gitea API | Repos, languages |
 | **Writing** | `--devto <user>` | DEV.to API | Articles, tags, reactions |
-| **Writing** | `--medium <user>` | Medium RSS | Articles, categories |
+| **Writing** | `--medium <user>` | Medium RSS | Articles, categories, article text |
 | **Writing** | `--hashnode <user>` | Hashnode GraphQL | Blog posts, tags |
-| **Writing** | `--substack <user>` | Substack RSS | Newsletter posts |
+| **Writing** | `--substack <user>` | Substack RSS | Newsletter posts, article text |
 | **Writing** | `--wordpress <site>` | WordPress API | Blog posts, categories, tags |
 | **Writing** | `--openlibrary <user>` | Open Library API | Books authored |
 | **Writing** | `--orcid <id>` | ORCID API | Academic publications |
@@ -241,7 +247,7 @@ Generators run during `mcp-me generate` to auto-populate your profile from publi
 | **Packages** | `--dockerhub <user>` | Docker Hub API | Container images |
 | **Activity** | `--wakatime <user>` | WakaTime API | Coding time, languages, editors |
 | **Activity** | `--letterboxd <user>` | Letterboxd RSS | Films watched, ratings |
-| **Activity** | `--goodreads <user>` | Goodreads RSS | Books, reading list |
+| **Activity** | `--goodreads <user>` | Goodreads RSS + author page | Read books, shelves, reviews, published books |
 | **Activity** | `--chess <user>` | Chess.com API | Rating, stats |
 | **Activity** | `--lichess <user>` | Lichess API | Rating, games |
 | **Activity** | `--codewars <user>` | Codewars API | Rank, honor, languages |
@@ -363,7 +369,7 @@ Run `mcp-me create generator myservice` to scaffold a new generator, or see the 
 No. All data stays local in your YAML files. The MCP server reads from disk — nothing is sent to any cloud.
 
 **How many generators are there?**
-342+ generators across 24 categories — from GitHub and Medium to Zodiac signs and D&D alignment.
+Currently 328 registered generators, implemented across 43 generator source files plus 15 batch files.
 
 ## Contributing
 
