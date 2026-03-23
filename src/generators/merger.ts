@@ -106,12 +106,24 @@ function mergeProjects(target: PartialProfile, source: PartialProfile): void {
     target.projects = [];
   }
 
-  // Deduplicate by name
-  const existingNames = new Set(target.projects.map((p) => p.name.toLowerCase()));
+  // Deduplicate by name; if a project already exists, prefer the richer description.
+  const existingIndex = new Map(target.projects.map((p, i) => [p.name.toLowerCase(), i]));
   for (const project of source.projects) {
-    if (!existingNames.has(project.name.toLowerCase())) {
+    const key = project.name.toLowerCase();
+    const idx = existingIndex.get(key);
+    if (idx === undefined) {
       target.projects.push(project);
-      existingNames.add(project.name.toLowerCase());
+      existingIndex.set(key, target.projects.length - 1);
+    } else {
+      // Update description if the incoming one is richer (longer)
+      const existing = target.projects[idx];
+      if (
+        existing &&
+        project.description &&
+        (project.description.length > (existing.description?.length ?? 0))
+      ) {
+        target.projects[idx] = { ...existing, description: project.description };
+      }
     }
   }
 }
