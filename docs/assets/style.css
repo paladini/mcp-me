@@ -1021,6 +1021,14 @@ img, svg {
 
 .plugin-card__icon {
   font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.plugin-card__icon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .plugin-card__name {
