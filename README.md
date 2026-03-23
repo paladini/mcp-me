@@ -131,6 +131,23 @@ Add to `.cursor/mcp.json` in your project root:
 }
 ```
 
+### VS Code (GitHub Copilot)
+
+Add to `.vscode/mcp.json` in your project root (or in your User Settings for global access):
+
+```json
+{
+  "servers": {
+    "me": {
+      "command": "npx",
+      "args": ["mcp-me", "serve", "/absolute/path/to/my-profile"]
+    }
+  }
+}
+```
+
+> **Tip:** To enable it globally (all workspaces), open VS Code Settings (`Ctrl+Shift+P` → "Preferences: Open User Settings (JSON)") and add the `mcp` key there instead.
+
 ### Claude Desktop
 
 Add to your Claude Desktop config:
@@ -336,7 +353,7 @@ MCP is an open standard by Anthropic that connects AI assistants to external dat
 **Do I need API keys?**
 Most generators use public APIs with no auth needed. Some (Strava, Spotify) require tokens — see the `.mcp-me.yaml` comments for details.
 
-**Can I use this with Claude Desktop / Cursor / Windsurf?**
+**Can I use this with Claude Desktop / VS Code / Cursor / Windsurf?**
 Yes! Any MCP-compatible AI assistant works. See the [Configure Your AI Assistant](#configure-your-ai-assistant) section.
 
 **How do I add a new data source?**

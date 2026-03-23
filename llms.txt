@@ -17,12 +17,11 @@ mcp-me is a digital identity layer for AI. It creates a structured personal prof
 ## Installation
 
 ```bash
-npx mcp-me init ~/my-profile    # Create profile + config
-npx mcp-me generate ~/my-profile # Generate from APIs
-npx mcp-me serve ~/my-profile    # Start MCP server
+npm install -g mcp-me            # Install globally
+mcp-me init ~/my-profile         # Create profile + config
+mcp-me generate ~/my-profile     # Generate from APIs
+mcp-me serve ~/my-profile        # Start MCP server
 ```
-
-Or install globally: `npm install -g mcp-me`
 
 ## Links
 

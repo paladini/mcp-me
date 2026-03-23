@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcp-me — Your Digital Identity Layer for AI</title>
+  <meta name="description" content="Your AI assistants don't know who you are. mcp-me creates a structured personal profile that any AI assistant can read via MCP. Privacy-first, 342+ generators, 13 live plugins." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="mcp-me — Your Digital Identity Layer for AI" />
+  <meta property="og:description" content="Your AI assistants don't know who you are. mcp-me fixes that with a structured personal profile via Model Context Protocol." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://paladini.github.io/mcp-me/" />
+
+  <!-- Favicon (inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧑‍💻</text></svg>" />
+
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo" aria-label="mcp-me home">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#7CB9E8" opacity="0.15"/>
+          <circle cx="16" cy="12" r="5" fill="#7CB9E8"/>
+          <path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#7CB9E8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="25" cy="10" r="3" fill="#F5D76E"/>
+          <path d="M25 7v-2M25 15v-2M28 10h2M22 10h-2" stroke="#F5D76E" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        mcp-me
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#generators">Generators</a></li>
+        <li><a href="#plugins">Plugins</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li>
+          <a href="https://github.com/paladini/mcp-me" class="nav__cta" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <header class="hero" id="hero">
+    <div class="container">
+      <span class="hero__badge fade-in">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Open Source &middot; MIT License
+      </span>
+
+      <h1 class="hero__title fade-in">
+        Your AI assistants<br />don't know <span class="highlight">who you are</span>
+      </h1>
+
+      <p class="hero__subtitle fade-in">
+        mcp-me creates a structured personal profile that any AI assistant can read
+        via the Model Context Protocol. Your bio, career, skills, and projects — always available, always private.
+      </p>
+
+      <div class="hero__actions fade-in">
+        <a href="#how-it-works" class="btn btn--primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Get Started
+        </a>
+        <a href="https://github.com/paladini/mcp-me" class="btn btn--secondary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="install-snippet fade-in">
+        <span class="install-snippet__prompt">$</span>
+        <span>npm install -g mcp-me</span>
+        <button class="install-snippet__copy" data-copy="npm install -g mcp-me" aria-label="Copy install command">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+
+      <!-- Hero Illustration: ELI5 before/after -->
+      <div class="hero-compare fade-in">
+        <!-- Scene 1: Without -->
+        <div class="hero-scene hero-scene--without">
+          <span class="hero-scene__badge hero-scene__badge--red">Without mcp-me</span>
+          <div class="hero-scene__actors">
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--user">🧑‍💻</div>
+              <span class="hero-scene__name">You</span>
+            </div>
+            <div class="hero-scene__arrow">
+              <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10h32M28 4l8 6-8 6" stroke="#CBD5E1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--ai-sad">🤖</div>
+              <span class="hero-scene__name">AI</span>
+            </div>
+          </div>
+          <div class="hero-scene__chat">
+            <div class="hero-scene__bubble hero-scene__bubble--user">Suggest a side project for this weekend</div>
+            <div class="hero-scene__bubble hero-scene__bubble--ai-confused">Sure! What programming languages do you know? What are your interests? What have you built before? What's your skill level?</div>
+          </div>
+          <div class="hero-scene__verdict hero-scene__verdict--bad">
+            <span class="hero-scene__verdict-icon">✗</span>
+            You repeat yourself every single time
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="hero-compare__divider"></div>
+
+        <!-- Scene 2: With mcp-me -->
+        <div class="hero-scene hero-scene--with">
+          <span class="hero-scene__badge hero-scene__badge--green">With mcp-me</span>
+          <div class="hero-scene__actors">
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--user">🧑‍💻</div>
+              <span class="hero-scene__name">You</span>
+            </div>
+            <div class="hero-scene__arrow">
+              <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10h32M28 4l8 6-8 6" stroke="#7CB9E8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="hero-scene__actor">
+              <div class="hero-scene__mcpme">
+                <span class="hero-scene__mcpme-icon">📋</span>
+                <strong>mcp-me</strong>
+                <div class="hero-scene__tags">
+                  <span class="hero-scene__tag hero-scene__tag--blue">skills</span>
+                  <span class="hero-scene__tag hero-scene__tag--yellow">career</span>
+                  <span class="hero-scene__tag hero-scene__tag--yellow">projects</span>
+                  <span class="hero-scene__tag hero-scene__tag--blue">bio</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-scene__arrow">
+              <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10h32M28 4l8 6-8 6" stroke="#7CB9E8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="hero-scene__actor">
+              <div class="hero-scene__avatar hero-scene__avatar--ai-happy">🤖</div>
+              <span class="hero-scene__name">AI</span>
+            </div>
+          </div>
+          <div class="hero-scene__chat">
+            <div class="hero-scene__bubble hero-scene__bubble--user">Suggest a side project for this weekend</div>
+            <div class="hero-scene__bubble hero-scene__bubble--ai-smart">Since you know <strong>TypeScript</strong> and <strong>React</strong>, love <strong>music</strong>, and your goal is to <em>learn Rust</em> — how about a CLI that turns your <span class="hero-scene__ref">me://interests</span> into a Spotify playlist?</div>
+          </div>
+          <div class="hero-scene__verdict hero-scene__verdict--good">
+            <span class="hero-scene__verdict-icon">✓</span>
+            AI knows you from day one
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== STATS BAR ========== -->
+  <div class="stats section--alt fade-in">
+    <div class="stat">
+      <div class="stat__number">342+</div>
+      <div class="stat__label">Generators</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number">13</div>
+      <div class="stat__label">Live Plugins</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number">24</div>
+      <div class="stat__label">Categories</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number">8</div>
+      <div class="stat__label">Profile Schemas</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number">0</div>
+      <div class="stat__label">Cloud Dependencies</div>
+    </div>
+  </div>
+
+  <!-- ========== PROBLEM ========== -->
+  <section class="problem section" id="problem">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        The Problem
+      </span>
+      <h2 class="section-title">Every conversation starts from zero</h2>
+      <p class="section-subtitle mx-auto">
+        Your AI assistant has no idea about your skills, career, or projects.
+        You repeat yourself endlessly — or get generic answers.
+      </p>
+
+      <div class="problem__grid fade-in">
+        <!-- Before -->
+        <div class="problem__card problem__card--before">
+          <div class="problem__card-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Without mcp-me
+          </div>
+          <div class="problem__chat">
+            <div class="problem__msg problem__msg--user">Write me a cover letter for this job</div>
+            <div class="problem__msg problem__msg--ai">I'd be happy to help! Could you tell me about your work experience, skills, programming languages, notable projects, education…?</div>
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="problem__card problem__card--after">
+          <div class="problem__card-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            With mcp-me
+          </div>
+          <div class="problem__chat">
+            <div class="problem__msg problem__msg--user">Write me a cover letter for this job</div>
+            <div class="problem__msg problem__msg--ai">
+              Based on your 5 years at Acme Corp, your TypeScript expertise, and your open-source work on <span class="problem__tag">me://projects</span> — here's a tailored cover letter…
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES ========== -->
+  <section class="section section--alt" id="features">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        Features
+      </span>
+      <h2 class="section-title">Built for developers who use AI daily</h2>
+      <p class="section-subtitle mx-auto">
+        A personal identity layer that's private, extensible, and works with every major AI assistant.
+      </p>
+
+      <div class="features__grid fade-in-group">
+        <!-- 1 -->
+        <div class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="feature__title">Privacy-First</div>
+          <div class="feature__desc">All data stays in local YAML files on your machine. Nothing is sent to any cloud. You own your data — always.</div>
+        </div>
+        <!-- 2 -->
+        <div class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="feature__title">342+ Auto-Generators</div>
+          <div class="feature__desc">Pull data from GitHub, Medium, Strava, Goodreads, and hundreds more with a single command. No API keys needed for most.</div>
+        </div>
+        <!-- 3 -->
+        <div class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="feature__title">13 Live Plugins</div>
+          <div class="feature__desc">Real-time integrations — Spotify now playing, GitHub repos, Last.fm scrobbles — queried on demand by your AI.</div>
+        </div>
+        <!-- 4 -->
+        <div class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div class="feature__title">Works Everywhere</div>
+          <div class="feature__desc">Claude Desktop, Cursor, Windsurf, Copilot — any MCP-compatible AI assistant reads your profile natively.</div>
+        </div>
+        <!-- 5 -->
+        <div class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <div class="feature__title">Fully Extensible</div>
+          <div class="feature__desc">Community-driven generators and plugins. Add a new data source in ~10 lines of code. npm ecosystem support built-in.</div>
+        </div>
+        <!-- 6 -->
+        <div class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="feature__title">Config-Driven</div>
+          <div class="feature__desc">A single .mcp-me.yaml dotfile separates configuration from profile data. Clean, versioned, portable.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="section" id="how-it-works">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        How It Works
+      </span>
+      <h2 class="section-title">Four simple steps</h2>
+      <p class="section-subtitle mx-auto">
+        Go from zero to a fully personalized AI experience in just a few minutes.
+      </p>
+
+      <div class="steps__grid steps__grid--4 fade-in-group">
+        <div class="step">
+          <div class="step__number">1</div>
+          <div class="step__title">Initialize</div>
+          <div class="step__desc">Create your profile directory with YAML templates and a config file.</div>
+          <div class="step__code">
+            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">init ~/my-profile</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">2</div>
+          <div class="step__title">Configure</div>
+          <div class="step__desc">Open <code>.mcp-me.yaml</code> and tell it where to find your data — your GitHub username, DEV.to handle, etc.</div>
+          <div class="step__code">
+            <span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/my-profile/.mcp-me.yaml</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">3</div>
+          <div class="step__title">Generate</div>
+          <div class="step__desc">Pull data from 342+ public APIs automatically based on your config.</div>
+          <div class="step__code">
+            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">generate ~/my-profile</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">4</div>
+          <div class="step__title">Serve</div>
+          <div class="step__desc">Start the MCP server. Every AI assistant can now read your profile.</div>
+          <div class="step__code">
+            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">serve ~/my-profile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GENERATORS ========== -->
+  <section class="section section--warm" id="generators">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Generators
+      </span>
+      <h2 class="section-title">342+ data sources, one command</h2>
+      <p class="section-subtitle mx-auto">
+        Auto-populate your profile from public APIs. No API keys needed for most sources.
+        Run <code>mcp-me generate</code> and watch the magic happen.
+      </p>
+
+      <div class="generators__grid fade-in-group">
+        <div class="gen-card">
+          <div class="gen-card__icon">💻</div>
+          <div class="gen-card__name">Code</div>
+          <div class="gen-card__count">GitHub, GitLab, Bitbucket, +3</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">✍️</div>
+          <div class="gen-card__name">Writing</div>
+          <div class="gen-card__count">DEV.to, Medium, Hashnode, +7</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">💬</div>
+          <div class="gen-card__name">Community</div>
+          <div class="gen-card__count">Stack Overflow, Reddit, +5</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">📦</div>
+          <div class="gen-card__name">Packages</div>
+          <div class="gen-card__count">npm, PyPI, Crates, Docker</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">⚡</div>
+          <div class="gen-card__name">Activity</div>
+          <div class="gen-card__count">WakaTime, Letterboxd, +8</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">🎮</div>
+          <div class="gen-card__name">Gaming</div>
+          <div class="gen-card__count">Chess, Lichess, Steam</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">🎵</div>
+          <div class="gen-card__name">Music</div>
+          <div class="gen-card__count">Last.fm, Spotify</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">🎨</div>
+          <div class="gen-card__name">Creative</div>
+          <div class="gen-card__count">Dribbble, Unsplash</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">🏃</div>
+          <div class="gen-card__name">Fitness</div>
+          <div class="gen-card__count">Strava, Exercism</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">📚</div>
+          <div class="gen-card__name">Learning</div>
+          <div class="gen-card__count">LeetCode, Codewars, +3</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">🔬</div>
+          <div class="gen-card__name">Science</div>
+          <div class="gen-card__count">ORCID, Semantic Scholar</div>
+        </div>
+        <div class="gen-card">
+          <div class="gen-card__icon">🪪</div>
+          <div class="gen-card__name">Identity</div>
+          <div class="gen-card__count">Gravatar, Keybase</div>
+        </div>
+      </div>
+
+      <div class="generators__total fade-in">
+        <strong>24</strong> categories &middot;
+        <strong>342+</strong> generators &middot;
+        <a href="https://github.com/paladini/mcp-me/blob/main/docs/creating-generators.md" target="_blank" rel="noopener">Create your own →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PLUGINS ========== -->
+  <section class="section" id="plugins">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Live Plugins
+      </span>
+      <h2 class="section-title">Real-time data, on every query</h2>
+      <p class="section-subtitle mx-auto">
+        Plugins run during <code>mcp-me serve</code> and provide live data to AI assistants.
+        Your AI always has up-to-date context.
+      </p>
+
+      <div class="plugins__grid fade-in-group">
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🐙</span>
+            <span class="plugin-card__name">GitHub</span>
+          </div>
+          <div class="plugin-card__desc">Live repos, activity, languages, and contribution stats</div>
+          <span class="plugin-card__badge plugin-card__badge--optional">Optional token</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🎵</span>
+            <span class="plugin-card__name">Spotify</span>
+          </div>
+          <div class="plugin-card__desc">Now playing, top artists, playlists, and listening history</div>
+          <span class="plugin-card__badge plugin-card__badge--required">OAuth required</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">💼</span>
+            <span class="plugin-card__name">LinkedIn</span>
+          </div>
+          <div class="plugin-card__desc">Professional history parsed from JSON data export</div>
+          <span class="plugin-card__badge plugin-card__badge--none">Local file</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">⏱️</span>
+            <span class="plugin-card__name">WakaTime</span>
+          </div>
+          <div class="plugin-card__desc">Live coding stats, languages, editors, and daily activity</div>
+          <span class="plugin-card__badge plugin-card__badge--optional">Optional API key</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">📝</span>
+            <span class="plugin-card__name">DEV.to</span>
+          </div>
+          <div class="plugin-card__desc">Live articles, reactions, comments, and follower count</div>
+          <span class="plugin-card__badge plugin-card__badge--optional">Optional API key</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🦋</span>
+            <span class="plugin-card__name">Bluesky</span>
+          </div>
+          <div class="plugin-card__desc">Live posts, profile info, and follower stats</div>
+          <span class="plugin-card__badge plugin-card__badge--none">No auth</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🟧</span>
+            <span class="plugin-card__name">Hacker News</span>
+          </div>
+          <div class="plugin-card__desc">Live stories, karma, and submission history</div>
+          <span class="plugin-card__badge plugin-card__badge--none">No auth</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🤖</span>
+            <span class="plugin-card__name">Reddit</span>
+          </div>
+          <div class="plugin-card__desc">Live karma, posts, and comment activity</div>
+          <span class="plugin-card__badge plugin-card__badge--none">No auth</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🦊</span>
+            <span class="plugin-card__name">GitLab</span>
+          </div>
+          <div class="plugin-card__desc">Live projects, activity, and merge requests</div>
+          <span class="plugin-card__badge plugin-card__badge--optional">Optional token</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🐘</span>
+            <span class="plugin-card__name">Mastodon</span>
+          </div>
+          <div class="plugin-card__desc">Live toots, profile info, and engagement stats</div>
+          <span class="plugin-card__badge plugin-card__badge--none">No auth</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">📺</span>
+            <span class="plugin-card__name">YouTube</span>
+          </div>
+          <div class="plugin-card__desc">Live videos, channel stats, and subscriber count</div>
+          <span class="plugin-card__badge plugin-card__badge--optional">Optional API key</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🎧</span>
+            <span class="plugin-card__name">Last.fm</span>
+          </div>
+          <div class="plugin-card__desc">Now playing, top artists, recent scrobbles</div>
+          <span class="plugin-card__badge plugin-card__badge--optional">Optional API key</span>
+        </div>
+
+        <div class="plugin-card">
+          <div class="plugin-card__header">
+            <span class="plugin-card__icon">🎮</span>
+            <span class="plugin-card__name">Steam</span>
+          </div>
+          <div class="plugin-card__desc">Currently playing, game library, and playtime stats</div>
+          <span class="plugin-card__badge plugin-card__badge--optional">Optional API key</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMPATIBILITY ========== -->
+  <section class="section section--alt" id="compatibility">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Compatibility
+      </span>
+      <h2 class="section-title">Works with every major AI assistant</h2>
+      <p class="section-subtitle mx-auto">
+        Any tool that speaks the Model Context Protocol can read your mcp-me profile.
+        Set up once, use everywhere.
+      </p>
+
+      <div class="compat__grid fade-in-group">
+        <div class="compat__item">
+          <div class="compat__icon">🟤</div>
+          <div class="compat__name">Claude Desktop</div>
+        </div>
+        <span class="compat__plus">+</span>
+        <div class="compat__item">
+          <div class="compat__icon">🟢</div>
+          <div class="compat__name">Cursor</div>
+        </div>
+        <span class="compat__plus">+</span>
+        <div class="compat__item">
+          <div class="compat__icon">🔵</div>
+          <div class="compat__name">Windsurf</div>
+        </div>
+        <span class="compat__plus">+</span>
+        <div class="compat__item">
+          <div class="compat__icon">⚫</div>
+          <div class="compat__name">Copilot</div>
+        </div>
+      </div>
+
+      <p class="fade-in" style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">
+        …and any future MCP-compatible assistant.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== QUICK START ========== -->
+  <section class="section" id="quickstart">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        Quick Start
+      </span>
+      <h2 class="section-title">Up and running in a few minutes</h2>
+      <p class="section-subtitle mx-auto">
+        Four steps to give every AI assistant full context about who you are.
+      </p>
+
+      <div class="quickstart__terminal fade-in">
+        <div class="terminal__bar">
+          <span class="terminal__dot terminal__dot--red"></span>
+          <span class="terminal__dot terminal__dot--yellow"></span>
+          <span class="terminal__dot terminal__dot--green"></span>
+          <span class="terminal__title">~/my-profile — bash</span>
+        </div>
+        <div class="terminal__body">
+          <div><span class="comment"># 1. Install globally (or use npx)</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">npm install -g</span> <span class="flag">mcp-me</span></div>
+          <div>&nbsp;</div>
+          <div><span class="comment"># 2. Create your profile with YAML templates</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">mcp-me init</span> <span class="arg">~/my-profile</span></div>
+          <div>&nbsp;</div>
+          <div><span class="comment"># 3. Edit the config — add your usernames and data sources</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/my-profile/.mcp-me.yaml</span></div>
+          <div>&nbsp;</div>
+          <div><span class="comment"># 4. Auto-populate from your online presence</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">mcp-me generate</span> <span class="arg">~/my-profile</span></div>
+          <div>&nbsp;</div>
+          <div><span class="comment"># 5. Start the MCP server</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">mcp-me serve</span> <span class="arg">~/my-profile</span></div>
+          <div><span style="color: #22c55e;">✓</span> MCP server running — AI assistants can now read your profile</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROFILE SCHEMA ========== -->
+  <section class="section section--alt" id="schema">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Profile Schema
+      </span>
+      <h2 class="section-title">8 structured YAML categories</h2>
+      <p class="section-subtitle mx-auto">
+        Your profile is organized into well-defined schemas. Each maps to an MCP resource that AI assistants can query.
+      </p>
+
+      <div class="features__grid fade-in-group" style="margin-top: 2.5rem;">
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">🪪 identity.yaml</div>
+          <div class="feature__desc">Name, bio, location, languages, contact info → <code>me://identity</code></div>
+        </div>
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">💼 career.yaml</div>
+          <div class="feature__desc">Work experience, education, certifications → <code>me://career</code></div>
+        </div>
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">🛠️ skills.yaml</div>
+          <div class="feature__desc">Technical and soft skills with proficiency → <code>me://skills</code></div>
+        </div>
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">🎯 interests.yaml</div>
+          <div class="feature__desc">Hobbies, music, books, movies, food → <code>me://interests</code></div>
+        </div>
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">🧠 personality.yaml</div>
+          <div class="feature__desc">Values, traits, MBTI, strengths → <code>me://personality</code></div>
+        </div>
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">🎯 goals.yaml</div>
+          <div class="feature__desc">Short, medium, and long-term goals → <code>me://goals</code></div>
+        </div>
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">🚀 projects.yaml</div>
+          <div class="feature__desc">Personal and open-source projects → <code>me://projects</code></div>
+        </div>
+        <div class="feature" style="text-align: left;">
+          <div class="feature__title">❓ faq.yaml</div>
+          <div class="feature__desc">Custom Q&amp;A pairs about yourself → <code>me://faq</code></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="section" id="faq">
+    <div class="container text-center">
+      <span class="section-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ
+      </span>
+      <h2 class="section-title">Frequently asked questions</h2>
+
+      <div class="faq__list fade-in">
+        <details class="faq__item">
+          <summary class="faq__question">What is MCP (Model Context Protocol)?</summary>
+          <div class="faq__answer">
+            MCP is an open standard by Anthropic that connects AI assistants to external data sources and tools.
+            mcp-me uses MCP to let AI assistants read your personal profile data — no custom integrations needed.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Do I need API keys?</summary>
+          <div class="faq__answer">
+            Most generators use public APIs with no auth needed. Some sources like Spotify and Strava require OAuth tokens — the config file has instructions for each.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Is my data stored anywhere in the cloud?</summary>
+          <div class="faq__answer">
+            No. All data stays local in your YAML files on your machine. The MCP server reads from disk when queried — nothing is ever sent to any external service.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Which AI assistants are supported?</summary>
+          <div class="faq__answer">
+            Claude Desktop, Cursor, Windsurf, GitHub Copilot, and any other AI assistant that supports the Model Context Protocol. Set up once, use everywhere.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">How do I add a new data source?</summary>
+          <div class="faq__answer">
+            Run <code>mcp-me create generator myservice</code> to scaffold a new generator. Most generators are under 20 lines of code. See the <a href="https://github.com/paladini/mcp-me/blob/main/docs/creating-generators.md" target="_blank" rel="noopener">Generator Creation Guide</a> for details.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Can I use this without installing globally?</summary>
+          <div class="faq__answer">
+            Yes! Use <code>npx mcp-me</code> to run any command without installing. It downloads the package temporarily each time. For repeated use, global install is faster.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">What's the difference between generators and plugins?</summary>
+          <div class="faq__answer">
+            <strong>Generators</strong> run once during <code>mcp-me generate</code> and produce static YAML files (e.g., "repos I had in March").
+            <strong>Plugins</strong> run continuously during <code>mcp-me serve</code> and provide live data on every query (e.g., "repos I have right now").
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="section section--warm">
+    <div class="container text-center fade-in">
+      <h2 class="section-title" style="margin-bottom: 1rem;">Ready to give your AI some context?</h2>
+      <p class="section-subtitle mx-auto" style="margin-bottom: 2rem;">
+        Set up your personal profile in under a minute. Open source, privacy-first, works everywhere.
+      </p>
+      <div class="hero__actions">
+        <a href="https://github.com/paladini/mcp-me" class="btn btn--primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          Star on GitHub
+        </a>
+        <a href="https://www.npmjs.com/package/mcp-me" class="btn btn--secondary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10v10"/><path d="M7 17L17 7"/></svg>
+          View on npm
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#7CB9E8" opacity="0.2"/>
+          <circle cx="16" cy="12" r="5" fill="#7CB9E8"/>
+          <path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#7CB9E8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="25" cy="10" r="3" fill="#F5D76E"/>
+        </svg>
+        mcp-me
+      </div>
+
+      <ul class="footer__links">
+        <li><a href="https://github.com/paladini/mcp-me" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.npmjs.com/package/mcp-me" target="_blank" rel="noopener">npm</a></li>
+        <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/creating-plugins.md" target="_blank" rel="noopener">Plugin Guide</a></li>
+        <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/creating-generators.md" target="_blank" rel="noopener">Generator Guide</a></li>
+        <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/schema-reference.md" target="_blank" rel="noopener">Schema Docs</a></li>
+        <li><a href="https://github.com/paladini/mcp-me/blob/main/.github/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a></li>
+      </ul>
+
+      <div class="footer__copy">
+        Made with care by <a href="https://github.com/paladini" target="_blank" rel="noopener" style="color: var(--blue-300);">Fernando Paladini</a> &middot; MIT License
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
