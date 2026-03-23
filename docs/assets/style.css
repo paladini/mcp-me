@@ -756,10 +756,20 @@ img, svg {
   opacity: 0.4;
 }
 
-.problem__repeat-ai {
-  color: #f87171;
+.problem__repeat-you {
+  color: #fff;
   font-weight: 700;
-  margin-right: 0.35rem;
+  margin-right: 0.25rem;
+}
+
+.problem__repeat-ai {
+  color: var(--gray-600);
+  margin: 0 0.4rem;
+}
+
+.problem__repeat-generic {
+  color: #f87171;
+  font-style: italic;
 }
 
 .problem__wall-caption {
