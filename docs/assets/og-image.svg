@@ -1,0 +1,39 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0EFFF"/>
+      <stop offset="1" stop-color="#FEF9E0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="510" rx="32" fill="white" fill-opacity="0.85"/>
+
+  <!-- Logo icon -->
+  <circle cx="600" cy="180" r="60" fill="#7CB9E8" opacity="0.15"/>
+  <circle cx="600" cy="165" r="22" fill="#7CB9E8"/>
+  <path d="M572 205c0-15.5 12.5-28 28-28s28 12.5 28 28" stroke="#7CB9E8" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="635" cy="150" r="10" fill="#F5D76E"/>
+  <path d="M635 140v-5M635 165v-5M645 150h5M625 150h-5" stroke="#F5D76E" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Title -->
+  <text x="600" y="280" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="72" font-weight="800" fill="#1E293B">mcp-me</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="340" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" fill="#475569">Your Digital Identity Layer for AI</text>
+
+  <!-- Tags -->
+  <rect x="310" y="380" width="120" height="36" rx="18" fill="#E0EFFF"/>
+  <text x="370" y="404" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#3B82C4">Privacy-first</text>
+
+  <rect x="450" y="380" width="150" height="36" rx="18" fill="#FEF9E0"/>
+  <text x="525" y="404" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#D4A72C">342+ generators</text>
+
+  <rect x="620" y="380" width="130" height="36" rx="18" fill="#E0EFFF"/>
+  <text x="685" y="404" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#3B82C4">13 live plugins</text>
+
+  <rect x="770" y="380" width="160" height="36" rx="18" fill="#FEF9E0"/>
+  <text x="850" y="404" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#D4A72C">Works everywhere</text>
+
+  <!-- URL -->
+  <text x="600" y="490" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="20" fill="#94A3B8">github.com/paladini/mcp-me</text>
+</svg>

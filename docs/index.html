@@ -1,23 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mcp-me — Your Digital Identity Layer for AI</title>
-  <meta name="description" content="Your AI assistants don't know who you are. mcp-me creates a structured personal profile that any AI assistant can read via MCP. Privacy-first, 342+ generators, 13 live plugins." />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="mcp-me — Your Digital Identity Layer for AI" />
-  <meta property="og:description" content="Your AI assistants don't know who you are. mcp-me fixes that with a structured personal profile via Model Context Protocol." />
+  <!-- Primary SEO -->
+  <title>mcp-me — Your Digital Identity Layer for AI</title>
+  <meta name="description" content="Your AI assistants don't know who you are. mcp-me creates a structured personal profile that any AI assistant can read via the Model Context Protocol. Privacy-first, 342+ generators, 13 live plugins. Works with Claude, Cursor, Windsurf, and Copilot." />
+  <meta name="keywords" content="mcp, model context protocol, ai assistant, personal profile, digital identity, claude, cursor, windsurf, copilot, yaml, typescript, open source, privacy, developer tools" />
+  <meta name="author" content="Fernando Paladini" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://paladini.github.io/mcp-me/" />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#7CB9E8" />
+  <meta name="color-scheme" content="light" />
+
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://paladini.github.io/mcp-me/" />
+  <meta property="og:title" content="mcp-me — Your Digital Identity Layer for AI" />
+  <meta property="og:description" content="Your AI assistants don't know who you are. mcp-me creates a structured personal profile that any AI can read via MCP. Privacy-first, 342+ generators, 13 live plugins." />
+  <meta property="og:image" content="https://paladini.github.io/mcp-me/assets/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="mcp-me — Your Digital Identity Layer for AI. Privacy-first, 342+ generators, 13 live plugins, works everywhere." />
+  <meta property="og:site_name" content="mcp-me" />
+  <meta property="og:locale" content="en_US" />
 
-  <!-- Favicon (inline SVG) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧑‍💻</text></svg>" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://paladini.github.io/mcp-me/" />
+  <meta name="twitter:title" content="mcp-me — Your Digital Identity Layer for AI" />
+  <meta name="twitter:description" content="Your AI assistants don't know who you are. mcp-me creates a structured personal profile that any AI can read via MCP. Privacy-first, 342+ generators, 13 live plugins." />
+  <meta name="twitter:image" content="https://paladini.github.io/mcp-me/assets/og-image.svg" />
+  <meta name="twitter:image:alt" content="mcp-me — Your Digital Identity Layer for AI" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧑‍💻</text></svg>" />
+  <link rel="icon" type="image/svg+xml" href="assets/og-image.svg" sizes="any" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "mcp-me",
+    "description": "A digital identity layer for AI. Creates a structured personal profile that any AI assistant can read via the Model Context Protocol.",
+    "url": "https://paladini.github.io/mcp-me/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Fernando Paladini",
+      "url": "https://github.com/paladini"
+    },
+    "license": "https://opensource.org/licenses/MIT",
+    "codeRepository": "https://github.com/paladini/mcp-me",
+    "programmingLanguage": "TypeScript",
+    "softwareVersion": "0.2.5"
+  }
+  </script>
 
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
+  <!-- Skip to content (accessibility) -->
+  <a href="#hero" class="skip-link">Skip to main content</a>
 
   <!-- ========== NAV ========== -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
@@ -54,7 +109,8 @@
   </nav>
 
   <!-- ========== HERO ========== -->
-  <header class="hero" id="hero">
+  <main>
+  <header class="hero" id="hero" role="banner">
     <div class="container">
       <span class="hero__badge fade-in">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -189,7 +245,7 @@
   </div>
 
   <!-- ========== PROBLEM ========== -->
-  <section class="problem-section" id="problem">
+  <section class="problem-section" id="problem" aria-label="The problem mcp-me solves">
     <div class="container">
       <div class="problem__header text-center fade-in">
         <span class="problem__label">
@@ -229,7 +285,7 @@
   </section>
 
   <!-- ========== FEATURES ========== -->
-  <section class="section section--alt" id="features">
+  <section class="section section--alt" id="features" aria-label="Features">
     <div class="container text-center">
       <span class="section-label">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
@@ -294,7 +350,7 @@
   </section>
 
   <!-- ========== HOW IT WORKS ========== -->
-  <section class="section" id="how-it-works">
+  <section class="section" id="how-it-works" aria-label="How it works">
     <div class="container text-center">
       <span class="section-label">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -346,7 +402,7 @@
   </section>
 
   <!-- ========== GENERATORS ========== -->
-  <section class="section section--warm" id="generators">
+  <section class="section section--warm" id="generators" aria-label="Generators">
     <div class="container text-center">
       <span class="section-label">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -430,7 +486,7 @@
   </section>
 
   <!-- ========== PLUGINS ========== -->
-  <section class="section" id="plugins">
+  <section class="section" id="plugins" aria-label="Live plugins">
     <div class="container text-center">
       <span class="section-label">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -694,7 +750,7 @@
   </section>
 
   <!-- ========== FAQ ========== -->
-  <section class="section" id="faq">
+  <section class="section" id="faq" aria-label="Frequently asked questions">
     <div class="container text-center">
       <span class="section-label">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -778,7 +834,9 @@
   </section>
 
   <!-- ========== FOOTER ========== -->
-  <footer class="footer">
+  </main>
+
+  <footer class="footer" role="contentinfo">
     <div class="footer__inner">
       <div class="footer__brand">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -790,6 +848,7 @@
         mcp-me
       </div>
 
+      <nav aria-label="Footer navigation">
       <ul class="footer__links">
         <li><a href="https://github.com/paladini/mcp-me" target="_blank" rel="noopener">GitHub</a></li>
         <li><a href="https://www.npmjs.com/package/mcp-me" target="_blank" rel="noopener">npm</a></li>
@@ -798,6 +857,7 @@
         <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/schema-reference.md" target="_blank" rel="noopener">Schema Docs</a></li>
         <li><a href="https://github.com/paladini/mcp-me/blob/main/.github/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a></li>
       </ul>
+      </nav>
 
       <div class="footer__copy">
         Made with care by <a href="https://github.com/paladini" target="_blank" rel="noopener" style="color: var(--blue-300);">Fernando Paladini</a> &middot; MIT License
