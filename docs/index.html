@@ -189,44 +189,44 @@
   </div>
 
   <!-- ========== PROBLEM ========== -->
-  <section class="problem section" id="problem">
-    <div class="container text-center">
-      <span class="section-label">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        The Problem
-      </span>
-      <h2 class="section-title">Every conversation starts from zero</h2>
-      <p class="section-subtitle mx-auto">
-        Your AI assistant has no idea about your skills, career, or projects.
-        You repeat yourself endlessly — or get generic answers.
-      </p>
+  <section class="problem-section" id="problem">
+    <div class="container">
+      <div class="problem__header text-center fade-in">
+        <span class="problem__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          The Problem
+        </span>
+        <h2 class="problem__title">Sound familiar?</h2>
+        <p class="problem__subtitle">Every new conversation with AI starts like this — no matter how many times you've talked before.</p>
+      </div>
 
-      <div class="problem__grid fade-in">
-        <!-- Before -->
-        <div class="problem__card problem__card--before">
-          <div class="problem__card-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Without mcp-me
-          </div>
-          <div class="problem__chat">
-            <div class="problem__msg problem__msg--user">Write me a cover letter for this job</div>
-            <div class="problem__msg problem__msg--ai">I'd be happy to help! Could you tell me about your work experience, skills, programming languages, notable projects, education…?</div>
-          </div>
+      <div class="problem__wall fade-in">
+        <div class="problem__repeat">
+          <div class="problem__repeat-msg"><span class="problem__repeat-ai">AI:</span> What programming languages do you know?</div>
+          <div class="problem__repeat-msg"><span class="problem__repeat-ai">AI:</span> Can you tell me about your work experience?</div>
+          <div class="problem__repeat-msg"><span class="problem__repeat-ai">AI:</span> What projects have you worked on?</div>
+          <div class="problem__repeat-msg"><span class="problem__repeat-ai">AI:</span> What's your tech stack?</div>
+          <div class="problem__repeat-msg"><span class="problem__repeat-ai">AI:</span> What are your career goals?</div>
+          <div class="problem__repeat-msg"><span class="problem__repeat-ai">AI:</span> Could you share your educational background?</div>
+          <div class="problem__repeat-msg problem__repeat-msg--faded"><span class="problem__repeat-ai">AI:</span> What industry do you work in?</div>
+          <div class="problem__repeat-msg problem__repeat-msg--faded"><span class="problem__repeat-ai">AI:</span> What are your main skills?</div>
         </div>
+        <div class="problem__wall-caption">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          The same questions, in every single conversation.
+        </div>
+      </div>
 
-        <!-- After -->
-        <div class="problem__card problem__card--after">
-          <div class="problem__card-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-            With mcp-me
-          </div>
-          <div class="problem__chat">
-            <div class="problem__msg problem__msg--user">Write me a cover letter for this job</div>
-            <div class="problem__msg problem__msg--ai">
-              Based on your 5 years at Acme Corp, your TypeScript expertise, and your open-source work on <span class="problem__tag">me://projects</span> — here's a tailored cover letter…
-            </div>
-          </div>
+      <div class="problem__solution fade-in">
+        <div class="problem__solution-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          With mcp-me, this never happens again
         </div>
+        <div class="problem__solution-chat">
+          <div class="problem__solution-user">Write me a cover letter for this job</div>
+          <div class="problem__solution-ai">Based on your <strong>5 years at Acme Corp</strong>, your <strong>TypeScript expertise</strong>, and your open-source work on <span class="problem__tag">me://projects</span> — here's a tailored cover letter…</div>
+        </div>
+        <p class="problem__solution-note">Your AI already knows who you are. Every time. Across every tool.</p>
       </div>
     </div>
   </section>
