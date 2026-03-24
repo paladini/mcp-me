@@ -8,6 +8,7 @@
   "bin": {
     "mcp-me": "./dist/cli.js"
   },
+  "sideEffects": false,
   "files": [
     "dist",
     "templates"
