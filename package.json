@@ -1,6 +1,6 @@
 {
   "name": "mcp-me",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "A community-driven MCP server framework that lets anyone expose personal information to AI assistants via the Model Context Protocol.",
   "type": "module",
   "main": "./dist/index.js",
