@@ -1,47 +1,20 @@
 /**
  * Substack Generator
  *
- * Fetches your Substack newsletter posts via RSS feed.
+ * Fetches your Substack newsletter posts, excerpts, and body text via RSS feed.
  *
  * @flag --substack <publication>
  * @example mcp-me generate ./profile --substack platformer
  * @auth None required (public RSS feed)
  * @api https://<publication>.substack.com/feed
- * @data identity, projects (articles), interests (topics), faq
+ * @data identity, projects (newsletter posts with body text), interests (topics), faq
  */
 import type { GeneratorSource, PartialProfile } from "./types.js";
+import { parseRssFeed, rssHtmlToText, summarizeText } from "../utils/rss.js";
 
-interface SubstackItem {
-  title: string;
-  link: string;
-  pubDate: string;
-  categories: string[];
-}
-
-function parseSubstackRSS(xml: string): SubstackItem[] {
-  const items: SubstackItem[] = [];
-  const itemRegex = /<item>([\s\S]*?)<\/item>/g;
-  let match;
-
-  while ((match = itemRegex.exec(xml)) !== null) {
-    const block = match[1];
-    const title = block.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1]
-      ?? block.match(/<title>(.*?)<\/title>/)?.[1]
-      ?? "Untitled";
-    const link = block.match(/<link>(.*?)<\/link>/)?.[1] ?? "";
-    const pubDate = block.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] ?? "";
-
-    const categories: string[] = [];
-    const catRegex = /<category>(.*?)<\/category>/g;
-    let catMatch;
-    while ((catMatch = catRegex.exec(block)) !== null) {
-      categories.push(catMatch[1]);
-    }
-
-    items.push({ title, link, pubDate, categories });
-  }
-
-  return items;
+function countWords(text: string): number {
+  if (!text) return 0;
+  return text.split(/\s+/).filter(Boolean).length;
 }
 
 export const substackGenerator: GeneratorSource = {
@@ -62,7 +35,8 @@ export const substackGenerator: GeneratorSource = {
     if (!resp.ok) throw new Error(`Substack RSS error: ${resp.status} ${resp.statusText}`);
 
     const xml = await resp.text();
-    const items = parseSubstackRSS(xml);
+    const feed = parseRssFeed(xml);
+    const items = feed.items;
     console.log(`  [Substack] Found ${items.length} posts.`);
 
     const tagCounts: Record<string, number> = {};
@@ -71,10 +45,15 @@ export const substackGenerator: GeneratorSource = {
     }
 
     const topTags = Object.entries(tagCounts).sort(([, a], [, b]) => b - a).slice(0, 10);
+    const totalWords = items.reduce((sum, item) => {
+      const articleText = rssHtmlToText(item.content) || rssHtmlToText(item.description);
+      return sum + countWords(articleText);
+    }, 0);
+    const averageWordCount = items.length > 0 ? Math.round(totalWords / items.length) : 0;
 
     const projects = items.slice(0, 10).map((item) => ({
       name: item.title,
-      description: item.title,
+      description: rssHtmlToText(item.content) || rssHtmlToText(item.description) || item.title,
       url: item.link,
       status: "completed" as const,
       technologies: item.categories,
@@ -91,7 +70,13 @@ export const substackGenerator: GeneratorSource = {
     const faq: PartialProfile["faq"] = items.length > 0
       ? [{
           question: "Do you write a newsletter?",
-          answer: `Yes, I publish on Substack at ${publication}.substack.com with ${items.length} posts.${topTags.length > 0 ? ` Topics: ${topTags.slice(0, 5).map(([t]) => t).join(", ")}.` : ""}`,
+          answer: `Yes, I publish on Substack at ${publication}.substack.com with ${items.length} posts.${topTags.length > 0 ? ` Topics: ${topTags.slice(0, 5).map(([t]) => t).join(", ")}.` : ""} My recent posts average about ${averageWordCount} words each.${feed.description ? ` Publication summary: ${summarizeText(rssHtmlToText(feed.description), 180)}` : ""}`,
+          category: "writing",
+        }, {
+          question: "What do you publish on Substack?",
+          answer: topTags.length > 0
+            ? `Mostly ${topTags.slice(0, 8).map(([tag]) => tag).join(", ")}.`
+            : "I publish essays and newsletter posts on Substack.",
           category: "writing",
         }]
       : [];

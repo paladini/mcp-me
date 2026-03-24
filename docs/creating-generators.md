@@ -195,6 +195,7 @@ Generators must use one of the valid `GeneratorCategory` values:
 6. **Return only what you have** — Don't fabricate data; leave fields undefined if unknown
 7. **Add FAQ entries** — Great way to surface summary stats (karma, follower count, etc.)
 8. **Add social links** — Always include a link back to the user's profile on the platform
+9. **Prefer rich content for RSS sources** — When feeds expose `description` or `content:encoded`, preserve meaningful article/post text instead of storing only titles
 
 ## Generators vs Plugins
 
@@ -211,7 +212,16 @@ Generators must use one of the valid `GeneratorCategory` values:
 
 **When to build a plugin:** The data is dynamic and the AI needs real-time access (now playing, current availability, live stats).
 
-## Current Generators (42)
+## Generator Count (source of truth)
+
+Current project counts:
+
+- **Registered generators:** 328 (validated by `tests/generators/generator-harness.test.ts`)
+- **Generator source files:** 43 single-generator files + 15 batch files in `src/generators/`
+
+`src/generators/index.ts` is the source of truth for registration. The table below is intentionally non-exhaustive and shows common/core generators.
+
+## Example Generators (non-exhaustive)
 
 | Category | Generator | API | Auth |
 |---|---|---|---|

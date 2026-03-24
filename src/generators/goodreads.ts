@@ -8,9 +8,10 @@
  * @example mcp-me generate ./profile --goodreads 16062300
  * @auth None required (public pages)
  * @api https://www.goodreads.com/author/show/<id> + /review/list_rss/<id>
- * @data identity, projects (published books), interests, faq (reading stats)
+ * @data identity, projects (published/read books), interests, faq (reading/writing stats)
  */
 import type { GeneratorSource, PartialProfile } from "./types.js";
+import { parseRssFeed, rssHtmlToText, summarizeText } from "../utils/rss.js";
 
 const BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
@@ -19,27 +20,40 @@ interface GoodreadsRSSItem {
   link: string;
   rating: number | null;
   author: string;
+  review: string;
+  dateRead?: string;
+  shelves: string[];
+  isbn?: string;
 }
 
 function parseGoodreadsRSS(xml: string): GoodreadsRSSItem[] {
-  const items: GoodreadsRSSItem[] = [];
-  const itemRegex = /<item>([\s\S]*?)<\/item>/g;
-  let match;
+  const feed = parseRssFeed(xml);
+  return feed.items.map((item) => {
+    const rawMetadata = `${item.description ?? ""}\n${item.content ?? ""}`;
+    const readField = (tag: string): string | undefined => {
+      return rawMetadata.match(new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`, "i"))?.[1];
+    };
 
-  while ((match = itemRegex.exec(xml)) !== null) {
-    const block = match[1];
-    const title = block.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1]
-      ?? block.match(/<title>(.*?)<\/title>/)?.[1]
-      ?? "Untitled";
-    const link = block.match(/<link>(.*?)<\/link>/)?.[1] ?? "";
-    const ratingStr = block.match(/<user_rating>(\d+)<\/user_rating>/)?.[1];
-    const rating = ratingStr ? parseInt(ratingStr, 10) : null;
-    const author = block.match(/<author_name>(.*?)<\/author_name>/)?.[1] ?? "";
+    const ratingStr = item.description?.match(/<user_rating>(\d+)<\/user_rating>/)?.[1]
+      ?? item.content?.match(/<user_rating>(\d+)<\/user_rating>/)?.[1];
+    const author = readField("author_name") ?? "";
+    const review = readField("user_review") ?? "";
+    const dateRead = readField("user_date_added") ?? undefined;
+    const shelvesBlock = readField("user_shelves") ?? "";
+    const shelves = [...shelvesBlock.matchAll(/<shelf\s+name="([^"]+)"/g)].map((m) => m[1]);
+    const isbn = readField("isbn") ?? undefined;
 
-    items.push({ title, link, rating, author });
-  }
-
-  return items;
+    return {
+      title: item.title,
+      link: item.link,
+      rating: ratingStr ? parseInt(ratingStr, 10) : null,
+      author,
+      review: rssHtmlToText(review),
+      dateRead,
+      shelves,
+      isbn,
+    };
+  });
 }
 
 /**
@@ -48,7 +62,8 @@ function parseGoodreadsRSS(xml: string): GoodreadsRSSItem[] {
  */
 async function fetchAuthorPage(authorId: string): Promise<{
   name: string;
-  books: { title: string; url: string }[];
+  bio?: string;
+  books: { title: string; url: string; rating?: number; ratingsCount?: number }[];
   ratings: number;
   reviews: number;
 } | null> {
@@ -64,17 +79,39 @@ async function fetchAuthorPage(authorId: string): Promise<{
     const name = titleMatch?.[1]?.trim() ?? "";
     if (!name || name.toLowerCase().includes("page not found")) return null;
 
-    // Extract books
-    const bookTitles = [...html.matchAll(/class="bookTitle"[^>]*>\s*([^<]+)/g)]
-      .map((m) => m[1].trim())
-      .filter((t) => t.length > 0);
+    const bio = html.match(/<div[^>]*class="[^"]*aboutAuthorInfo[^"]*"[^>]*>([\s\S]*?)<\/div>/i)?.[1]
+      ?? html.match(/<div[^>]*id="aboutAuthor"[^>]*>([\s\S]*?)<\/div>/i)?.[1]
+      ?? undefined;
 
-    // Deduplicate (author page sometimes lists editions)
-    const uniqueBooks = [...new Set(bookTitles)].slice(0, 20);
-    const books = uniqueBooks.map((t) => ({
-      title: t,
-      url: `https://www.goodreads.com/author/show/${authorId}`,
-    }));
+    // Extract books
+    const books: { title: string; url: string; rating?: number; ratingsCount?: number }[] = [];
+    const bookBlocks = [...html.matchAll(/<tr\s+itemscope\s+itemtype="https:\/\/schema.org\/Book"([\s\S]*?)<\/tr>/gi)];
+
+    for (const block of bookBlocks) {
+      const row = block[0];
+      const title = row.match(/class="bookTitle"[^>]*>\s*([\s\S]*?)<\/a>/)?.[1]?.replace(/<[^>]+>/g, "").trim() ?? "";
+      const href = row.match(/class="bookTitle"[^>]*href="([^"]+)"/)?.[1] ?? "";
+      const rating = row.match(/itemprop="ratingValue"[^>]*>([\d.]+)/)?.[1];
+      const ratingsCount = row.match(/itemprop="ratingCount"[^>]*>([\d,]+)/)?.[1];
+      if (!title) continue;
+      books.push({
+        title,
+        url: href ? `https://www.goodreads.com${href}` : `https://www.goodreads.com/author/show/${authorId}`,
+        rating: rating ? parseFloat(rating) : undefined,
+        ratingsCount: ratingsCount ? parseInt(ratingsCount.replace(/,/g, ""), 10) : undefined,
+      });
+    }
+
+    if (books.length === 0) {
+      const bookTitles = [...html.matchAll(/class="bookTitle"[^>]*>\s*([^<]+)/g)]
+        .map((m) => m[1].trim())
+        .filter((t) => t.length > 0);
+      const uniqueBooks = [...new Set(bookTitles)].slice(0, 20);
+      books.push(...uniqueBooks.map((t) => ({
+        title: t,
+        url: `https://www.goodreads.com/author/show/${authorId}`,
+      })));
+    }
 
     // Extract stats
     const ratingsMatch = html.match(/([\d,]+)\s+ratings/);
@@ -82,12 +119,23 @@ async function fetchAuthorPage(authorId: string): Promise<{
     const ratings = ratingsMatch ? parseInt(ratingsMatch[1].replace(/,/g, ""), 10) : 0;
     const reviews = reviewsMatch ? parseInt(reviewsMatch[1].replace(/,/g, ""), 10) : 0;
 
-    if (books.length === 0 && ratings === 0) return null;
+    const uniqueBooks = books
+      .filter((book, index, array) => array.findIndex((b) => b.title.toLowerCase() === book.title.toLowerCase()) === index)
+      .slice(0, 20);
 
-    return { name, books, ratings, reviews };
+    if (uniqueBooks.length === 0 && ratings === 0) return null;
+
+    return { name, bio: bio ? summarizeText(rssHtmlToText(bio), 500) : undefined, books: uniqueBooks, ratings, reviews };
   } catch {
     return null;
   }
+}
+
+function parseDateToIso(dateText?: string): string | undefined {
+  if (!dateText) return undefined;
+  const parsed = new Date(dateText);
+  if (Number.isNaN(parsed.getTime())) return undefined;
+  return parsed.toISOString().slice(0, 10);
 }
 
 export const goodreadsGenerator: GeneratorSource = {
@@ -112,6 +160,7 @@ export const goodreadsGenerator: GeneratorSource = {
 
       const identity: PartialProfile["identity"] = {
         ...(authorData.name ? { name: authorData.name } : {}),
+        ...(authorData.bio ? { bio: authorData.bio } : {}),
         contact: {
           social: [{ platform: "goodreads", url: `https://www.goodreads.com/author/show/${numericId}`, username: numericId }],
         },
@@ -119,9 +168,14 @@ export const goodreadsGenerator: GeneratorSource = {
 
       const projects = authorData.books.map((b) => ({
         name: b.title,
-        description: "Published book on Goodreads",
+        description: b.rating && b.ratingsCount
+          ? `Published book on Goodreads. Average rating ${b.rating.toFixed(2)} from ${b.ratingsCount.toLocaleString()} rating(s).`
+          : "Published book on Goodreads.",
         url: b.url,
+        status: "completed" as const,
+        technologies: ["books", "literature", "goodreads"],
         category: "book",
+        stars: b.ratingsCount,
       }));
 
       const faq: PartialProfile["faq"] = [{
@@ -150,6 +204,32 @@ export const goodreadsGenerator: GeneratorSource = {
     console.log(`  [Goodreads] Found ${items.length} books in reading list.`);
 
     const topRated = items.filter((i) => i.rating && i.rating >= 4).slice(0, 10);
+    const booksByAuthor = new Map<string, number>();
+    const shelves = new Set<string>();
+    for (const item of items) {
+      if (item.author) booksByAuthor.set(item.author, (booksByAuthor.get(item.author) ?? 0) + 1);
+      item.shelves.forEach((shelf) => shelves.add(shelf));
+    }
+    const favoriteAuthors = [...booksByAuthor.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([author]) => author);
+
+    const projects = items.slice(0, 20).map((item) => {
+      const ratingLabel = item.rating ? `${item.rating}/5` : "Unrated";
+      const shelfLabel = item.shelves.length > 0 ? ` Shelves: ${item.shelves.slice(0, 5).join(", ")}.` : "";
+      const reviewSummary = item.review ? ` Review: ${summarizeText(item.review, 220)}` : "";
+      return {
+        name: item.author ? `${item.title} — ${item.author}` : item.title,
+        description: `${ratingLabel}.${shelfLabel}${reviewSummary}`.trim(),
+        url: item.link,
+        status: "completed" as const,
+        technologies: ["books", "reading", ...(item.shelves.length > 0 ? item.shelves : [])],
+        start_date: parseDateToIso(item.dateRead),
+        category: "book",
+        stars: item.rating ?? undefined,
+      };
+    });
 
     const identity: PartialProfile["identity"] = {
       contact: {
@@ -160,14 +240,24 @@ export const goodreadsGenerator: GeneratorSource = {
     const faq: PartialProfile["faq"] = items.length > 0
       ? [{
           question: "What books have you read recently?",
-          answer: `I track my reading on Goodreads. ${items.length} books in my read list.${topRated.length > 0 ? ` Top rated: ${topRated.slice(0, 5).map((i) => `${i.title} by ${i.author}`).join("; ")}.` : ""}`,
+          answer: `I track my reading on Goodreads. ${items.length} books in my read list.${topRated.length > 0 ? ` Top rated: ${topRated.slice(0, 5).map((i) => `${i.title} by ${i.author}`).join("; ")}.` : ""}${favoriteAuthors.length > 0 ? ` Most read authors: ${favoriteAuthors.join(", ")}.` : ""}`,
+          category: "reading",
+        }, {
+          question: "What are your reading habits?",
+          answer: shelves.size > 0
+            ? `My Goodreads shelves include ${[...shelves].slice(0, 8).join(", ")}.`
+            : "I use Goodreads to track what I read and review.",
           category: "reading",
         }]
       : [];
 
     return {
       identity,
-      interests: { hobbies: ["reading"], topics: ["books"] },
+      projects,
+      interests: {
+        hobbies: ["reading"],
+        topics: ["books", "literature", ...[...shelves].slice(0, 5)],
+      },
       faq,
     };
   },
