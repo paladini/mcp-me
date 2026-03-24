@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/og-image.svg" alt="mcp-me — Your Digital Identity Layer for AI" width="100%">
+</p>
+
 # mcp-me
 
 **Your AI assistants don't know who you are.** Every time you start a conversation with Claude, Copilot, Cursor, or Windsurf, it's a blank slate — no context about your skills, your projects, your career, or what you care about.
@@ -162,6 +166,30 @@ Add to your Claude Desktop config:
   }
 }
 ```
+
+## Agent Instruction Files
+
+AI agents read special Markdown files in your project to understand how they should behave. Pair them with mcp-me so that **every AI session automatically consults your profile** — no more repeating your stack, career, or preferences in every conversation.
+
+| File | Works with |
+|------|------------|
+| `AGENTS.md` (project root) | Windsurf (Cascade), OpenAI Codex, Cline, and others |
+| `.github/copilot-instructions.md` | GitHub Copilot (VS Code + GitHub.com) |
+
+**Quick setup:**
+
+```bash
+# AGENTS.md — for Windsurf, Cline, Codex, etc.
+cp "$(npm root -g)/mcp-me/templates/AGENTS.md" ./AGENTS.md
+
+# GitHub Copilot
+mkdir -p .github
+cp "$(npm root -g)/mcp-me/templates/.github/copilot-instructions.md" .github/copilot-instructions.md
+```
+
+Both templates are included with mcp-me and tell the AI to call `ask_about_me` whenever context about you would improve the response.
+
+See the [Agent Instructions Guide](docs/ai-instructions.md) for examples, global setup, and tips on combining with project-specific rules.
 
 ## Profile Schema
 
@@ -361,6 +389,9 @@ Most generators use public APIs with no auth needed. Some (Strava, Spotify) requ
 
 **Can I use this with Claude Desktop / VS Code / Cursor / Windsurf?**
 Yes! Any MCP-compatible AI assistant works. See the [Configure Your AI Assistant](#configure-your-ai-assistant) section.
+
+**How do I make AI agents use my profile automatically?**
+Drop an `AGENTS.md` (for Windsurf, Cline, Codex) or `.github/copilot-instructions.md` (for GitHub Copilot) into your project. Templates are included — see the [Agent Instructions Guide](docs/ai-instructions.md).
 
 **How do I add a new data source?**
 Run `mcp-me create generator myservice` to scaffold a new generator, or see the [Generator Creation Guide](docs/creating-generators.md).

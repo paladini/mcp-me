@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **README banner** — `docs/assets/og-image.svg` now displayed as a full-width banner at the top of the README
+- **Agent instruction file templates** — `templates/AGENTS.md` (for Windsurf/Cascade, Cline, Codex, and other agents) and `templates/.github/copilot-instructions.md` (for GitHub Copilot) ship with the package so users can drop them into their projects with one `cp` command
+- **Agent Instructions Guide** — new `docs/ai-instructions.md` documents how to use `AGENTS.md` and `copilot-instructions.md` with mcp-me, including global VS Code setup, a before/after comparison table, and tips on combining profile context with project-specific rules
+- **README "Agent Instruction Files" section** — quick-start snippet and link to the guide added between "Configure Your AI Assistant" and "Profile Schema"
+
 ## [0.2.8] - 2026-03-23
 
 ### Added
