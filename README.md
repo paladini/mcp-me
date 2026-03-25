@@ -18,7 +18,7 @@ AI:  (reads your me://career, me://skills, me://projects)
 ## Why mcp-me?
 
 - **AI that knows you** — Your assistants remember your skills, career, projects, and personality across every conversation
-- **Auto-generated** — Pull data from 328 registered generators (implemented across 43 generator source files) with one command
+- **Auto-generated** — Pull data from 329 registered generators (implemented across 44 generator source files) with one command
 - **Privacy-first** — All data stays local in YAML files on your machine. Nothing is sent to any cloud.
 - **Real-time plugins** — 13 live integrations (Spotify now playing, GitHub repos, Last.fm scrobbles) that AI queries on demand
 - **Extensible** — Community-driven generators and plugins. Add a new data source in ~10 lines of code.
@@ -237,11 +237,11 @@ Static profile data exposed as MCP resources:
 
 ## Generators (selected examples)
 
-Generators run during `mcp-me generate` to auto-populate your profile from public APIs. **No API keys needed** for most sources.
+Generators run during `mcp-me generate` to auto-populate your profile from public APIs or user-provided exports. **No API keys needed** for most sources.
 
 Current counts:
-- **Registered generators:** 328
-- **Generator source files:** 43 single-generator files + 15 batch files (`src/generators/`)
+- **Registered generators:** 329
+- **Generator source files:** 44 single-generator files + 15 batch files (`src/generators/`)
 
 > The table below is a curated list of commonly used generators. The complete source of truth is `src/generators/index.ts`.
 
@@ -255,6 +255,7 @@ Current counts:
 | **Code** | `--codeberg <user>` | Gitea API | Repos, languages |
 | **Writing** | `--devto <user>` | DEV.to API | Articles, tags, reactions |
 | **Writing** | `--medium <user>` | Medium RSS | Articles, categories, article text |
+| **Writing** | `--blogger-backup <xml>` | Blogger XML export | Imported posts from a local backup, filtered by author if needed |
 | **Writing** | `--hashnode <user>` | Hashnode GraphQL | Blog posts, tags |
 | **Writing** | `--substack <user>` | Substack RSS | Newsletter posts, article text |
 | **Writing** | `--wordpress <site>` | WordPress API | Blog posts, categories, tags |
@@ -274,6 +275,32 @@ Current counts:
 | **Packages** | `--crates <user>` | Crates.io API | Rust crates |
 | **Packages** | `--dockerhub <user>` | Docker Hub API | Container images |
 | **Activity** | `--wakatime <user>` | WakaTime API | Coding time, languages, editors |
+
+### Blogger XML Backup
+
+`--blogger-backup` imports written content from a Blogger XML export file on disk. It is designed for archived or multi-author blogs where you want to recover your posts even if the site is old, partially offline, or not easily queryable through a public API.
+
+By default it imports all post entries from the file. If the backup contains multiple authors, append `::author1,author2,...` after the file path to keep only posts whose author name or email matches one of those values.
+
+Examples:
+
+```bash
+# Import all posts from a Blogger export
+mcp-me generate ~/my-profile --blogger-backup ~/Downloads/blog-2026-03-24.xml
+
+# Import only posts written by specific authors/emails
+mcp-me generate ~/my-profile --blogger-backup "~/Downloads/blog.xml::fernandopalad@gmail.com,fnpaladini@gmail.com,Fernando Paladini"
+```
+
+How to get the export file:
+
+1. Open Blogger and choose your blog.
+2. Go to `Settings`.
+3. In `Manage blog`, click `Back up content`.
+4. Download the XML file.
+5. Pass that file path to `--blogger-backup`.
+
+The generator imports matching posts into `projects.yaml` with `category: article`, preserves post labels as tags, and adds summary FAQ entries about the archive.
 | **Activity** | `--letterboxd <user>` | Letterboxd RSS | Films watched, ratings |
 | **Activity** | `--goodreads <user>` | Goodreads RSS + author page | Read books, shelves, reviews, published books |
 | **Activity** | `--chess <user>` | Chess.com API | Rating, stats |
@@ -400,7 +427,7 @@ Run `mcp-me create generator myservice` to scaffold a new generator, or see the 
 No. All data stays local in your YAML files. The MCP server reads from disk — nothing is sent to any cloud.
 
 **How many generators are there?**
-Currently 328 registered generators, implemented across 43 generator source files plus 15 batch files.
+Currently 329 registered generators, implemented across 44 generator source files plus 15 batch files.
 
 ## Contributing
 

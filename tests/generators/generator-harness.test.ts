@@ -106,9 +106,9 @@ describe("Generator Harness — file registration check", () => {
   });
 
   it("total generator count matches expected", () => {
-    // This test documents the current count (44 named + 284 batch generators = 328 total)
+    // This test documents the current count (45 named + 284 batch generators = 329 total)
     // and will break if generators are added to files but not registered (or vice versa).
     // Update this number when adding new generators.
-    expect(generators.length).toBe(328);
+    expect(generators.length).toBe(329);
   });
 });

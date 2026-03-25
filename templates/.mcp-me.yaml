@@ -38,6 +38,7 @@ generators:
   # ── Writing & Blogs ────────────────────────────────────────────────────────
   # devto: your-username
   # medium: your-username
+  # blogger-backup: "/absolute/path/to/blogger-export.xml::your@email.com,Your Name"
   # hashnode: your-username
   # substack: your-newsletter
   # wordpress: your-site.wordpress.com

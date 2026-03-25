@@ -16,6 +16,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **README "Agent Instruction Files" section** — quick-start snippet and link to the guide added between "Configure Your AI Assistant" and "Profile Schema"
 
 ## [Unreleased]
+
+## [0.4.0] - 2026-03-25
+
+### Changed
+
+- **Medium generator** — now uses a 4-tier fetch strategy to retrieve all published articles instead of only the last 10 from RSS: (1) unofficial JSON endpoint (`?format=json`) extracts the full post list with word counts, subtitles, and tags, **with full pagination** via `payload.paging.path` + `payload.paging.next`; (2) sitemap XML extraction for robust URL discovery; (3) HTML scraping parses `__NEXT_DATA__`, Apollo state, or raw `href` links as fallback; (4) RSS is used only as a last resort (capped at 10 by Medium). Removed the hard-coded `.slice(0, 10)` limit and updated request headers to browser-like values to reduce 403 blocks.
+- **Generator docs and templates** — documentation now covers the native `--blogger-backup` generator in English, including what it is for, how to obtain a Blogger XML export, and how to filter multi-author backups.
+
+### Added
+
+- **Blogger XML backup generator** — added a native `--blogger-backup` generator that reads a local Blogger XML export, optionally filters posts by author name/email using `path::author1,author2,...` syntax, imports matching posts into `projects.yaml` with `category: article`, preserves labels as tags, and adds archive summary FAQ entries.
+
 ## [0.2.8] - 2026-03-23
 
 ### Added
