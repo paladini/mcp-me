@@ -1,6 +1,6 @@
 # Creating Generators for mcp-me
 
-Generators are data sources that auto-populate profile YAML files from public APIs. They run **once** during `mcp-me generate` to create a snapshot of your online presence.
+Generators are data sources that auto-populate profile YAML files from public APIs or user-provided exports. They run **once** during `mcp-me generate` to create a snapshot of your online presence.
 
 > **Generators vs Plugins:** Generators run once at generation time and produce static YAML. Plugins run continuously during `mcp-me serve` and provide live data to AI assistants. See the [architecture overview](#generators-vs-plugins) below.
 
@@ -187,7 +187,7 @@ Generators must use one of the valid `GeneratorCategory` values:
 
 ## Best Practices
 
-1. **Use only public APIs** — No auth should be required for basic usage
+1. **Use public APIs or user-provided exports** — Built-in generators can also read local files when a platform does not offer a stable public API
 2. **Log progress** — Use `console.log(\`  [SourceName] ...\`)` format for consistency
 3. **Handle errors gracefully** — Throw descriptive errors; the orchestrator catches them
 4. **Include `User-Agent: mcp-me-generator`** — Be a good API citizen
@@ -216,8 +216,8 @@ Generators must use one of the valid `GeneratorCategory` values:
 
 Current project counts:
 
-- **Registered generators:** 328 (validated by `tests/generators/generator-harness.test.ts`)
-- **Generator source files:** 43 single-generator files + 15 batch files in `src/generators/`
+- **Registered generators:** 329 (validated by `tests/generators/generator-harness.test.ts`)
+- **Generator source files:** 44 single-generator files + 15 batch files in `src/generators/`
 
 `src/generators/index.ts` is the source of truth for registration. The table below is intentionally non-exhaustive and shows common/core generators.
 
@@ -233,6 +233,7 @@ Current project counts:
 | **Code** | `--codeberg` | Gitea REST API v1 | None |
 | **Writing** | `--devto` | DEV.to API | None |
 | **Writing** | `--medium` | Medium RSS feed | None |
+| **Writing** | `--blogger-backup` | Blogger XML export | Local file |
 | **Writing** | `--hashnode` | Hashnode GraphQL API | None |
 | **Writing** | `--substack` | Substack RSS | None |
 | **Writing** | `--openlibrary` | Open Library API | None |

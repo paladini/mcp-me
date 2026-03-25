@@ -16,6 +16,7 @@ import { stackoverflowGenerator } from "./stackoverflow.js";
 import { devtoGenerator } from "./devto.js";
 import { npmGenerator, pypiGenerator } from "./npm.js";
 import { mediumGenerator } from "./medium.js";
+import { bloggerBackupGenerator } from "./blogger-backup.js";
 import { wakatimeGenerator } from "./wakatime.js";
 import { mastodonGenerator } from "./mastodon.js";
 import { letterboxdGenerator } from "./letterboxd.js";
@@ -85,6 +86,7 @@ export const generators: GeneratorSource[] = [
   // Writing
   devtoGenerator,
   mediumGenerator,
+  bloggerBackupGenerator,
   hashnodeGenerator,
   substackGenerator,
   openlibraryGenerator,
