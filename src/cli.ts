@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { cp, mkdir, readdir, access, writeFile } from "node:fs/promises";
+import { mkdir, access, writeFile } from "node:fs/promises";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -7,6 +7,7 @@ import { createMcpMeServer } from "./server.js";
 import { loadProfile, loadGeneratorsConfig } from "./loader.js";
 import { generateProfile } from "./generator.js";
 import { generators } from "./generators/index.js";
+import { initProfileDirectory } from "./init-profile.js";
 import { version } from "../package.json";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -31,30 +32,11 @@ program
     const templatesDir = join(__dirname, "..", "templates");
 
     try {
-      await mkdir(targetDir, { recursive: true });
-
-      const templates = await readdir(templatesDir);
-      let copied = 0;
-      let skipped = 0;
-
-      for (const file of templates) {
-        const targetFile = join(targetDir, file);
-
-        if (!options.force) {
-          try {
-            await access(targetFile);
-            console.log(`  Skipped: ${file} (already exists, use --force to overwrite)`);
-            skipped++;
-            continue;
-          } catch {
-            // File doesn't exist, proceed
-          }
-        }
-
-        await cp(join(templatesDir, file), targetFile);
-        console.log(`  Created: ${file}`);
-        copied++;
-      }
+      const { copied, skipped } = await initProfileDirectory({
+        targetDir,
+        templatesDir,
+        force: options.force,
+      });
 
       console.log();
       console.log(`Profile initialized in ${targetDir}`);

@@ -17,6 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Blogger backup docs** — clarified in the generated `.mcp-me.yaml` template that `--blogger-backup` imports all posts by default when only the XML path is provided, and that the `::author1,author2` suffix is optional for multi-author filtering.
+
+## [0.4.1] - 2026-03-25
+
+### Fixed
+
+- **`mcp-me init` directory templates** — fixed profile initialization when `templates/` contains directories (such as `.github/`). The command now copies directory entries recursively instead of failing with `cp returned EISDIR`.
+
 ## [0.4.0] - 2026-03-25
 
 ### Changed
