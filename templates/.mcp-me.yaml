@@ -82,7 +82,8 @@ generators:
 
   # ── Packages & Registries ──────────────────────────────────────────────────
   # npm: your-username
-  # pypi: package1,package2
+  # pypi: your-username             # by username (auto-discovers all your packages)
+  # pypi: package1,package2         # or by explicit comma-separated package names
   # crates: your-username
   # dockerhub: your-username
   # rubygems: your-username
