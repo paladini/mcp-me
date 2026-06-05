@@ -2,14 +2,17 @@
  * npm & PyPI Generators
  *
  * npm: Fetches your published npm packages, keywords, and project metadata.
- * PyPI: Fetches metadata for specified Python packages you've published.
+ * PyPI: Fetches packages you've published, either by username or by explicit package names.
  *
- * @flag --npm <username>        npm packages by maintainer
- * @flag --pypi <pkg1,pkg2>      PyPI packages (comma-separated names)
- * @example mcp-me generate ./profile --npm sindresorhus --pypi requests,flask
+ * @flag --npm <username>              npm packages by maintainer username
+ * @flag --pypi <username>             PyPI packages by username (auto-discovers all your packages)
+ * @flag --pypi <pkg1,pkg2,...>        PyPI packages by explicit comma-separated names
+ * @example mcp-me generate ./profile --npm sindresorhus --pypi gvanrossum
+ * @example mcp-me generate ./profile --pypi requests,flask,django
  * @auth None required (public registries)
  * @api https://github.com/npm/registry/blob/main/docs/REGISTRY-API.md
  * @api https://warehouse.pypa.io/api-reference/json.html
+ * @api https://pypi.org/pypi (XMLRPC for user_packages lookup)
  * @data identity, skills (keywords), projects (packages), faq
  */
 import type { GeneratorSource, PartialProfile } from "./types.js";
@@ -62,6 +65,27 @@ async function fetchPyPIPackage(packageName: string): Promise<PyPIPackage | null
   });
   if (!response.ok) return null;
   return response.json() as Promise<PyPIPackage>;
+}
+
+// Uses the PyPI XMLRPC legacy API to fetch all packages owned/maintained by a username.
+// Returns package names, or empty array if the user has no packages or doesn't exist.
+async function fetchPyPIUserPackages(username: string): Promise<string[]> {
+  const xmlBody = `<?xml version='1.0'?><methodCall><methodName>user_packages</methodName><params><param><value><string>${username}</string></value></param></params></methodCall>`;
+  try {
+    const resp = await fetch("https://pypi.org/pypi", {
+      method: "POST",
+      headers: { "Content-Type": "text/xml", "User-Agent": "mcp-me-generator" },
+      body: xmlBody,
+    });
+    if (!resp.ok) return [];
+    const xml = await resp.text();
+    // Response is an array of [role, package_name] pairs encoded as XML-RPC.
+    // Extract all <string> values; odd indices (1, 3, 5, …) are package names.
+    const strings = [...xml.matchAll(/<string>([^<]*)<\/string>/g)].map((m) => m[1]);
+    return strings.filter((_, i) => i % 2 === 1).filter(Boolean);
+  } catch {
+    return [];
+  }
 }
 
 export const npmGenerator: GeneratorSource = {
@@ -137,15 +161,35 @@ export const npmGenerator: GeneratorSource = {
 export const pypiGenerator: GeneratorSource = {
   name: "pypi",
   flag: "pypi",
-  flagArg: "<packages>",
-  description: "PyPI package metadata (comma-separated names)",
+  flagArg: "<username|pkg1,pkg2>",
+  description: "PyPI packages by username or comma-separated names",
   category: "packages",
 
   async generate(config): Promise<PartialProfile> {
-    const packageNames = config.packages as string[];
-    if (!packageNames?.length) throw new Error("PyPI package names are required");
+    const rawPackages = config.packages as string[];
+    if (!rawPackages?.length) throw new Error("PyPI username or package names are required");
 
-    console.log(`  [PyPI] Fetching ${packageNames.length} package(s)...`);
+    let packageNames: string[];
+    let resolvedByUsername = false;
+
+    // Single value with no commas → try as a username first, fall back to package name.
+    if (rawPackages.length === 1) {
+      const candidate = rawPackages[0];
+      console.log(`  [PyPI] Looking up packages for user "${candidate}"...`);
+      const userPackages = await fetchPyPIUserPackages(candidate);
+      if (userPackages.length > 0) {
+        console.log(`  [PyPI] Found ${userPackages.length} package(s) owned by "${candidate}".`);
+        packageNames = userPackages;
+        resolvedByUsername = true;
+      } else {
+        console.log(`  [PyPI] No user found for "${candidate}", treating as package name.`);
+        packageNames = rawPackages;
+      }
+    } else {
+      packageNames = rawPackages;
+    }
+
+    console.log(`  [PyPI] Fetching metadata for ${packageNames.length} package(s)...`);
     const packages: PyPIPackage[] = [];
 
     for (const name of packageNames) {
@@ -167,6 +211,14 @@ export const pypiGenerator: GeneratorSource = {
       category: "pypi-package",
     }));
 
+    const identity: PartialProfile["identity"] = resolvedByUsername
+      ? {
+          contact: {
+            social: [{ platform: "pypi", url: `https://pypi.org/user/${rawPackages[0]}`, username: rawPackages[0] }],
+          },
+        }
+      : undefined;
+
     const faq: PartialProfile["faq"] = packages.length > 0
       ? [
           {
@@ -177,9 +229,6 @@ export const pypiGenerator: GeneratorSource = {
         ]
       : [];
 
-    return {
-      projects,
-      faq,
-    };
+    return { identity, projects, faq };
   },
 };
