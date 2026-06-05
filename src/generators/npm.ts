@@ -5,8 +5,8 @@
  * PyPI: Fetches metadata for specified Python packages you've published.
  *
  * @flag --npm <username>        npm packages by maintainer
- * @flag --pypi <pkg1,pkg2>      PyPI packages (comma-separated names)
- * @example mcp-me generate ./profile --npm sindresorhus --pypi requests,flask
+ * @flag --pypi <username>       PyPI packages by user
+ * @example mcp-me generate ./profile --npm sindresorhus --pypi tiangolo
  * @auth None required (public registries)
  * @api https://github.com/npm/registry/blob/main/docs/REGISTRY-API.md
  * @api https://warehouse.pypa.io/api-reference/json.html
@@ -62,6 +62,26 @@ async function fetchPyPIPackage(packageName: string): Promise<PyPIPackage | null
   });
   if (!response.ok) return null;
   return response.json() as Promise<PyPIPackage>;
+}
+
+async function fetchPyPIUserPackages(username: string): Promise<string[]> {
+  const resp = await fetch(`https://pypi.org/user/${username}/`, {
+    headers: { "User-Agent": "mcp-me-generator" },
+  });
+  if (!resp.ok) {
+    if (resp.status === 404) throw new Error(`PyPI user "${username}" not found`);
+    throw new Error(`PyPI HTTP error: ${resp.status}`);
+  }
+  const html = await resp.text();
+  const regex = /<h3 class="package-snippet__title">([^<]+)<\/h3>/g;
+  const packages: string[] = [];
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    if (match[1]) {
+      packages.push(match[1].trim());
+    }
+  }
+  return packages;
 }
 
 export const npmGenerator: GeneratorSource = {
@@ -137,15 +157,19 @@ export const npmGenerator: GeneratorSource = {
 export const pypiGenerator: GeneratorSource = {
   name: "pypi",
   flag: "pypi",
-  flagArg: "<packages>",
-  description: "PyPI package metadata (comma-separated names)",
+  flagArg: "<username>",
+  description: "PyPI published packages",
   category: "packages",
 
   async generate(config): Promise<PartialProfile> {
-    const packageNames = config.packages as string[];
-    if (!packageNames?.length) throw new Error("PyPI package names are required");
+    const username = config.username as string;
+    if (!username) throw new Error("PyPI username is required");
 
-    console.log(`  [PyPI] Fetching ${packageNames.length} package(s)...`);
+    console.log(`  [PyPI] Fetching packages for ${username}...`);
+    const allPackageNames = await fetchPyPIUserPackages(username);
+    const packageNames = allPackageNames.slice(0, 15); // limit to 15
+    console.log(`  [PyPI] Found ${allPackageNames.length} published packages. Fetching metadata for up to 15...`);
+
     const packages: PyPIPackage[] = [];
 
     for (const name of packageNames) {
@@ -160,24 +184,33 @@ export const pypiGenerator: GeneratorSource = {
 
     const projects = packages.map((pkg) => ({
       name: pkg.info.name,
-      description: pkg.info.summary,
+      description: pkg.info.summary || "PyPI package",
       url: pkg.info.project_urls?.["Homepage"] ?? pkg.info.home_page ?? `https://pypi.org/project/${pkg.info.name}`,
       status: "active" as const,
-      technologies: pkg.info.keywords?.split(",").map((k) => k.trim()).filter(Boolean) ?? [],
+      technologies: pkg.info.keywords?.split(",").map((k) => k.trim()).filter(Boolean) ?? ["python"],
       category: "pypi-package",
     }));
+
+    const identity: PartialProfile["identity"] = {
+      contact: {
+        social: [
+          { platform: "pypi", url: `https://pypi.org/user/${username}`, username },
+        ],
+      },
+    };
 
     const faq: PartialProfile["faq"] = packages.length > 0
       ? [
           {
             question: "Do you publish Python packages?",
-            answer: `Yes, I have ${packages.length} package(s) on PyPI: ${packages.map((p) => p.info.name).join(", ")}.`,
+            answer: `Yes, I have ${allPackageNames.length} package(s) on PyPI. Notable: ${packages.slice(0, 3).map((p) => p.info.name).join(", ")}.`,
             category: "open-source",
           },
         ]
       : [];
 
     return {
+      identity,
       projects,
       faq,
     };
