@@ -29,7 +29,7 @@ Use these details for all directory submissions:
 
 | Directory | URL | Status | Notes |
 |-----------|-----|--------|-------|
-| Cursor Directory (Plugin) | https://cursor.directory/plugins/new | **Ready (Auto)** | Open Plugins structure in repo root; submit via Auto (GitHub) → `https://github.com/paladini/mcp-me` → Scan repo |
+| Cursor Directory (Plugin) | https://cursor.directory/plugins/new | **Pushed — login required** | Open Plugins on `main` (a9eb9ab); Auto scan `https://github.com/paladini/mcp-me` after GitHub sign-in |
 | Cursor Directory (MCP manual) | https://cursor.directory/mcp/new | Fallback | Manual form if plugin auto-detect is unavailable |
 | Glama | https://glama.ai/mcp/servers | **Indexed** | https://glama.ai/mcp/servers/paladini/mcp-me (auto-index + `glama.json`) |
 | Smithery | https://smithery.ai/new | **Ready (Chrome)** | Upload `mcp-me.mcpb` at smithery.ai/new after GitHub sign-in; CLI: `smithery mcp publish ./mcp-me.mcpb -n paladini/mcp-me` |
