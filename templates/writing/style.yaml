@@ -1,0 +1,51 @@
+default_profile: personal_blog
+
+global_voice:
+  tone:
+    - conversational
+    - direct
+  notes: >
+    Edit this file to describe your writing voice.
+    Add format profiles for different contexts (blog, news, social).
+
+profiles:
+  personal_blog:
+    format: blog_post
+    tone:
+      - conversational
+      - direct
+      - humorous
+    formality: casual
+    perspective: first-person
+    typical_length: 800-1500 words
+    corpus_tags:
+      - blog
+      - medium
+      - personal
+
+  tech_news:
+    format: news_article
+    tone:
+      - informative
+      - neutral
+      - concise
+    formality: professional
+    perspective: third-person
+    typical_length: 400-600 words
+    corpus_tags:
+      - news
+      - devto
+      - technical
+
+  ironic_thread:
+    format: social_post
+    tone:
+      - ironic
+      - witty
+      - short
+    formality: casual
+    perspective: first-person
+    typical_length: 280 chars or thread
+    corpus_tags:
+      - social
+      - threads

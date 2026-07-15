@@ -4,6 +4,9 @@ import { version } from "../package.json";
 import { PROFILE_CATEGORIES } from "./schema/index.js";
 import { loadProfile, loadPluginsConfig, searchProfile, type ProfileBundle } from "./loader.js";
 import { discoverPlugins, type McpMePlugin, type PluginPrompt } from "./plugin-engine/index.js";
+import { loadWritingBundle } from "./writing/corpus-loader.js";
+import { registerWritingMcp } from "./writing/mcp.js";
+import { getProfileCompleteness } from "./writing/completeness.js";
 
 const RESOURCE_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
   identity: { title: "Who I Am", description: "Name, bio, location, email, website, and social media links. Use this to learn who this person is and how to contact them." },
@@ -32,14 +35,22 @@ export async function createMcpMeServer(profileDir: string): Promise<McpServer> 
     profile.errors.forEach((e) => console.warn(`  ${e}`));
   }
 
+  const writing = await loadWritingBundle(profileDir);
+  if (writing.errors.length > 0) {
+    writing.errors.forEach((e) => console.warn(`  Writing: ${e}`));
+  }
+
   // Register core resources
   registerCoreResources(server, profile);
 
   // Register core tools
-  registerCoreTools(server, profile);
+  registerCoreTools(server, profile, writing);
 
   // Register core prompts
   registerCorePrompts(server, profile);
+
+  // Register writing MCP surface
+  registerWritingMcp(server, profile, writing);
 
   // Load and register plugins
   const pluginsConfig = await loadPluginsConfig(profileDir);
@@ -78,14 +89,15 @@ function registerCoreResources(server: McpServer, profile: ProfileBundle): void 
   }
 }
 
-function registerCoreTools(server: McpServer, profile: ProfileBundle): void {
+function registerCoreTools(server: McpServer, profile: ProfileBundle, writing: Awaited<ReturnType<typeof loadWritingBundle>>): void {
   server.registerTool(
     "ask_about_me",
     {
       title: "Ask About Me \u2014 Personal Q&A",
       description:
-        "Ask any question about this person and get an answer based on their complete profile. " +
-        "Covers: bio, career history, skills, projects, interests, personality, goals, and FAQ. " +
+        "Returns structured profile context for the host LLM to interpret and answer a question. " +
+        "mcp-me does not run an LLM server-side — your AI client reads the context and responds. " +
+        "Covers: bio, career, skills, projects, interests, personality, goals, FAQ, and writing style. " +
         "Examples: 'What programming languages do they know?', 'Where do they work?', 'What books have they written?'",
       inputSchema: z.object({
         question: z.string().describe("Any question about this person (e.g. 'What are their top skills?', 'Do they have open-source projects?')"),
@@ -138,6 +150,23 @@ function registerCoreTools(server: McpServer, profile: ProfileBundle): void {
 
       return {
         content: [{ type: "text" as const, text }],
+      };
+    },
+  );
+
+  server.registerTool(
+    "get_profile_completeness",
+    {
+      title: "Profile Completeness",
+      description:
+        "Returns profile fill percentage by domain and suggestions for generators or manual edits to improve completeness.",
+      inputSchema: z.object({}),
+      annotations: { readOnlyHint: true },
+    },
+    async () => {
+      const completeness = getProfileCompleteness(profile, writing);
+      return {
+        content: [{ type: "text" as const, text: JSON.stringify(completeness, null, 2) }],
       };
     },
   );

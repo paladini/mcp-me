@@ -1,0 +1,14 @@
+---
+description: Activate voice matching when the user requests writing in their personal style.
+globs: ["**/*.md", "**/*.txt"]
+---
+
+When the user asks to write, rewrite, or draft content in their voice or style:
+
+1. Connect to the `me` MCP server if available
+2. Read `me://writing/style` and select the appropriate format profile
+3. Use `get_writing_references` for topic-relevant corpus excerpts
+4. Use `emulate_my_voice` or `rewrite_in_my_voice` prompts
+5. Enrich with factual context from `me://career`, `me://skills`, `me://projects`
+
+Do not produce generic text when mcp-me writing data is available.

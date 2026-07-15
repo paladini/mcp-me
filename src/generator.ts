@@ -4,6 +4,8 @@ import { stringify as toYaml } from "yaml";
 import type { GenerateOptions, GenerateResult, PartialProfile } from "./generators/types.js";
 import { generators } from "./generators/index.js";
 import { mergeProfiles } from "./generators/merger.js";
+import { writeCorpusArticles, ensureWritingStructure } from "./writing/corpus-writer.js";
+import type { CorpusArticle } from "./writing/types.js";
 
 export type { GenerateOptions, GenerateResult };
 
@@ -131,9 +133,26 @@ export async function generateProfile(options: GenerateOptions): Promise<Generat
   console.log(`\n  Merging data from ${partials.length} source(s)...`);
   const merged = mergeProfiles(partials);
 
+  // Collect corpus articles from all partials
+  const corpusArticles: CorpusArticle[] = [];
+  for (const partial of partials) {
+    if (partial.writingCorpus) {
+      corpusArticles.push(...partial.writingCorpus);
+    }
+  }
+
   // Write to disk
   const filesCreated: string[] = [];
   await writeProfile(options.directory, merged, filesCreated, options.force ?? false);
+
+  // Sync writing corpus unless opted out
+  if (!options.noCorpus && corpusArticles.length > 0) {
+    await ensureWritingStructure(options.directory);
+    const written = await writeCorpusArticles(options.directory, corpusArticles);
+    if (written > 0) {
+      console.log(`  ✔ Synced ${written} article(s) to writing/corpus/`);
+    }
+  }
 
   return {
     filesCreated,

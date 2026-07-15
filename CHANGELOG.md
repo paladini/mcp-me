@@ -5,27 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-
-## [0.3.0] - 2026-03-23
-
-### Added
-
-- **README banner** — `docs/assets/og-image.svg` now displayed as a full-width banner at the top of the README
-- **Agent instruction file templates** — `templates/AGENTS.md` (for Windsurf/Cascade, Cline, Codex, and other agents) and `templates/.github/copilot-instructions.md` (for GitHub Copilot) ship with the package so users can drop them into their projects with one `cp` command
-- **Agent Instructions Guide** — new `docs/ai-instructions.md` documents how to use `AGENTS.md` and `copilot-instructions.md` with mcp-me, including global VS Code setup, a before/after comparison table, and tips on combining profile context with project-specific rules
-- **README "Agent Instruction Files" section** — quick-start snippet and link to the guide added between "Configure Your AI Assistant" and "Profile Schema"
-
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-15
+
 ### Added
 
-- **Open Plugins structure** — Full Cursor/Open Plugins layout at repo root for auto-detect on cursor.directory: `.cursor-plugin/plugin.json`, `mcp.json`, `rules/`, `skills/`, `agents/`, `commands/`, `hooks/hooks.json`, `.lsp.json`
-- **Plugin validation** — `npm run validate:open-plugin` script and `tests/open-plugin-structure.test.ts`
+- **Writing dimension** — `writing/style.yaml` format profiles and `writing/corpus/` for published texts
+- **Corpus sync** — Medium, Substack, Blogger, and DEV.to generators write full articles to `writing/corpus/`
+- **Writing MCP surface** — Resources `me://writing/style`, `me://writing/corpus`, `me://writing/samples`
+- **Writing tools** — `analyze_writing_style`, `search_writing_corpus`, `get_writing_references`
+- **Writing prompts** — `describe_my_writing`, `emulate_my_voice`, `rewrite_in_my_voice`
+- **CLI commands** — `mcp-me sync-corpus`, `mcp-me analyze-writing`, `--no-corpus` flag on generate
+- **Profile completeness** — `get_profile_completeness` tool with domain scores and generator suggestions
+- **Open Plugins** — `voice-writer` and `style-analyst` agents, `writing-voice` skill, `match-voice` rule, `/emulate-voice` command
 
 ### Changed
 
-- **Directory submissions** — Opened Chrome handoff for mcp.so, Smithery, and Cursor Directory; built `mcp-me.mcpb` for Smithery; pushed wong2/awesome-mcp-servers PR branch; verified PulseMCP not yet indexed (registry active since 2026-07-10)
-- **Cursor Directory** — Submission path updated to `cursor.directory/plugins/new` Auto (GitHub) now that Open Plugins components are in the repo
+- **`ask_about_me`** — Description clarifies it returns context for the host LLM (not server-side Q&A)
+
+## [1.0.0] - 2026-07-15
+
+### Added
+
+- **Stable API declaration** — 8 core YAML schemas, MCP core surface, and `McpMePlugin` interface declared stable
+- **Identity fields** — Optional `headline` and `physical` (opt-in) in `identity.yaml`
+- **Schema fix** — `interests.topics` officially supported (generators already wrote this field)
+- **Documentation** — `docs/identity-model.md`, `docs/generator-tiers.md`, `docs/migration-1.0.md`
+- **Integration tests** — CLI, MCP server, and config-generate test suites
+- **Plugin tests** — Behavioral tests for devto and wakatime plugins
+
+### Changed
+
+- **Plugin config docs** — Clarified `plugins.yaml` is legacy; use `.mcp-me.yaml`
+- **Spotify plugin docs** — Aligned tool/resource names with implementation
 
 ## [0.6.0] - 2026-07-09
 

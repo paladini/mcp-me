@@ -10,6 +10,10 @@ export const interestItemSchema = z.object({
 
 export const interestsSchema = z.object({
   hobbies: z.array(z.string()).optional().describe("General hobbies and activities"),
+  topics: z
+    .array(z.string())
+    .optional()
+    .describe("Topics of interest — populated by many generators (e.g. GitHub repo topics, platform tags)"),
   music: z
     .object({
       genres: z.array(z.string()).optional(),

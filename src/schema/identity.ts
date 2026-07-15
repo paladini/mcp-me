@@ -9,6 +9,10 @@ export const socialLinkSchema = z.object({
 export const identitySchema = z.object({
   name: z.string().describe("Full name"),
   nickname: z.string().optional().describe("Preferred nickname or alias"),
+  headline: z
+    .string()
+    .optional()
+    .describe("Short professional headline, e.g. 'Software engineer · open-source maintainer'"),
   pronouns: z.string().optional().describe("Preferred pronouns, e.g. 'he/him'"),
   bio: z.string().describe("Short biography (1-3 sentences)"),
   bio_extended: z.string().optional().describe("Longer biography for detailed introductions"),
@@ -41,6 +45,17 @@ export const identitySchema = z.object({
     .describe("Contact information"),
   date_of_birth: z.string().optional().describe("Date of birth (YYYY-MM-DD)"),
   nationality: z.string().optional(),
+  physical: z
+    .object({
+      height: z.string().optional().describe("Height in any format, e.g. '1.78m' or '5ft 10in'"),
+      weight: z.string().optional().describe("Weight in any format, e.g. '75kg' or '165lbs'"),
+      description: z
+        .string()
+        .optional()
+        .describe("Free-form physical description — opt-in only, never scraped"),
+    })
+    .optional()
+    .describe("Optional physical attributes — share only what you are comfortable exposing"),
 });
 
 export type Identity = z.infer<typeof identitySchema>;

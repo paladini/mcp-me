@@ -293,7 +293,7 @@ Every registered built-in plugin is automatically tested by `tests/plugins/plugi
 | Plugin | Resources | Tools | Auth |
 |---|---|---|---|
 | **github** | profile, repos, activity, languages | `get_github_repos` | Optional token |
-| **spotify** | now playing, top artists, top tracks, recently played | `get_spotify_top`, `get_spotify_now_playing` | OAuth (refresh token) |
+| **spotify** | top artists, top tracks, recently played | `get_spotify_now_playing`, `get_spotify_music_taste` | OAuth (refresh token) |
 | **linkedin** | profile, experience, education, skills | `search_linkedin_data` | Data export JSON |
 | **wakatime** | stats, languages, activity | `get_wakatime_stats` | Optional API key |
 | **devto** | profile, articles | `get_devto_articles` | Optional API key |

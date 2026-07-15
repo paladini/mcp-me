@@ -6,6 +6,7 @@ export { personalitySchema, type Personality } from "./personality.js";
 export { goalsSchema, goalSchema, type Goals } from "./goals.js";
 export { projectsSchema, projectSchema, type Projects } from "./projects.js";
 export { faqSchema, faqItemSchema, type Faq } from "./faq.js";
+export { writingStyleSchema, corpusManifestSchema, type WritingStyle, type CorpusManifest } from "./writing.js";
 
 import { identitySchema } from "./identity.js";
 import { careerSchema } from "./career.js";

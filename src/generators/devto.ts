@@ -114,6 +114,18 @@ export const devtoGenerator: GeneratorSource = {
       projects,
       interests,
       faq,
+      writingCorpus: articles
+        .filter((a) => a.description?.trim())
+        .map((a) => ({
+          title: a.title,
+          content: a.description,
+          url: a.url,
+          date: a.published_at.slice(0, 10),
+          source: "devto",
+          tags: a.tag_list,
+          formatProfile: "tech_news",
+          tone: ["informative", "technical"],
+        })),
     };
   },
 };
