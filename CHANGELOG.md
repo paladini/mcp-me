@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **`ask_about_me`** — Description clarifies it returns context for the host LLM (not server-side Q&A)
+- **`docs/ai-instructions.md`** — Documents writing MCP tools, prompts, and `get_profile_completeness`
 
 ## [1.0.0] - 2026-07-15
 
