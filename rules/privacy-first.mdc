@@ -10,3 +10,4 @@ When editing mcp-me profile YAML files:
 - Configuration lives in `.mcp-me.yaml` (generators and plugins) — separate from profile data.
 - Run `mcp-me validate` after edits to check schema compliance.
 - Run `mcp-me generate` to refresh profile data from public APIs listed in `.mcp-me.yaml`.
+- **Sensitive fields are opt-in only** — e.g. `identity.physical` (height, weight, description) must be added manually; generators never populate them.

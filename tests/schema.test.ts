@@ -46,6 +46,12 @@ describe("identitySchema", () => {
           { platform: "github", url: "https://github.com/johndoe", username: "johndoe" },
         ],
       },
+      headline: "Software engineer · open-source maintainer",
+      physical: {
+        height: "1.78m",
+        weight: "75kg",
+        description: "Athletic build",
+      },
     });
     expect(result.success).toBe(true);
   });
@@ -139,6 +145,14 @@ describe("interestsSchema", () => {
       hobbies: ["Reading", "Hiking"],
       music: { genres: ["Rock"], artists: [{ name: "Radiohead", favorite: true }] },
       books: { genres: ["Sci-Fi"], currently_reading: [{ name: "Dune" }] },
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("validates interests with topics", () => {
+    const result = interestsSchema.safeParse({
+      hobbies: ["Reading"],
+      topics: ["open-source", "typescript", "music"],
     });
     expect(result.success).toBe(true);
   });

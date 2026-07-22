@@ -284,6 +284,18 @@ export const bloggerBackupGenerator: GeneratorSource = {
       })),
       ...(interests ? { interests } : {}),
       faq,
+      writingCorpus: posts
+        .filter((post) => post.content?.trim())
+        .map((post) => ({
+          title: post.title,
+          content: post.content,
+          url: post.url,
+          date: post.published ? new Date(post.published).toISOString().slice(0, 10) : undefined,
+          source: "blogger",
+          tags: post.labels,
+          formatProfile: "personal_blog",
+          tone: ["conversational"],
+        })),
     };
   },
 };

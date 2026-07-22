@@ -81,6 +81,26 @@ export const substackGenerator: GeneratorSource = {
         }]
       : [];
 
-    return { identity, projects, interests: { topics: topTags.map(([t]) => t) }, faq };
+    return {
+      identity,
+      projects,
+      interests: { topics: topTags.map(([t]) => t) },
+      faq,
+      writingCorpus: items
+        .map((item) => {
+          const content = rssHtmlToText(item.content) || rssHtmlToText(item.description);
+          return {
+            title: item.title,
+            content: content || item.title,
+            url: item.link,
+            date: item.pubDate ? new Date(item.pubDate).toISOString().slice(0, 10) : undefined,
+            source: "substack",
+            tags: item.categories,
+            formatProfile: "personal_blog",
+            tone: ["conversational"],
+          };
+        })
+        .filter((a) => a.content.trim()),
+    };
   },
 };

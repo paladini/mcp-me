@@ -44,6 +44,16 @@ export interface PartialProfile {
   };
   faq?: { question: string; answer: string; category?: string }[];
   plugins?: Record<string, Record<string, unknown>>;
+  writingCorpus?: {
+    title: string;
+    content: string;
+    url?: string;
+    date?: string;
+    source: string;
+    tags?: string[];
+    formatProfile: string;
+    tone?: string[];
+  }[];
 }
 
 export type GeneratorCategory =
@@ -90,6 +100,7 @@ export interface GeneratorSource {
 export interface GenerateOptions {
   directory: string;
   force?: boolean;
+  noCorpus?: boolean;
   [source: string]: string | boolean | undefined;
 }
 

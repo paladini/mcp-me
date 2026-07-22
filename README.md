@@ -6,7 +6,9 @@
 
 **Your AI assistants don't know who you are.** Every time you start a conversation with Claude, Copilot, Cursor, or Windsurf, it's a blank slate — no context about your skills, your projects, your career, or what you care about.
 
-**mcp-me fixes that.** It creates a structured personal profile that any AI assistant can read via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). Think of it as a **digital identity layer for AI** — your bio, career, skills, interests, projects, and more, always available to every AI tool you use.
+**mcp-me fixes that.** It creates a structured personal profile that any AI assistant can read via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). Think of it as a **complete digital identity layer for AI** — your bio, career, skills, interests, projects, writing voice, and more, always available to every AI tool you use.
+
+See [Identity Model](docs/identity-model.md) for the full architecture vision.
 
 ```
 You: "Write me a cover letter for this job"
@@ -17,7 +19,7 @@ AI:  (reads your me://career, me://skills, me://projects)
 
 ## Why mcp-me?
 
-- **AI that knows you** — Your assistants remember your skills, career, projects, and personality across every conversation
+- **AI that knows you** — Your assistants remember your skills, career, projects, personality, and writing style across every conversation
 - **Auto-generated** — Pull data from 329 registered generators (implemented across 44 generator source files) with one command
 - **Privacy-first** — All data stays local in YAML files on your machine. Nothing is sent to any cloud.
 - **Real-time plugins** — 13 live integrations (Spotify now playing, GitHub repos, Last.fm scrobbles) that AI queries on demand
@@ -126,6 +128,10 @@ All commands work with `npx` (zero install) or with `mcp-me` directly if install
   personality.yaml     ← Your data (traits, values)
   goals.yaml           ← Your data (short/long-term)
   faq.yaml             ← Your data (Q&A pairs)
+  writing/             ← Writing voice (1.1+)
+    style.yaml         ← Format profiles and tone
+    corpus/            ← Your published texts (.md)
+      _manifest.yaml
 ```
 
 ## Configure Your AI Assistant

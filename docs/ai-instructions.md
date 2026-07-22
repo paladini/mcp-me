@@ -100,6 +100,24 @@ documentation, career questions, open-source contributions, etc.
 | `me://personality` | Traits, values, work style |
 | `me://goals` | Short and long-term goals |
 | `me://faq` | Pre-answered facts about me |
+| `me://writing/style` | Writing format profiles and voice guide (1.1+) |
+| `me://writing/corpus` | Published texts manifest (1.1+) |
+| `me://writing/samples` | Writing excerpts by format profile (1.1+) |
+
+## Writing and voice (1.1+)
+
+For writing tasks, also use these MCP tools and prompts:
+
+| Tool / Prompt | When to use |
+|---|---|
+| `get_writing_references(topic, profile)` | Find corpus excerpts before drafting |
+| `analyze_writing_style(profile?)` | Stats on tone, sentence length, vocabulary |
+| `search_writing_corpus(query)` | Keyword search across local `.md` files |
+| `emulate_my_voice` prompt | Generate text in my voice for a topic |
+| `rewrite_in_my_voice` prompt | Rewrite text to match my style |
+| `get_profile_completeness` | See what's missing from my profile |
+
+**Note:** `ask_about_me` returns structured profile context for the host LLM to interpret — mcp-me does not run an LLM server-side.
 
 ## When to proactively load my profile
 

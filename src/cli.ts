@@ -9,6 +9,9 @@ import { generateProfile } from "./generator.js";
 import { generators } from "./generators/index.js";
 import { initProfileDirectory } from "./init-profile.js";
 import { resolveProfileDir } from "./profile-dir.js";
+import { loadWritingBundle } from "./writing/corpus-loader.js";
+import { analyzeWritingStyle } from "./writing/analyzer.js";
+import { rebuildCorpusManifest, ensureWritingStructure } from "./writing/corpus-writer.js";
 import { version } from "../package.json";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -117,6 +120,23 @@ program
       }
     }
 
+    const writing = await loadWritingBundle(profileDir);
+    if (writing.style) {
+      console.log(`  [✓] writing/style.yaml — valid`);
+    } else if (writing.errors.some((e) => e.includes("style.yaml"))) {
+      console.log(`  [✗] writing/style.yaml — invalid`);
+      writing.errors.filter((e) => e.includes("style.yaml")).forEach((e) => console.log(`      ${e}`));
+      hasErrors = true;
+    } else {
+      console.log(`  [ ] writing/style.yaml — not found (optional, added in 1.1)`);
+    }
+
+    if (writing.manifest) {
+      console.log(`  [✓] writing/corpus/_manifest.yaml — ${writing.documents.length} document(s)`);
+    } else {
+      console.log(`  [ ] writing/corpus/ — not found (optional)`);
+    }
+
     console.log();
     if (hasErrors) {
       console.log("Validation failed. Fix the errors above and try again.");
@@ -140,10 +160,11 @@ for (const g of generators) {
   generateCmd.option(`--${g.flag} ${g.flagArg}`, g.description);
 }
 generateCmd.option("-f, --force", "Overwrite existing files", false);
+generateCmd.option("--no-corpus", "Skip syncing articles to writing/corpus/", false);
 
 generateCmd.action(async (directory: string | undefined, options: Record<string, string | boolean | undefined>) => {
   const targetDir = resolveProfileDir(directory);
-  const { force, ...cliSources } = options;
+  const { force, noCorpus, ...cliSources } = options;
   let hasSources = Object.values(cliSources).some(Boolean);
 
   // If no CLI flags given, try reading from .mcp-me.yaml
@@ -180,7 +201,12 @@ generateCmd.action(async (directory: string | undefined, options: Record<string,
   try {
     console.log("🚀 mcp-me generate — building your AI identity\n");
 
-    const result = await generateProfile({ directory: targetDir, ...sources, force: force as boolean });
+    const result = await generateProfile({
+      directory: targetDir,
+      ...sources,
+      force: force as boolean,
+      noCorpus: noCorpus as boolean,
+    });
 
     if (result.warnings.length > 0) {
       console.log();
@@ -203,6 +229,42 @@ generateCmd.action(async (directory: string | undefined, options: Record<string,
     process.exit(1);
   }
 });
+
+program
+  .command("sync-corpus")
+  .description("Rebuild writing/corpus/_manifest.yaml from local .md files")
+  .argument(
+    "[directory]",
+    "Profile directory (defaults to ~/.mcp-me or MCP_ME_PROFILE_DIR)",
+  )
+  .action(async (directory: string | undefined) => {
+    const profileDir = resolveProfileDir(directory);
+    try {
+      await access(profileDir);
+    } catch {
+      console.error(`Profile directory not found: ${profileDir}`);
+      process.exit(1);
+    }
+
+    await ensureWritingStructure(profileDir);
+    const count = await rebuildCorpusManifest(profileDir);
+    console.log(`Rebuilt corpus manifest with ${count} entries.`);
+  });
+
+program
+  .command("analyze-writing")
+  .description("Preview writing style statistics from the local corpus")
+  .argument(
+    "[directory]",
+    "Profile directory (defaults to ~/.mcp-me or MCP_ME_PROFILE_DIR)",
+  )
+  .option("-p, --profile <name>", "Format profile to analyze (e.g. personal_blog)")
+  .action(async (directory: string | undefined, options: { profile?: string }) => {
+    const profileDir = resolveProfileDir(directory);
+    const writing = await loadWritingBundle(profileDir);
+    const result = analyzeWritingStyle(writing.documents, writing.style, options.profile);
+    console.log(JSON.stringify(result, null, 2));
+  });
 
 // --- Scaffolding: mcp-me create generator/plugin ---
 const createCmd = program

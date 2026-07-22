@@ -553,6 +553,18 @@ export const mediumGenerator: GeneratorSource = {
       projects,
       interests,
       faq,
+      writingCorpus: articles
+        .filter((a) => a.content?.trim())
+        .map((a) => ({
+          title: a.title,
+          content: a.content ?? a.subtitle ?? a.title,
+          url: a.url,
+          date: a.pubDate,
+          source: "medium",
+          tags: a.tags,
+          formatProfile: "personal_blog",
+          tone: ["conversational"],
+        })),
     };
   },
 };

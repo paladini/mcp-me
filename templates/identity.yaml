@@ -1,6 +1,7 @@
 # Your personal identity — who you are
 name: "Your Name"
 # nickname: ""
+# headline: "Software engineer · open-source maintainer"
 # pronouns: "he/him"
 bio: "A short biography about yourself (1-3 sentences)."
 # bio_extended: "A longer biography for detailed introductions."
@@ -28,3 +29,9 @@ contact:
     #   username: "your-handle"
     # - platform: "linkedin"
     #   url: "https://linkedin.com/in/your-profile"
+
+# Optional physical attributes — opt-in only; never populated by generators
+# physical:
+#   height: "1.78m"
+#   weight: "75kg"
+#   description: "Athletic build, short dark hair"

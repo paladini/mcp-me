@@ -19,8 +19,18 @@ You have access to an MCP server called `me` that exposes the user's personal pr
 | `me://personality` | Traits, values, work style |
 | `me://goals` | Short and long-term goals |
 | `me://faq` | Pre-answered facts about the user |
+| `me://writing/style` | Writing format profiles and voice guide |
+| `me://writing/corpus` | Published texts manifest |
+| `me://writing/samples` | Writing excerpts by format profile |
 
-## When to proactively load the profile
+## Writing and voice
+
+For writing tasks, also use:
+
+- `get_writing_references(topic, profile)` — corpus excerpts for a topic
+- `analyze_writing_style(profile?)` — style statistics
+- `emulate_my_voice` / `rewrite_in_my_voice` prompts — generate in the user's voice
+- `get_profile_completeness` — see what's missing from the profile
 
 - Writing or editing any text (articles, READMEs, cover letters, bios)
 - Answering questions about skills, experience, or projects

@@ -2,13 +2,17 @@
 
 > Your AI assistants don't know who you are. mcp-me fixes that.
 
-mcp-me is a digital identity layer for AI. It creates a structured personal profile (bio, career, skills, interests, projects) that any AI assistant can read via the Model Context Protocol (MCP). Works with Claude Desktop, Cursor, Windsurf, Copilot, and any MCP-compatible tool. All data stays local — nothing is sent to any cloud.
+mcp-me is a complete digital identity layer for AI. It creates a structured personal profile (bio, career, skills, interests, projects, writing voice) that any AI assistant can read via the Model Context Protocol (MCP). Works with Claude Desktop, Cursor, Windsurf, Copilot, and any MCP-compatible tool. All data stays local — nothing is sent to any cloud.
+
+**Current version:** 1.1.0
 
 ## Key Facts
 
 - **329 generators** that auto-populate profile YAML files from public APIs (GitHub, GitLab, Medium, Strava, AniList, Duolingo, and hundreds more)
 - **13 built-in plugins** providing real-time data to AI assistants (Spotify now playing, GitHub repos, Last.fm scrobbles, Steam games, etc.)
 - **YAML-based profiles** with 8 categories: identity, career, skills, interests, personality, goals, projects, faq
+- **Writing voice (1.1+)** — corpus of published texts, format profiles, style analysis, and voice emulation prompts
+- **Profile completeness tool** — `get_profile_completeness` suggests missing domains and generators
 - **MCP native** — works with any MCP-compatible AI assistant (Claude Desktop, Cursor, Windsurf, Copilot)
 - **Zero-config default** — profile stored in `~/.mcp-me`; override with `MCP_ME_PROFILE_DIR`
 - **One-click install** — Cursor deeplink, VS Code MCP install, Claude Desktop `.mcpb` bundle
