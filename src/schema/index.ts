@@ -2,7 +2,7 @@ export { identitySchema, socialLinkSchema, type Identity } from "./identity.js";
 export { careerSchema, experienceSchema, educationSchema, certificationSchema, type Career } from "./career.js";
 export { skillsSchema, skillSchema, type Skills } from "./skills.js";
 export { interestsSchema, interestItemSchema, type Interests } from "./interests.js";
-export { personalitySchema, type Personality } from "./personality.js";
+export { personalitySchema, traitScoreSchema, type Personality, type TraitScore } from "./personality.js";
 export { goalsSchema, goalSchema, type Goals } from "./goals.js";
 export { projectsSchema, projectSchema, type Projects } from "./projects.js";
 export { faqSchema, faqItemSchema, type Faq } from "./faq.js";
