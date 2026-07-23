@@ -1,12 +1,14 @@
-<p align="center">
-  <img src="docs/assets/og-image.svg" alt="mcp-me — Your Digital Identity Layer for AI" width="100%">
+﻿<p align="center">
+
+<img alt="Harness Score L1" src="https://paladini.github.io/harness-score/maturity/badge-l1.svg" height="20">
+  <img src="docs/assets/og-image.svg" alt="mcp-me â€” Your Digital Identity Layer for AI" width="100%">
 </p>
 
 # mcp-me
 
-**Your AI assistants don't know who you are.** Every time you start a conversation with Claude, Copilot, Cursor, or Windsurf, it's a blank slate — no context about your skills, your projects, your career, or what you care about.
+**Your AI assistants don't know who you are.** Every time you start a conversation with Claude, Copilot, Cursor, or Windsurf, it's a blank slate â€” no context about your skills, your projects, your career, or what you care about.
 
-**mcp-me fixes that.** It creates a structured personal profile that any AI assistant can read via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). Think of it as a **digital identity layer for AI** — your bio, career, skills, interests, projects, and more, always available to every AI tool you use.
+**mcp-me fixes that.** It creates a structured personal profile that any AI assistant can read via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). Think of it as a **digital identity layer for AI** â€” your bio, career, skills, interests, projects, and more, always available to every AI tool you use.
 
 ```
 You: "Write me a cover letter for this job"
@@ -17,12 +19,12 @@ AI:  (reads your me://career, me://skills, me://projects)
 
 ## Why mcp-me?
 
-- **AI that knows you** — Your assistants remember your skills, career, projects, and personality across every conversation
-- **Auto-generated** — Pull data from 329 registered generators (implemented across 44 generator source files) with one command
-- **Privacy-first** — All data stays local in YAML files on your machine. Nothing is sent to any cloud.
-- **Real-time plugins** — 13 live integrations (Spotify now playing, GitHub repos, Last.fm scrobbles) that AI queries on demand
-- **Extensible** — Community-driven generators and plugins. Add a new data source in ~10 lines of code.
-- **Works everywhere** — Claude Desktop, Cursor, Windsurf, Copilot, and any MCP-compatible AI assistant
+- **AI that knows you** â€” Your assistants remember your skills, career, projects, and personality across every conversation
+- **Auto-generated** â€” Pull data from 329 registered generators (implemented across 44 generator source files) with one command
+- **Privacy-first** â€” All data stays local in YAML files on your machine. Nothing is sent to any cloud.
+- **Real-time plugins** â€” 13 live integrations (Spotify now playing, GitHub repos, Last.fm scrobbles) that AI queries on demand
+- **Extensible** â€” Community-driven generators and plugins. Add a new data source in ~10 lines of code.
+- **Works everywhere** â€” Claude Desktop, Cursor, Windsurf, Copilot, and any MCP-compatible AI assistant
 
 ## Installation
 
@@ -30,7 +32,7 @@ AI:  (reads your me://career, me://skills, me://projects)
 
 ### One-Click Install
 
-Add mcp-me to your AI assistant in one click — no path configuration needed (profile defaults to `~/.mcp-me`):
+Add mcp-me to your AI assistant in one click â€” no path configuration needed (profile defaults to `~/.mcp-me`):
 
 <p align="center">
   <a href="https://cursor.com/install-mcp?name=me&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIm1jcC1tZSIsInNlcnZlIl19">
@@ -42,7 +44,7 @@ Add mcp-me to your AI assistant in one click — no path configuration needed (p
   </a>
 </p>
 
-**Claude Desktop:** Download the [latest `.mcpb` release](https://github.com/paladini/mcp-me/releases/latest) and double-click to install, or drag it into Claude Desktop → Settings → Extensions.
+**Claude Desktop:** Download the [latest `.mcpb` release](https://github.com/paladini/mcp-me/releases/latest) and double-click to install, or drag it into Claude Desktop â†’ Settings â†’ Extensions.
 
 After installing, initialize your profile:
 
@@ -57,7 +59,7 @@ mcp-me generate --github your-username
 npm install -g mcp-me
 ```
 
-This makes the `mcp-me` command available everywhere on your system. No need to clone any repository — npm downloads the package for you.
+This makes the `mcp-me` command available everywhere on your system. No need to clone any repository â€” npm downloads the package for you.
 
 ```bash
 mcp-me --help
@@ -66,7 +68,7 @@ mcp-me generate --github your-username
 mcp-me serve
 ```
 
-**Alternative — run without installing** (via `npx`):
+**Alternative â€” run without installing** (via `npx`):
 
 ```bash
 npx mcp-me --help
@@ -82,7 +84,7 @@ npx mcp-me --help
 # 1. Initialize your profile (creates YAML templates + .mcp-me.yaml in ~/.mcp-me)
 mcp-me init
 
-# 2. Edit the config file — uncomment your sources
+# 2. Edit the config file â€” uncomment your sources
 code ~/.mcp-me/.mcp-me.yaml
 ```
 
@@ -111,21 +113,21 @@ mcp-me serve
 
 > **CLI flags also work:** `mcp-me generate --github octocat --devto myuser`
 
-All commands work with `npx` (zero install) or with `mcp-me` directly if installed globally. The `generate` command pulls your data from public APIs and auto-populates profile YAML files — no API keys needed for most sources.
+All commands work with `npx` (zero install) or with `mcp-me` directly if installed globally. The `generate` command pulls your data from public APIs and auto-populates profile YAML files â€” no API keys needed for most sources.
 
 ### Profile directory structure
 
 ```
-~/.mcp-me/             ← Default profile location
-  .mcp-me.yaml        ← Configuration (generators + plugins)
-  identity.yaml        ← Your data (name, bio, contact)
-  skills.yaml          ← Your data (languages, tools)
-  projects.yaml        ← Your data (portfolio)
-  career.yaml          ← Your data (experience)
-  interests.yaml       ← Your data (hobbies, topics)
-  personality.yaml     ← Your data (traits, values)
-  goals.yaml           ← Your data (short/long-term)
-  faq.yaml             ← Your data (Q&A pairs)
+~/.mcp-me/             â† Default profile location
+  .mcp-me.yaml        â† Configuration (generators + plugins)
+  identity.yaml        â† Your data (name, bio, contact)
+  skills.yaml          â† Your data (languages, tools)
+  projects.yaml        â† Your data (portfolio)
+  career.yaml          â† Your data (experience)
+  interests.yaml       â† Your data (hobbies, topics)
+  personality.yaml     â† Your data (traits, values)
+  goals.yaml           â† Your data (short/long-term)
+  faq.yaml             â† Your data (Q&A pairs)
 ```
 
 ## Configure Your AI Assistant
@@ -136,7 +138,7 @@ Use the [one-click install badges](#one-click-install) above. After installing, 
 
 ### Cursor Plugin (Open Plugins)
 
-mcp-me ships as a full [Open Plugins](https://open-plugins.com) plugin for Cursor. Install from [cursor.directory](https://cursor.directory) or clone the repo — the plugin auto-detects all components:
+mcp-me ships as a full [Open Plugins](https://open-plugins.com) plugin for Cursor. Install from [cursor.directory](https://cursor.directory) or clone the repo â€” the plugin auto-detects all components:
 
 | Component | Location | Purpose |
 |---|---|---|
@@ -195,18 +197,18 @@ Add to `.vscode/mcp.json` in your project root (or in your User Settings for glo
 }
 ```
 
-> **Tip:** To enable it globally (all workspaces), open VS Code Settings (`Ctrl+Shift+P` → "Preferences: Open User Settings (JSON)") and add the `mcp` key there instead.
+> **Tip:** To enable it globally (all workspaces), open VS Code Settings (`Ctrl+Shift+P` â†’ "Preferences: Open User Settings (JSON)") and add the `mcp` key there instead.
 
 ### Claude Desktop
 
-**Option A — Desktop Extension (.mcpb, recommended):**
+**Option A â€” Desktop Extension (.mcpb, recommended):**
 
 1. Download `mcp-me.mcpb` from [GitHub Releases](https://github.com/paladini/mcp-me/releases/latest)
-2. Double-click the file, or drag it into Claude Desktop → Settings → Extensions
+2. Double-click the file, or drag it into Claude Desktop â†’ Settings â†’ Extensions
 3. Set your profile directory when prompted (default: `~/.mcp-me`)
 4. Run `mcp-me init` if you haven't created a profile yet
 
-**Option B — Manual config:**
+**Option B â€” Manual config:**
 
 Add to your Claude Desktop config:
 
@@ -223,7 +225,7 @@ Add to your Claude Desktop config:
 
 ## Agent Instruction Files
 
-AI agents read special Markdown files in your project to understand how they should behave. Pair them with mcp-me so that **every AI session automatically consults your profile** — no more repeating your stack, career, or preferences in every conversation.
+AI agents read special Markdown files in your project to understand how they should behave. Pair them with mcp-me so that **every AI session automatically consults your profile** â€” no more repeating your stack, career, or preferences in every conversation.
 
 | File | Works with |
 |------|------------|
@@ -233,7 +235,7 @@ AI agents read special Markdown files in your project to understand how they sho
 **Quick setup:**
 
 ```bash
-# AGENTS.md — for Windsurf, Cline, Codex, etc.
+# AGENTS.md â€” for Windsurf, Cline, Codex, etc.
 cp "$(npm root -g)/mcp-me/templates/AGENTS.md" ./AGENTS.md
 
 # GitHub Copilot
@@ -268,26 +270,26 @@ See [Schema Reference](docs/schema-reference.md) for full documentation.
 
 Static profile data exposed as MCP resources:
 
-- `me://identity` — Personal identity and contact
-- `me://career` — Professional history
-- `me://skills` — Skills and proficiencies
-- `me://interests` — Hobbies and preferences
-- `me://personality` — Personality traits and values
-- `me://goals` — Personal and professional goals
-- `me://projects` — Portfolio and projects
-- `me://faq` — Frequently asked questions
+- `me://identity` â€” Personal identity and contact
+- `me://career` â€” Professional history
+- `me://skills` â€” Skills and proficiencies
+- `me://interests` â€” Hobbies and preferences
+- `me://personality` â€” Personality traits and values
+- `me://goals` â€” Personal and professional goals
+- `me://projects` â€” Portfolio and projects
+- `me://faq` â€” Frequently asked questions
 
 ### Tools
 
-- **`ask_about_me`** — Free-form question about the user
-- **`search_profile`** — Keyword search across all profile data
+- **`ask_about_me`** â€” Free-form question about the user
+- **`search_profile`** â€” Keyword search across all profile data
 
 ### Prompts
 
-- **`introduce_me`** — Generate a 2-paragraph introduction
-- **`summarize_career`** — Summarize career trajectory
-- **`technical_profile`** — Describe technical skills and stack
-- **`collaboration_fit`** — Evaluate fit for a project
+- **`introduce_me`** â€” Generate a 2-paragraph introduction
+- **`summarize_career`** â€” Summarize career trajectory
+- **`technical_profile`** â€” Describe technical skills and stack
+- **`collaboration_fit`** â€” Evaluate fit for a project
 
 ## Generators (selected examples)
 
@@ -468,26 +470,26 @@ npm run dev
 MCP is an open standard by Anthropic that connects AI assistants to external data sources. mcp-me uses MCP to let AI assistants read your personal profile data.
 
 **Do I need API keys?**
-Most generators use public APIs with no auth needed. Some (Strava, Spotify) require tokens — see the `.mcp-me.yaml` comments for details.
+Most generators use public APIs with no auth needed. Some (Strava, Spotify) require tokens â€” see the `.mcp-me.yaml` comments for details.
 
 **Can I use this with Claude Desktop / VS Code / Cursor / Windsurf?**
 Yes! Any MCP-compatible AI assistant works. See the [Configure Your AI Assistant](#configure-your-ai-assistant) section.
 
 **How do I make AI agents use my profile automatically?**
-Drop an `AGENTS.md` (for Windsurf, Cline, Codex) or `.github/copilot-instructions.md` (for GitHub Copilot) into your project. Templates are included — see the [Agent Instructions Guide](docs/ai-instructions.md).
+Drop an `AGENTS.md` (for Windsurf, Cline, Codex) or `.github/copilot-instructions.md` (for GitHub Copilot) into your project. Templates are included â€” see the [Agent Instructions Guide](docs/ai-instructions.md).
 
 **How do I add a new data source?**
 Run `mcp-me create generator myservice` to scaffold a new generator, or see the [Generator Creation Guide](docs/creating-generators.md).
 
 **Is my data stored anywhere?**
-No. All data stays local in your YAML files. The MCP server reads from disk — nothing is sent to any cloud.
+No. All data stays local in your YAML files. The MCP server reads from disk â€” nothing is sent to any cloud.
 
 **How many generators are there?**
 Currently 329 registered generators, implemented across 44 generator source files plus 15 batch files.
 
 ## Contributing
 
-We welcome contributions! Whether it's a new plugin, a bug fix, or documentation improvements — see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
+We welcome contributions! Whether it's a new plugin, a bug fix, or documentation improvements â€” see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
 
 Maintainers: see [Publishing Guide](docs/publishing.md) for release and distribution instructions.
 
