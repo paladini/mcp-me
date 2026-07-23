@@ -88,4 +88,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm pkg set name=@paladini/mcp-me
+          # GH Packages does not use npm provenance; avoid id-token requirement from publishConfig.
+          npm pkg delete publishConfig.provenance
           npm publish --access public
