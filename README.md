@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://paladini.github.io/harness-score/guide/maturity-model#l1-documented" title="Harness Score — AI coding harness maturity"><img alt="Harness Score L1 (Documented): measures AI-assisted development harness maturity with harness-score" src="https://paladini.github.io/harness-score/maturity/badge-l1.svg" height="20"></a>
+<a href="https://paladini.io/harness-score/guide/maturity-model#l1-%C2%B7-documented" title="Harness Score — AI coding harness maturity"><img alt="Harness Score L1 (Documented): measures AI-assisted development harness maturity with harness-score" src="https://paladini.github.io/harness-score/maturity/badge-l1.svg" height="20"></a>
   <img src="docs/assets/og-image.svg" alt="mcp-me ÔÇö Your Digital Identity Layer for AI" width="100%">
 </p>
 
