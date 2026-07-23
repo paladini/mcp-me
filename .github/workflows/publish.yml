@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "v*"
+  # GH Packages only — does not run the npmjs / MCP Registry / GitHub Release job.
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,6 +13,8 @@ permissions:
 
 jobs:
   publish:
+    # Unchanged npmjs + MCP Registry + GitHub Release path; tags only (never workflow_dispatch).
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -56,3 +60,32 @@ jobs:
         with:
           files: mcp-me.mcpb
           generate_release_notes: true
+
+  github-packages:
+    name: Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: "@paladini"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to GitHub Packages as @paladini/mcp-me
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm pkg set name=@paladini/mcp-me
+          npm publish --access public
