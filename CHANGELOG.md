@@ -27,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Directory submissions** — Opened Chrome handoff for mcp.so, Smithery, and Cursor Directory; built `mcp-me.mcpb` for Smithery; pushed wong2/awesome-mcp-servers PR branch; verified PulseMCP not yet indexed (registry active since 2026-07-10)
 - **Cursor Directory** — Submission path updated to `cursor.directory/plugins/new` Auto (GitHub) now that Open Plugins components are in the repo
 
+### Fixed
+
+- **GitHub Pages assets** - Restored the landing page CSS, JavaScript, favicon, and social preview image inside the published `docs/` directory, and aligned canonical metadata with `mcp-me.page`.
+
 ## [0.6.0] - 2026-07-09
 
 ### Added
