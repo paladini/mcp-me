@@ -1,13 +1,42 @@
 <p align="center">
-<a href="https://paladini.io/harness-score/guide/maturity-model#l1-%C2%B7-documented" title="Harness Score — AI coding harness maturity"><img alt="Harness Score L1 (Documented): measures AI-assisted development harness maturity with harness-score" src="https://paladini.github.io/harness-score/maturity/badge-l1.svg" height="20"></a>
-  <img src="docs/assets/og-image.svg" alt="mcp-me — Your Digital Identity Layer for AI" width="100%">
+  <a href="https://mcp-me.page/">
+    <img src="docs/assets/readme-hero.svg" alt="mcp-me - Give every AI assistant the context that makes you, you" width="100%">
+  </a>
 </p>
 
-# mcp-me
+<p align="center">
+  <a href="https://www.npmjs.com/package/mcp-me"><img src="https://img.shields.io/npm/v/mcp-me?style=flat-square&amp;color=2f81f7&amp;label=npm" alt="npm version"></a>
+  <a href="https://github.com/paladini/mcp-me/actions/workflows/ci.yml"><img src="https://github.com/paladini/mcp-me/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+  <a href="https://www.npmjs.com/package/mcp-me"><img src="https://img.shields.io/node/v/mcp-me?style=flat-square&amp;color=3fb950" alt="supported Node.js version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f5c451?style=flat-square" alt="MIT license"></a>
+  <a href="https://www.npmjs.com/package/mcp-me"><img src="https://img.shields.io/npm/dm/mcp-me?style=flat-square&amp;color=8b949e" alt="monthly npm downloads"></a>
+</p>
 
-**Your AI assistants don't know who you are.** Every time you start a conversation with Claude, Copilot, Cursor, or Windsurf, it's a blank slate — no context about your skills, your projects, your career, or what you care about.
+<p align="center">
+  <strong>One local profile. Consistent personal context across every MCP-compatible AI.</strong>
+</p>
 
-**mcp-me fixes that.** It creates a structured personal profile that any AI assistant can read via the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). Think of it as a **digital identity layer for AI** — your bio, career, skills, interests, projects, and more, always available to every AI tool you use.
+<p align="center">
+  <a href="https://mcp-me.page/">Website</a> &bull;
+  <a href="#quick-start">Quick start</a> &bull;
+  <a href="docs/schema-reference.md">Documentation</a> &bull;
+  <a href="docs/media-kit.md">Media kit</a> &bull;
+  <a href=".github/CONTRIBUTING.md">Contributing</a>
+</p>
+
+## Give your AI useful context
+
+AI assistants start most conversations without knowing your experience, current
+projects, preferences, or goals. mcp-me turns that missing context into a
+structured local profile that any compatible assistant can read through the
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io/).
+
+Your profile stays in human-readable YAML files on your machine. You decide
+what to include, which integrations to enable, and which assistants may connect.
+
+<p align="center">
+  <img src="docs/assets/product-flow.svg" alt="Diagram showing mcp-me connecting a local personal profile to multiple AI assistants" width="100%">
+</p>
 
 ```
 You: "Write me a cover letter for this job"
@@ -491,6 +520,13 @@ Currently 329 registered generators, implemented across 44 generator source file
 We welcome contributions! Whether it's a new plugin, a bug fix, or documentation improvements — see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
 
 Maintainers: see [Publishing Guide](docs/publishing.md) for release and distribution instructions.
+
+## Brand and media
+
+Need an image for an article, launch post, directory listing, or presentation?
+The [mcp-me media kit](docs/media-kit.md) includes reusable SVG artwork in
+several aspect ratios. Every asset is vector-based and ready for light or dark
+surfaces.
 
 ## License
 
