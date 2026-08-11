@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="560" viewBox="0 0 1440 560" role="img" aria-labelledby="title desc">
+  <title id="title">mcp-me README hero</title>
+  <desc id="desc">A dark blue banner presenting mcp-me as a local identity layer connecting a personal profile to AI assistants.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="0.58" stop-color="#0b1b30"/>
+      <stop offset="1" stop-color="#102846"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9ed5ff"/>
+      <stop offset="1" stop-color="#4ea1e0"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#122b49"/>
+      <stop offset="1" stop-color="#0d2139"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#4ea1e0" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#4ea1e0" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#a8d8ff" stroke-opacity="0.055"/>
+    </pattern>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#02060d" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="560" rx="28" fill="url(#background)"/>
+  <rect width="1440" height="560" rx="28" fill="url(#grid)"/>
+  <circle cx="1110" cy="280" r="330" fill="url(#glow)"/>
+  <path d="M0 463C235 418 368 502 583 473C799 443 899 350 1108 373C1244 388 1340 448 1440 430V560H0Z" fill="#07121f" opacity="0.55"/>
+
+  <g transform="translate(82 70)">
+    <g>
+      <circle cx="30" cy="30" r="30" fill="#e8f4ff"/>
+      <circle cx="28" cy="25" r="10" fill="url(#mark)"/>
+      <path d="M13 49c0-10 6-16 15-16s15 6 15 16" fill="none" stroke="#4ea1e0" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="45" cy="15" r="6" fill="#f5d76e"/>
+      <path d="M45 5v20M35 15h20" stroke="#f5d76e" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <text x="78" y="42" fill="#f8fbff" font-family="Inter,Segoe UI,sans-serif" font-size="31" font-weight="700" letter-spacing="-0.5">mcp-me</text>
+
+    <g transform="translate(0 105)">
+      <rect width="232" height="34" rx="17" fill="#102b48" stroke="#2c5a80"/>
+      <circle cx="20" cy="17" r="5" fill="#3fb950"/>
+      <text x="36" y="22" fill="#b9d9f2" font-family="Inter,Segoe UI,sans-serif" font-size="13" font-weight="700" letter-spacing="1.4">OPEN SOURCE / LOCAL FIRST</text>
+    </g>
+
+    <text x="0" y="218" fill="#f8fbff" font-family="Inter,Segoe UI,sans-serif" font-size="54" font-weight="750" letter-spacing="-2.2">
+      <tspan x="0" dy="0">Give every AI assistant</tspan>
+      <tspan x="0" dy="66">the context that makes</tspan>
+      <tspan x="0" dy="66">you, </tspan><tspan fill="#f5d76e">you.</tspan>
+    </text>
+
+    <text x="0" y="437" fill="#a9c3d9" font-family="Inter,Segoe UI,sans-serif" font-size="19">
+      A structured personal profile, available through MCP.
+    </text>
+  </g>
+
+  <g transform="translate(865 78)" filter="url(#shadow)">
+    <path d="M195 106V76M195 76H35M195 76h160M195 344v38M195 382H35M195 382h160" fill="none" stroke="#5ea9df" stroke-opacity="0.55" stroke-width="2"/>
+    <path d="M35 76v44M355 76v44M35 382v-44M355 382v-44" fill="none" stroke="#5ea9df" stroke-opacity="0.55" stroke-width="2"/>
+
+    <g transform="translate(112 115)">
+      <rect width="166" height="230" rx="28" fill="url(#card)" stroke="#3974a2" stroke-width="2"/>
+      <circle cx="83" cy="70" r="39" fill="#e7f4ff"/>
+      <circle cx="80" cy="63" r="15" fill="url(#mark)"/>
+      <path d="M58 96c0-15 9-24 22-24s22 9 22 24" fill="none" stroke="#4ea1e0" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="107" cy="45" r="9" fill="#f5d76e"/>
+      <path d="M107 31v28M93 45h28" stroke="#f5d76e" stroke-width="4" stroke-linecap="round"/>
+      <text x="83" y="141" text-anchor="middle" fill="#f8fbff" font-family="Inter,Segoe UI,sans-serif" font-size="19" font-weight="700">your profile</text>
+      <text x="83" y="169" text-anchor="middle" fill="#88a9c2" font-family="Inter,Segoe UI,sans-serif" font-size="13">identity.yaml</text>
+      <text x="83" y="191" text-anchor="middle" fill="#88a9c2" font-family="Inter,Segoe UI,sans-serif" font-size="13">skills.yaml</text>
+      <text x="83" y="213" text-anchor="middle" fill="#88a9c2" font-family="Inter,Segoe UI,sans-serif" font-size="13">projects.yaml</text>
+    </g>
+
+    <g>
+      <rect width="132" height="72" rx="16" fill="#10243e" stroke="#294d6d"/>
+      <circle cx="27" cy="27" r="10" fill="#8bc8f4"/>
+      <path d="M18 47h18" stroke="#8bc8f4" stroke-width="3" stroke-linecap="round"/>
+      <text x="48" y="31" fill="#eef7ff" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="700">Career</text>
+      <text x="48" y="51" fill="#7797b1" font-family="Inter,Segoe UI,sans-serif" font-size="11">experience</text>
+    </g>
+    <g transform="translate(258)">
+      <rect width="132" height="72" rx="16" fill="#10243e" stroke="#294d6d"/>
+      <path d="M19 23h18M19 31h14M19 39h18" stroke="#f5d76e" stroke-width="3" stroke-linecap="round"/>
+      <text x="48" y="31" fill="#eef7ff" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="700">Projects</text>
+      <text x="48" y="51" fill="#7797b1" font-family="Inter,Segoe UI,sans-serif" font-size="11">your work</text>
+    </g>
+    <g transform="translate(0 382)">
+      <rect width="132" height="72" rx="16" fill="#10243e" stroke="#294d6d"/>
+      <path d="M19 24l7-7 7 7-7 7zM19 43h18" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round"/>
+      <text x="48" y="31" fill="#eef7ff" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="700">Skills</text>
+      <text x="48" y="51" fill="#7797b1" font-family="Inter,Segoe UI,sans-serif" font-size="11">capabilities</text>
+    </g>
+    <g transform="translate(258 382)">
+      <rect width="132" height="72" rx="16" fill="#10243e" stroke="#294d6d"/>
+      <circle cx="27" cy="29" r="11" fill="none" stroke="#c295ff" stroke-width="3"/>
+      <path d="M27 17v24M15 29h24" stroke="#c295ff" stroke-width="2"/>
+      <text x="48" y="31" fill="#eef7ff" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="700">Goals</text>
+      <text x="48" y="51" fill="#7797b1" font-family="Inter,Segoe UI,sans-serif" font-size="11">what is next</text>
+    </g>
+  </g>
+
+  <g transform="translate(1270 44)">
+    <circle cx="0" cy="0" r="3" fill="#f5d76e"/>
+    <circle cx="24" cy="0" r="3" fill="#4ea1e0"/>
+    <circle cx="48" cy="0" r="3" fill="#3fb950"/>
+  </g>
+</svg>
