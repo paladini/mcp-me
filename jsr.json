@@ -1,0 +1,13 @@
+{
+  "name": "@paladini/mcp-me",
+  "version": "0.6.0",
+  "description": "A community-driven MCP server framework that lets anyone expose personal information to AI assistants via the Model Context Protocol.",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./cli": "./src/cli.ts"
+  },
+  "publish": {
+    "include": ["src/**/*.ts", "templates/**", "README.md", "LICENSE"]
+  }
+}

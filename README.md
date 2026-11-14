@@ -27,6 +27,9 @@ AI:  (reads your me://career, me://skills, me://projects)
 
 ## Installation
 
+[![JSR](https://jsr.io/badges/@paladini/mcp-me)](https://jsr.io/@paladini/mcp-me)
+[![npm](https://img.shields.io/npm/v/mcp-me)](https://www.npmjs.com/package/mcp-me)
+
 > **Prerequisite:** [Node.js](https://nodejs.org/) 20 or later. Verify with `node -v`.
 
 ### One-Click Install
@@ -76,6 +79,22 @@ npx mcp-me --help
 `npx` downloads the package temporarily and runs it. Useful for trying mcp-me once, but slower on repeated use since it re-downloads each time.
 
 > **Profile location:** Commands default to `~/.mcp-me`. Override with `MCP_ME_PROFILE_DIR` or pass an explicit path: `mcp-me serve ~/my-profile`.
+
+### Install from JSR
+
+Also published on [JSR](https://jsr.io/@paladini/mcp-me) as `@paladini/mcp-me`.
+
+```bash
+npx jsr add @paladini/mcp-me
+```
+
+Use the programmatic API from JSR in Deno or npm projects:
+
+```ts
+import { createMcpMeServer } from "jsr:@paladini/mcp-me";
+```
+
+**Runtime compatibility:** Node.js **≥ 20** (matches `package.json` `engines`). The MCP CLI and server are intended for Node.js runtimes; Deno can consume the library entry with appropriate `--allow-*` permissions when invoking subprocesses or the filesystem.
 
 ## Quick Start
 
