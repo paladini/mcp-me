@@ -1,3 +1,8 @@
+/**
+ * Programmatic API for building MCP hosts, generators, and profile tooling on top of mcp-me.
+ *
+ * @module
+ */
 
 // Public API: Only expose what is needed for consumers
 export { createMcpMeServer } from "./server.js";
